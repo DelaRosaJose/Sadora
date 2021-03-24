@@ -1,6 +1,9 @@
-﻿using System;
+﻿using Sadora.Clases;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading;
@@ -69,52 +72,58 @@ namespace Sadora.Administracion
             if (pbStatus.Value == 10)
             {
 
-                Clases.ClassControl.SetFormularios();
+                System.Reflection.Assembly assembly;
+                assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-                if (Clases.ClassVariables.GetSetError != null)
+                foreach (Type t in assembly.GetTypes())
                 {
-                    Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(Clases.ClassVariables.GetSetError);
 
-                    Estado = false;
-                    pbStatus.Value = 11;
+                    var nombreTipo = t.BaseType.Name;
+                    Control control;
+                    
+                    if (nombreTipo.ToLower().Contains("usercontrol") || nombreTipo.ToLower().Contains("window"))
+                    {
+                        control = Activator.CreateInstance(t) as Control;
+                        if (control is Window)
+                        {
+                            Window frm = control as Window;
+                        }
 
-                    //MessageBox.Show(Clientes.UscClientes..ToString());
+                        else
+                        {
+                            UserControl frm = control as UserControl;
+                        }
 
-                    frm.ShowDialog();
+                        List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
+                        {
+                            new SqlParameter("Flag", 1),
+                            new SqlParameter("@Nombre", t.Name),
+                            new SqlParameter("@Modulo", t.Namespace.Replace("Sadora.", string.Empty)),
+                            new SqlParameter("@Titulo", control.Tag)
+                        };
 
-                    Application.Current.Shutdown();
+                        if (control.Tag != null)
+                        {
+                            DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysFormularios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+                        }
+
+                        if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+                        {
+                            Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
+                            frm.ShowDialog();
+                            ClassVariables.GetSetError = null;
+                        }
+
+                        listSqlParameter.Clear();
+                    }
+
                 }
 
-                //try
-                //{
-                //    Clases.ClassData.sqlConnection.Open();
-                //}
-                //catch (Exception exception)
-                //{
-
-                //    Clases.ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
-
-                //    Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(Clases.ClassVariables.GetSetError);
-
-                //    Estado = false;
-                //    pbStatus.Value = 11;
-
-                //    //MessageBox.Show(Clientes.UscClientes..ToString());
-
-                //    frm.ShowDialog();
-
-                //    Application.Current.Shutdown();
-
-                //    //System.Diagnostics.Process.GetCurrentProcess().Kill();
-                //}
             }
-            else if (pbStatus.Value == 100)
+            else if (pbStatus.Value == 100 && listBox1.Items.Count == 0)
             {
                 login.Show();
                 this.Close();
-
-
-                //MessageBox.Show(Clientes.UscClientes.NameProperty.ToString());
             }
         }
 

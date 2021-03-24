@@ -29,20 +29,21 @@ namespace Sadora.Clientes
             Name = "UscClientes";
         }
 
-        public bool Inicializador = false;
+        bool Imprime;
+        bool Agrega;
+        bool Modifica;
+
+        bool Inicializador = false;
         DataTable tabla;
         SqlDataReader reader;
         string Estado;
         string Lista;
         int ClienteID;
         int LastClienteID;
+        string last;
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
-            //if (this.IsLoaded)
-            //{
-            //    this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-            //}
             Inicializador = true;
         }
 
@@ -50,6 +51,10 @@ namespace Sadora.Clientes
         {
             if (Inicializador == true)
             {
+                Imprime = ClassVariables.Imprime;
+                Agrega = ClassVariables.Agrega;
+                Modifica = ClassVariables.Modifica;
+
                 this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Inicializador = false;
             }
@@ -58,6 +63,11 @@ namespace Sadora.Clientes
 
         private void BtnPrimerRegistro_Click(object sender, RoutedEventArgs e)
         {
+            List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
+            {
+               txtRNC,txtNombre
+            };
+            ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
             setDatos(0, "1");
             BtnPrimerRegistro.IsEnabled = false;
@@ -66,6 +76,11 @@ namespace Sadora.Clientes
 
         private void BtnAnteriorRegistro_Click(object sender, RoutedEventArgs e)
         {
+            List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
+            {
+               txtRNC,txtNombre
+            };
+            ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
             try
             {
@@ -91,6 +106,11 @@ namespace Sadora.Clientes
 
         private void BtnProximoRegistro_Click(object sender, RoutedEventArgs e)
         {
+            List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
+            {
+               txtRNC,txtNombre
+            };
+            ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
             try
             {
@@ -115,6 +135,11 @@ namespace Sadora.Clientes
 
         private void BtnUltimoRegistro_Click(object sender, RoutedEventArgs e)
         {
+            List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
+            {
+               txtRNC,txtNombre
+            };
+            ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
             setDatos(-1, "1");
             BtnUltimoRegistro.IsEnabled = false;
@@ -123,31 +148,63 @@ namespace Sadora.Clientes
 
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
-
+            
             if (Estado == "Modo Consulta")
             {
-                //SetControls(false, null, false);
+                last = txtClienteID.Text;
                 SetEnabledButton("Modo Busqueda");
             }
             else if (Estado == "Modo Busqueda")
             {
+                List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
+                {
+                    txtRepresentante,txtClaseID,tbxClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar
+                };
+                Clases.ClassControl.ActivadorControlesReadonly(null, true, false, false, listaControles);
+
                 setDatos(0, null);
+
+                List<String> ListName = new List<String>() //Estos son los campos que saldran en la ventana de busqueda, solo si se le pasa esta lista de no ser asi, se mostrarian todos
+                {
+                    "Cliente ID","RNC","Nombre","Representante","Direccion","Activo"
+                };
+
+                SetEnabledButton("Modo Consulta");
 
                 if (tabla.Rows.Count > 1)
                 {
-                    Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, tabla);
+                    Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, tabla, ListName);
                     frm.ShowDialog();
 
                     if (frm.GridMuestra.SelectedItem != null)
                     {
-                        DataRowView item = (frm.GridMuestra as DataGrid).SelectedItem as DataRowView;
+                        DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
                         txtClienteID.Text = item.Row.ItemArray[0].ToString();
                         setDatos(0, txtClienteID.Text);
+                        frm.Close();
+                    }
+                    else
+                    {
+                        setDatos(0, last);
                     }
                 }
-
-                //setDatos(0, txtClienteID.Text);
-                SetEnabledButton("Modo Consulta");
+                else if (tabla.Rows.Count < 1)
+                {
+                    BtnProximoRegistro.IsEnabled = false;
+                    BtnAnteriorRegistro.IsEnabled = false;
+                    if (SnackbarThree.MessageQueue is { } messageQueue)
+                    {
+                        var message = "No se encontraron datos";
+                        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+                    }
+                    //List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
+                    //{
+                    //   txtRNC,txtNombre
+                    //};
+                    //ClassControl.ClearControl(listaControl);
+                    //setDatos(0, last);
+                }
+                
             }
         }
 
@@ -181,21 +238,29 @@ namespace Sadora.Clientes
                 Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(Lista);
                 frm.ShowDialog();
             }
-            SqlDataReader tabla = ClassControl.getDatosCedula(txtRNC.Text);
-            if (tabla != null)
+            else
             {
-                tabla.Close();
-                tabla.Dispose();
-                if (Estado == "Modo Editar")
+                SqlDataReader tabla = ClassControl.getDatosCedula(txtRNC.Text);
+                if (tabla != null)
                 {
-                    setDatos(2, null);
+                    tabla.Close();
+                    tabla.Dispose();
+                    if (Estado == "Modo Editar")
+                    {
+                        setDatos(2, null);
+                    }
+                    else
+                    {
+                        setDatos(1, null);
+                    }
+                    SetEnabledButton("Modo Consulta");
+                    setDatos(0, txtClienteID.Text);
+                    //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+
                 }
-                else
-                {
-                    setDatos(1, null);
-                }
-                this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                
             }
+
         }
 
         private void btnClaseID_Click(object sender, RoutedEventArgs e)
@@ -207,10 +272,10 @@ namespace Sadora.Clientes
 
                 if (frm.GridMuestra.SelectedItem != null)
                 {
-                    DataRowView item = (frm.GridMuestra as DataGrid).SelectedItem as DataRowView;
+                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
                     txtClaseID.Text = item.Row.ItemArray[0].ToString();
 
-                    setValidador("select * from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
+                    ClassControl.setValidador("select * from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
                 }
 
             }
@@ -244,7 +309,7 @@ namespace Sadora.Clientes
                             reader.Dispose();
                         }
                     }
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
         }
@@ -255,7 +320,7 @@ namespace Sadora.Clientes
             {
                 if (e.Key == Key.Enter)
                 {
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
         }
@@ -266,7 +331,7 @@ namespace Sadora.Clientes
             {
                 if (e.Key == Key.Enter)
                 {
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
         }
@@ -277,7 +342,7 @@ namespace Sadora.Clientes
             {
                 if (e.Key == Key.Enter)
                 {
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
         }
@@ -290,14 +355,14 @@ namespace Sadora.Clientes
                 {
                     if (txtClaseID.Text != "")
                     {
-                        setValidador("select Nombre from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
+                        ClassControl.setValidador("select Nombre from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
                     }
                     else
                     {
                         txtClaseID.Text = 0.ToString();
-                        setValidador("select Nombre from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
+                        ClassControl.setValidador("select Nombre from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
                     }
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
         }
@@ -313,7 +378,7 @@ namespace Sadora.Clientes
             {
                 if (e.Key == Key.Enter)
                 {
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
         }
@@ -324,7 +389,7 @@ namespace Sadora.Clientes
             {
                 if (e.Key == Key.Enter)
                 {
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
         }
@@ -335,9 +400,14 @@ namespace Sadora.Clientes
             {
                 if (e.Key == Key.Enter)
                 {
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
+        }
+
+        private void txtTelefono_KeyDown(object sender, KeyEventArgs e)
+        {
+            ClassControl.ValidadorNumeros(e);
         }
 
         private void txtCelular_KeyUp(object sender, KeyEventArgs e)
@@ -346,9 +416,14 @@ namespace Sadora.Clientes
             {
                 if (e.Key == Key.Enter)
                 {
-                    ((TextBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
+        }
+
+        private void txtCelular_KeyDown(object sender, KeyEventArgs e)
+        {
+            ClassControl.ValidadorNumeros(e);
         }
 
         private void cActivar_KeyUp(object sender, KeyEventArgs e)
@@ -362,9 +437,9 @@ namespace Sadora.Clientes
             }
         }
 
-        void setDatos(int Flag, string Cliente)
+        void setDatos(int Flag, string Cliente) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
         {
-            if (Cliente == null)
+            if (Cliente == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
             {
                 if (txtClienteID.Text == "")
                 {
@@ -378,16 +453,16 @@ namespace Sadora.Clientes
                     }
                     catch (Exception exception)
                     {
-                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
+                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //Enviamos la excepcion que nos brinda el sistema en caso de que no pueda convertir el id del cliente
                     }
                 }
             }
-            else
+            else //Si pasamos un cliente, lo convertimos actualizamos la variable cliente principal
             {
                 ClienteID = Convert.ToInt32(Cliente);
             }
 
-            List<SqlParameter> listSqlParameter = new List<SqlParameter>()
+            List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
                 new SqlParameter("Flag",Flag),
                 new SqlParameter("@ClienteID",ClienteID),
@@ -399,20 +474,20 @@ namespace Sadora.Clientes
                 new SqlParameter("@CorreoElectronico",txtCorreoElectronico.Text),
                 new SqlParameter("@Telefono",txtTelefono.Text),
                 new SqlParameter("@Celular",txtCelular.Text),
-                new SqlParameter("@Activo",Convert.ToInt32(cActivar.IsChecked)),
-                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
+                new SqlParameter("@Activo",cActivar.IsChecked),
+                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID) 
             };
 
-            tabla = Clases.ClassData.runDataTable("sp_cliclientes", listSqlParameter, "StoredProcedure");
+            tabla = Clases.ClassData.runDataTable("sp_cliclientes", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
-            if (ClassVariables.GetSetError != null)
+            if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
             {
                 Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
                 frm.ShowDialog();
                 ClassVariables.GetSetError = null;
             }
 
-            if (tabla.Rows.Count == 1)
+            if (tabla.Rows.Count == 1) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
             {
                 txtClienteID.Text = tabla.Rows[0]["ClienteID"].ToString();
                 txtRNC.Text = tabla.Rows[0]["RNC"].ToString();
@@ -423,41 +498,50 @@ namespace Sadora.Clientes
                 txtCorreoElectronico.Text = tabla.Rows[0]["CorreoElectronico"].ToString();
                 txtTelefono.Text = tabla.Rows[0]["Telefono"].ToString();
                 txtCelular.Text = tabla.Rows[0]["Celular"].ToString();
-                cActivar.IsChecked = Convert.ToBoolean(Convert.ToInt32(tabla.Rows[0]["Activo"].ToString()));
-                //reader.NextResult();
-                if (Flag == -1)
+                cActivar.IsChecked = Convert.ToBoolean(tabla.Rows[0]["Activo"].ToString());
+
+                if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
                     try
                     {
-                        LastClienteID = Convert.ToInt32(txtClienteID.Text);
+                        LastClienteID = Convert.ToInt32(txtClienteID.Text); //intentamos convertir el id del cliente
                     }
                     catch (Exception exception)
                     {
-                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
+                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error al intentar convertirlo lo enviamos
                     }
                 }
-                setValidador("select * from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
+                ClassControl.setValidador("select * from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
             }
-            //else if (tabla.Rows.Count >= 2)
+            //else
             //{
-            //    //MessageBox.Show("trajo datos" + tabla.Rows.Count);
+            //    if (SnackbarThree.MessageQueue is { } messageQueue)
+            //    {
+            //        var message = "No se encontraron datos";
+            //        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+            //    }
             //}
-            listSqlParameter.Clear();
+            listSqlParameter.Clear(); //Limpiamos la lista de parametros.
         }
 
-        void SetControls(bool Habilitador, string Modo, bool Editando)
+        void SetControls(bool Habilitador, string Modo, bool Editando) //Este metodo se encarga de controlar cada unos de los controles del cuerpo de la ventana como los textbox
         {
-            List<Control> listaControl = new List<Control>()
+            List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtClienteID,txtRNC,txtNombre,txtRepresentante,txtClaseID,tbxClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
+                txtClienteID,txtRNC,txtNombre,txtRepresentante,txtClaseID,  txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar
             };
 
-            List<Control> listaControles = new List<Control>()
+            List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
                 txtRepresentante,txtClaseID,tbxClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar
             };
 
-            if (Modo == null)
+            List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
+            {
+                txtClienteID,txtRNC,txtNombre,txtRepresentante,txtClaseID,tbxClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
+            };
+
+            if (Modo == null) //si no trae ningun modo entra el validador
             {
                 if (Estado == "Modo Busqueda")
                 {
@@ -472,104 +556,92 @@ namespace Sadora.Clientes
                     Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, null);
                 }
             }
-            else if (Modo == "Validador")
+            else if (Modo == "Validador") //si el parametro modo es igual a validador ingresa.
             {
-                Lista = Clases.ClassControl.ValidadorControles(listaControl);
+                Lista = Clases.ClassControl.ValidadorControles(listaControlesValidar); //Este metodo se encarga de validar que cada unos de los controles que se les indica en la lista no se dejen vacios.
             }
-            listaControl.Clear();
+            listaControl.Clear(); //limpiamos ambas listas
             listaControles.Clear();
+            listaControlesValidar.Clear();
         }
 
-        void SetEnabledButton(String status)
+        void SetEnabledButton(String status) //Este metodo se encarga de crear la interacion de los botones de la ventana segun el estado en el que se encuentra
         {
+
             Estado = status;
+            lIconEstado.ToolTip = Estado;
 
-            if (Estado != "Modo Agregar" && Estado != "Modo Editar")
+            if (Estado != "Modo Agregar" && Estado != "Modo Editar") //Si el sistema se encuentra en modo consulta o busqueda entra el validador
             {
-                if (Estado == "Modo Consulta" || Estado == "Modo Busqueda")
-                {
-                    BtnPrimerRegistro.IsEnabled = true;
-                    BtnAnteriorRegistro.IsEnabled = true;
-                    BtnProximoRegistro.IsEnabled = true;
-                    BtnUltimoRegistro.IsEnabled = true;
-                    BtnBuscar.IsEnabled = true;
-                    BtnImprimir.IsEnabled = true;
-                    BtnAgregar.IsEnabled = true;
-                    BtnEditar.IsEnabled = true;
+                BtnPrimerRegistro.IsEnabled = true;
+                BtnAnteriorRegistro.IsEnabled = true;
+                BtnProximoRegistro.IsEnabled = true;
+                BtnUltimoRegistro.IsEnabled = true;
+                BtnBuscar.IsEnabled = true;
+                BtnImprimir.IsEnabled = true;
+                BtnAgregar.IsEnabled = true;
+                BtnEditar.IsEnabled = true;
 
-                    BtnCancelar.IsEnabled = false;
-                    BtnGuardar.IsEnabled = false;
-                    if (Estado == "Modo Consulta")
-                    {
-                        SetControls(true, null, false);
-                    }
-                    else// if (Estado == "Modo Busqueda")
-                    {
-                        BtnProximoRegistro.IsEnabled = false;
-                        BtnAnteriorRegistro.IsEnabled = false;
-                        BtnImprimir.IsEnabled = false;
-                        BtnEditar.IsEnabled = false;
-                        SetControls(false, null, false);
-                    }
+                BtnCancelar.IsEnabled = false;
+                BtnGuardar.IsEnabled = false;
+                if (Estado == "Modo Consulta") //Si el estado es modo consulta enviamos a ejecutar otro metodo parametizado de forma especial
+                {
+                    SetControls(true, null, false);
+                    IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.EyeOutline;
                 }
-            }
-            else
-            {
-                if (Estado == "Modo Agregar" || Estado == "Modo Editar")
+                else //Si el estado es modo busqueda enviamos a ejecutar el mismo metodo parametizado de forma especial y cambiamos el estado de los botones
                 {
-                    BtnPrimerRegistro.IsEnabled = false;
-                    BtnAnteriorRegistro.IsEnabled = false;
                     BtnProximoRegistro.IsEnabled = false;
-                    BtnUltimoRegistro.IsEnabled = false;
-
-                    BtnBuscar.IsEnabled = false;
+                    BtnAnteriorRegistro.IsEnabled = false;
                     BtnImprimir.IsEnabled = false;
-
-                    BtnAgregar.IsEnabled = false;
                     BtnEditar.IsEnabled = false;
-
-                    BtnCancelar.IsEnabled = true;
-                    BtnGuardar.IsEnabled = true;
-                    if (Estado == "Modo Agregar")
-                    {
-                        SetControls(false, null, false);
-                        txtClienteID.IsReadOnly = true;
-                        txtClienteID.Text = (LastClienteID + 1).ToString();
-                        txtRNC.Focus();
-                    }
-                    else
-                    {
-                        SetControls(true, null, true);
-                    }
+                    SetControls(false, null, false);
+                    IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Search;
                 }
             }
-
-        }
-
-        void setValidador(string Consulta, TextBox Enviador, TextBox Recibidor)
-        {
-
-            reader = Clases.ClassData.runSqlDataReader(Consulta + Enviador.Text, null, "CommandText");
-
-            if (reader.HasRows)
+            else  //Si el sistema se encuentra en modo Agregar o Editar entra el validador
             {
-                if (reader.Read())
+                BtnPrimerRegistro.IsEnabled = false;
+                BtnAnteriorRegistro.IsEnabled = false;
+                BtnProximoRegistro.IsEnabled = false;
+                BtnUltimoRegistro.IsEnabled = false;
+
+                BtnBuscar.IsEnabled = false;
+                BtnImprimir.IsEnabled = false;
+
+                BtnAgregar.IsEnabled = false;
+                BtnEditar.IsEnabled = false;
+
+                BtnCancelar.IsEnabled = true;
+                BtnGuardar.IsEnabled = true;
+                if (Estado == "Modo Agregar") //Si el estado es modo Agregar enviamos a ejecutar otro metodo parametizado de forma especial
                 {
-                    //txtClienteID.Text = reader["ClaseID"].ToString();
-                    Recibidor.Text = reader["Nombre"].ToString();
-                    reader.NextResult();
+                    SetControls(false, null, false);
+                    IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
+                    txtClienteID.IsReadOnly = true;
+                    txtClienteID.Text = (LastClienteID + 1).ToString();
+                    txtRNC.Focus();
                 }
-                reader.Close();
-                reader.Dispose();
+                else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
+                {
+                    SetControls(true, null, true);
+                    IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
+                }
             }
-            else
+            if (Imprime == false)
             {
-                Recibidor.Clear();
-                reader.Close();
-                reader.Dispose();
+                BtnImprimir.IsEnabled = Imprime;
             }
-
+            if (Agrega == false)
+            {
+                BtnAgregar.IsEnabled = Agrega;
+            }
+            if (Modifica == false)
+            {
+                BtnEditar.IsEnabled = Modifica;
+            }
         }
 
+        
     }
 }

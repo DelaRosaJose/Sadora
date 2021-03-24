@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Usuario\Desktop\Sadora\Sadora\App.xaml
-9820236918
+22-1934855514
 
-17-473122848
-161786584133
-Administracion\FrmCompletarCamposHost.xaml;Administracion\FrmLogin.xaml;Administracion\FrmMain.xaml;Administracion\FrmMenu.xaml;Administracion\FrmMostrarDatosHost.xaml;Administracion\FrmSplash.xaml;Clientes\FrmMenu.xaml;Clientes\UscClaseClientes.xaml;Clientes\UscClientes.xaml;
+302004086902
+261541772345
+Administracion\FrmValidarAccion.xaml;Administracion\FrmCompletarCamposHost.xaml;Administracion\FrmLogin.xaml;Administracion\FrmMain.xaml;Administracion\FrmMenu.xaml;Administracion\FrmMostrarDatosHost.xaml;Administracion\FrmSplash.xaml;Administracion\UscGruposUsuarios.xaml;Administracion\UscUsuarios.xaml;Clientes\FrmMenu.xaml;Clientes\UscClaseClientes.xaml;Clientes\UscClientes.xaml;Contabilidad\FrmMenu.xaml;Proveedores\FrmMenu.xaml;Proveedores\UscClaseProveedores.xaml;Proveedores\UscTransacciones.xaml;Proveedores\UscProveedores.xaml;Recursos Humanos\FrmMenu.xaml;Recursos Humanos\UscEmpleados.xaml;Ventas\FrmMenu.xaml;Contabilidad\UscComprobantes.xaml;Ventas\UscVentas.xaml;
 
-True
+False
 

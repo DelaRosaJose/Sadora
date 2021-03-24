@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sadora.Administracion"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
-        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl">
+        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Clientes">
 
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
@@ -45,7 +45,7 @@
                     </Grid.Effect>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock Text="Abel Dutra" VerticalAlignment="Center" FontSize="16"/>
-                        <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
+                        <!--<materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
                             <StackPanel Width="150">
                                 <Button Content="Settings"/>
                                 <Button Content="Account"/>
@@ -53,7 +53,10 @@
                                 <Separator/>
                                 <Button Content="Logout"/>
                             </StackPanel>
-                        </materialDesign:PopupBox>
+                        </materialDesign:PopupBox>-->
+                        <Button x:Name="ButtonMinimizar" Click="ButtonMinimizar_Click" TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}"  Margin="0 5 5 5" Style="{StaticResource MaterialDesignOutlinedButton}" >
+                            <materialDesign:PackIcon Kind="Minus"  Width="25" Height="25"/>
+                        </Button>
                         <Button x:Name="ButtonCerrar"  TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}"  Margin="5" Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonCerrar_Click" >
                             <materialDesign:PackIcon Kind="WindowClose"  Width="25" Height="25"/>
                         </Button>
@@ -260,12 +263,7 @@
             </Grid>
         </Grid>
 
-
-        <materialDesign:Snackbar
-  MessageQueue="{materialDesign:MessageQueue}"
-  x:Name="SnackbarThree" />
-
-        <!--<materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" Message="" x:Name="SnackbarOne" />-->
+        <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarThree" Background="{StaticResource PrimaryHueDarkBrush}"/>
 
         <materialDesign:DialogHost x:Name="MiniDialogo" BorderBrush="{DynamicResource MaterialDesignDarkBackground}">
             <materialDesign:DialogHost.DialogContent>

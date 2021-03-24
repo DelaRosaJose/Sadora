@@ -40,33 +40,56 @@ namespace Sadora.Administracion
 
             btnModuloClientes.MouseEnter += new MouseEventHandler(btnModuloClientes_MouseEnter);
 
+            List<Clases.ClassVariables> listOfUsers = new List<Clases.ClassVariables>()
+            {   new Clases.ClassVariables() { Nombre = "Este Modulo cuenta con las siguientes opciones: "}, new Clases.ClassVariables() { Nombre = "Clases de clientes"},
+                new Clases.ClassVariables() { Nombre = "Registro de clientes"}, new Clases.ClassVariables() { Nombre = "Cuentas por cobrar"},
+                new Clases.ClassVariables() { Nombre = "Estado de cuentas por clientes"}, new Clases.ClassVariables() { Nombre = "Estado de cuentas por cobrar"},
+                new Clases.ClassVariables() { Nombre = "Consulta de movimientos"}//, new Clases.ClassVariables() { Nombre = "Estado de cuentas por cobrar"}
+            };
+
+            UpdateSobreModulo(listOfUsers);
+            listOfUsers.Clear();
+
             //this.btnModuloClientes.(new MouseEventArgs(Button.MouseEnterEvent));
             //string mes2 = fecha.ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")); //en ingles
 
 
             //lblDate.Content = /*"Fecha " +*/dia +", "+ fecha.Day + " de " + mes + " de " + fecha.Year;
         }
-
-        void Aperturador(Window Usc)
+        
+        public void AbrirFormulario<MiForm>(bool Pass = false) where MiForm : Window, new()
         {
-            //new Clientes.FrmMenu().Show();
-            Usc.Show();
-            this.Close();
+            if (Pass)
+            {
+                if (Application.Current.Windows.OfType<MiForm>().Any())
+                {
+                    MiForm Win = Application.Current.Windows.OfType<MiForm>().First();//this.OwnedWindows.OfType<MiForm>().First();
+                    Win.Activate();
+                    Win.Show();
+                    this.Close();
+                }
+                else
+                {
+                    MiForm Win = new MiForm();
+                    Win.Show();
+                    this.Close();
+                } 
+            }
+            else
+            {
+                MiniDialogo.IsOpen = true;
+            }
         }
+
         private void ButtonCerrar_Click(object sender, RoutedEventArgs e)
         {
             Application.Current.Shutdown();
         }
-        //void timer_Tick(object sender, EventArgs e)
-        //{
-        //    //lblTime.Content = /*"Hora "+ */DateTime.Now.ToLongTimeString();
-        //}
 
         void UpdateSobreModulo(List<ClassVariables> list)
         {
             SPanelSobreModulo.Children.Clear();
 
-            //int contador = 0;
             foreach (ClassVariables user in list)
             {
                 Ellipse myEllipse = new Ellipse()
@@ -98,44 +121,51 @@ namespace Sadora.Administracion
 
         private void btnModuloClientes_Click(object sender, RoutedEventArgs e)
         {
-            Aperturador(new Clientes.FrmMenu());
+            AbrirFormulario<Clientes.FrmMenu>(true);
         }
+
         private void btnModuloProveedores_Click(object sender, RoutedEventArgs e)
         {
-            //Aperturador(new Clientes.FrmMenu());
+            AbrirFormulario<Proveedores.FrmMenu>(true);
         }
 
         private void btnModuloInventarios_Click(object sender, RoutedEventArgs e)
         {
-            //Aperturador(new Clientes.FrmMenu());
+            AbrirFormulario<Clientes.FrmMenu>();
         }
 
         private void btnModuloVentas_Click(object sender, RoutedEventArgs e)
         {
-            //Aperturador(new Clientes.FrmMenu());
+            AbrirFormulario<Ventas.FrmMenu>(true);
         }
 
         private void btnModuloContabilidad_Click(object sender, RoutedEventArgs e)
         {
-            //Aperturador(new Clientes.FrmMenu());
+            AbrirFormulario<Contabilidad.FrmMenu>(true);
         }
 
         private void btnModuloBancos_Click(object sender, RoutedEventArgs e)
         {
-            //Aperturador(new Clientes.FrmMenu());
+            AbrirFormulario<Clientes.FrmMenu>();
         }
 
         private void btnModuloAdministracion_Click(object sender, RoutedEventArgs e)
         {
-            Aperturador(new FrmMenu());
+            AbrirFormulario<FrmMenu>(true);
         }
+
+        private void btnModuloRecursosHumanos_Click(object sender, RoutedEventArgs e)
+        {
+            AbrirFormulario<Recursos_Humanos.FrmMenu>(true);
+        }
+
         void btnModuloClientes_MouseEnter(object sender, MouseEventArgs e)
         {
             List<Clases.ClassVariables> listOfUsers = new List<Clases.ClassVariables>()
             {   new Clases.ClassVariables() { Nombre = "Este Modulo cuenta con las siguientes opciones: "}, new Clases.ClassVariables() { Nombre = "Clases de clientes"},
                 new Clases.ClassVariables() { Nombre = "Registro de clientes"}, new Clases.ClassVariables() { Nombre = "Cuentas por cobrar"},
                 new Clases.ClassVariables() { Nombre = "Estado de cuentas por clientes"}, new Clases.ClassVariables() { Nombre = "Estado de cuentas por cobrar"},
-                new Clases.ClassVariables() { Nombre = "Consulta de movimientos"}//, new Clases.ClassVariables() { Nombre = "Estado de cuentas por cobrar"}
+                new Clases.ClassVariables() { Nombre = "Consulta de movimientos"}
             };
 
             UpdateSobreModulo(listOfUsers);
@@ -211,35 +241,25 @@ namespace Sadora.Administracion
             List<Clases.ClassVariables> listOfUsers = new List<Clases.ClassVariables>()
             {   new Clases.ClassVariables() { Nombre = "Este Modulo cuenta con las siguientes opciones: "}, new Clases.ClassVariables() { Nombre = "Perfiles de usuarios"},
                 new Clases.ClassVariables() { Nombre = "Registro de usuarios"}, new Clases.ClassVariables() { Nombre = "Registro de sucursales"},
-                new Clases.ClassVariables() { Nombre = "Configuracion de empresas"}, new Clases.ClassVariables() { Nombre = "Controles de usuarios"},
-                //new Clases.ClassVariables() { Nombre = "Consulta de movimientos"},new Clases.ClassVariables() { Nombre = "Solicitud de pagos"}
+                new Clases.ClassVariables() { Nombre = "Configuracion de empresas"}, new Clases.ClassVariables() { Nombre = "Controles de usuarios"}
             };
 
             UpdateSobreModulo(listOfUsers);
             listOfUsers.Clear();
         }
+        private void btnModuloRecursosHumanos_MouseEnter(object sender, MouseEventArgs e)
+        {
+
+        }
 
         private void ButtonMinimizar_Click(object sender, RoutedEventArgs e)
         {
-
-            //private void btnModuloBancos_Click(object sender, RoutedEventArgs e)   private void btnModuloBancos_MouseEnter(object sender, MouseEventArgs e)
             //btnModuloClientes.MouseEnter += new MouseEventHandler(btnModuloClientes_MouseEnter);
-
-            /*
-             RoutedEventArgs' no puede convertirse en el tipo 'System.Windows.Input.MouseEventArgs'.'
-             */
-
-            btnModuloClientes.MouseEnter += new MouseEventHandler(btnModuloClientes_MouseEnter);
-
-            //this.btnModuloClientes.RaiseEvent(new MouseEventArgs(Mouse.MouseEnterEvent,0));
-
-            //this.btnModuloClientes.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-
-
-            //this.btnModuloClientes.RaiseEvent(new MouseEventArgs(MouseDevice.Equals(), 0));
-
-
-            //btnModuloClientes.MouseEnter += new MouseEventHandler(btnModuloClientes_MouseEnter);
+            this.WindowState = WindowState.Minimized;
         }
+
+        
+
+        
     }
 }

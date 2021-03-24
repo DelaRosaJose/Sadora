@@ -41,7 +41,7 @@ namespace Sadora.Administracion
             if (hecho.IsOpen == false)
             {
                 main.Show();
-                Clases.ClassVariables.UsuarioID = "0";
+                Clases.ClassVariables.UsuarioID = 1;
                 this.Close();
             }
             //main.Show();

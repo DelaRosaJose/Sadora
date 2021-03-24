@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sadora.Administracion"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
-        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl">
+        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Administracion">
 
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
@@ -32,7 +32,6 @@
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
 
-
             <Grid Grid.Column="1">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="auto"/>
@@ -45,7 +44,7 @@
                     </Grid.Effect>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock Text="Abel Dutra" VerticalAlignment="Center" FontSize="16"/>
-                        <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
+                        <!--<materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
                             <StackPanel Width="150">
                                 <Button Content="Settings"/>
                                 <Button Content="Account"/>
@@ -53,21 +52,24 @@
                                 <Separator/>
                                 <Button Content="Logout"/>
                             </StackPanel>
-                        </materialDesign:PopupBox>
-                        <Button x:Name="ButtonCerrar"  TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}"  Margin="5" Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonCerrar_Click" >
+                        </materialDesign:PopupBox>-->
+
+                        <Button x:Name="ButtonMinimizar" Click="ButtonMinimizar_Click" TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}"  Margin="0 5 5 5" Style="{StaticResource MaterialDesignOutlinedButton}" >
+                            <materialDesign:PackIcon Kind="Minus"  Width="25" Height="25"/>
+                        </Button>
+                        <!--</Border>-->
+                        <Button x:Name="ButtonCerrar"  TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}"  Margin="0 5 5 5" Style="{StaticResource MaterialDesignOutlinedButton}" Click="ButtonCerrar_Click" >
                             <materialDesign:PackIcon Kind="WindowClose"  Width="25" Height="25"/>
                         </Button>
+                        
                     </StackPanel>
                     <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Design com WPF</TextBlock>
 
                 </Grid>
-                <!--Grid.Row="1" x:Name="TabMain"-->
 
                 <r:TabControl Grid.Row="1" x:Name="TabMain" TabItemMinWidth="100" TabItemMaxWidth="300" TabItemMinHeight="30" 
                               TabItemMaxHeight="50"  AllowAddNew="False" AllowDelete="False">
 
-                    <!-- Properties for setting the background for the tab items depending on their current state -->
-                    <!-- These brushes give the contro an IE7 type look-->
                     <r:TabControl.TabItemNormalBackground>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
                             <GradientStop Color="#FFFCFDFD" Offset="0"/>
@@ -145,128 +147,6 @@
 
                             <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FlowDirection="RightToLeft" Width="262" TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}">
 
-                                <!--<Separator Width="260"/>-->
-                                <!--CLIENTES-->
-                                <!--
-                                <TreeViewItem  Cursor="Hand">
-                                    <TreeViewItem.Header>
-                                        <StackPanel Orientation="Horizontal" ToolTip="MODULO DE CLIENTES">
-                                            <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
-                                                    CLIENTES
-                                            </TextBlock>
-                                            <materialDesign:PackIcon Kind="AccountGroup"  Height="25" Width="25"/>
-                                        </StackPanel>
-                                    </TreeViewItem.Header>
-
-                                    -->
-                                <!--MAESTRA DE CLIENTES-->
-                                <!--
-                                    <TreeViewItem x:Name="btnMenuMaestraClientes" ToolTip="REGISTRO DE CLIENTES" MouseUp="btnMenuMaestraClientes_MouseUp">
-                                        <TreeViewItem.Header>
-                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
-                                                <materialDesign:PackIcon x:Name="iconMenuMaestraClientes" Kind="AccountPlus" Height="25" Width="25" VerticalAlignment="Center"/>
-                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                                    Maestra de Clientes
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </TreeViewItem.Header>
-                                    </TreeViewItem>
-
-                                    -->
-                                <!--CUENTAS POR COBRAR-->
-                                <!--
-                                    <TreeViewItem x:Name="btnMenuCuentasXCobrar" ToolTip="CUENTAS POR COBRAR" MouseUp="btnMenuCuentasXCobrar_MouseUp">
-                                        <TreeViewItem.Header>
-                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
-                                                <materialDesign:PackIcon x:Name="iconMenuCuentasXCobrar" Kind="AccountCash" Height="25" Width="25" VerticalAlignment="Center"/>
-                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                                    Cuentas por Cobrar
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </TreeViewItem.Header>
-                                    </TreeViewItem>
-
-
-                                    -->
-                                <!--CONFIGURACION-->
-                                <!--
-                                    <TreeViewItem>
-                                        <TreeViewItem.Header>
-                                            <StackPanel Orientation="Horizontal" Margin="-08 0 0 0">
-                                                <TextBlock Margin="0 0 16 0" FontSize="16" FontFamily="Segoe UI Semibold" Width="153">
-                                                    CONFIGURACION
-                                                </TextBlock>
-                                                <materialDesign:PackIcon Kind="Cog"  Height="25" Width="25"/>
-                                            </StackPanel>
-                                        </TreeViewItem.Header>
-
-                                        -->
-                                <!--CLASE DE CLIENTES-->
-                                <!--
-                                        <TreeViewItem x:Name="btnMenuClaseClientes" ToolTip="CLASE DE CLIENTES" MouseUp="btnMenuClaseClientes_MouseUp">
-                                            <TreeViewItem.Header>
-                                                <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
-                                                    <materialDesign:PackIcon x:Name="iconMenuClaseClientes" Kind="AccountCog" Height="25" Width="25" VerticalAlignment="Center"/>
-                                                    <TextBlock Margin="14 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold"  Width="139">
-                                                    Clase de Clientes
-                                                    </TextBlock>
-                                                </StackPanel>
-                                            </TreeViewItem.Header>
-                                        </TreeViewItem>
-
-
-                                    </TreeViewItem>
-
-
-                                </TreeViewItem>
-                                <Separator Width="260" Background="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
-
-
-                                -->
-                                <!--VENTAS-->
-                                <!--
-                                <TreeViewItem  Cursor="Hand">
-                                    <TreeViewItem.Header>
-                                        <StackPanel Orientation="Horizontal" ToolTip="MODULO DE VENTAS">
-                                            <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
-                                                    VENTAS
-                                            </TextBlock>
-                                            <materialDesign:PackIcon Kind="Store"  Height="25" Width="25"/>
-                                        </StackPanel>
-                                    </TreeViewItem.Header>
-
-                                    -->
-                                <!--FACTURACION-->
-                                <!--
-                                    <TreeViewItem x:Name="btnMenuFacturacion" ToolTip="FACTURACION" MouseUp="btnMenuFacturacion_MouseUp">
-                                        <TreeViewItem.Header>
-                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
-                                                <materialDesign:PackIcon x:Name="iconMenuFacturacion" Kind="CashRegister" Height="25" Width="25" VerticalAlignment="Center"/>
-                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                                    Facturacion
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </TreeViewItem.Header>
-                                    </TreeViewItem>
-
-                                    -->
-                                <!--COTIZACIONES-->
-                                <!--
-                                    <TreeViewItem x:Name="btnMenuCotizaciones" ToolTip="COTIZACIONES" MouseUp="btnMenuCotizaciones_MouseUp">
-                                        <TreeViewItem.Header>
-                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
-                                                <materialDesign:PackIcon x:Name="iconMenuCotizaciones" Kind="ClipboardText" Height="25" Width="25" VerticalAlignment="Center"/>
-                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                                    Cotizaciones
-                                                </TextBlock>
-                                            </StackPanel>
-                                        </TreeViewItem.Header>
-                                    </TreeViewItem>
-
-
-                                </TreeViewItem>
-                                <Separator Width="260"  Background="{DynamicResource PrimaryHueDarkForegroundBrush}"/>-->
-
                                 <!--ADMINISTRACION-->
                                 <TreeViewItem  Cursor="Hand">
                                     <TreeViewItem.Header>
@@ -285,6 +165,18 @@
                                                 <materialDesign:PackIcon x:Name="iconMenuRegistroUsuarios" Kind="AccountSettings" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
                                                     Registro de Usuarios
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+
+                                    <!--REGISTRO DE GRUPOS DE USUARIOS-->
+                                    <TreeViewItem x:Name="btnMenuRegistroGruposUsuarios" ToolTip="REGISTRO DE GRUPOS DE USUARIOS" MouseUp="btnMenuRegistroGruposUsuarios_MouseUp">
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
+                                                <materialDesign:PackIcon x:Name="iconMenuRegistroGruposUsuarios" Kind="AccountGroup" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
+                                                    Registro de Grupos de Usuarios
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
@@ -319,11 +211,7 @@
             </Grid>
         </Grid>
 
-        <materialDesign:Snackbar
-  MessageQueue="{materialDesign:MessageQueue}"
-  x:Name="SnackbarThree" />
-
-        <!--<materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" Message="" x:Name="SnackbarOne" />-->
+        <materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarThree" />
 
         <materialDesign:DialogHost x:Name="MiniDialogo" BorderBrush="{DynamicResource MaterialDesignDarkBackground}">
             <materialDesign:DialogHost.DialogContent>

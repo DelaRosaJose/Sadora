@@ -19,6 +19,8 @@ namespace Sadora.Administracion
     /// </summary>
     public partial class FrmCompletarCamposHost : Window
     {
+        public FrmCompletarCamposHost()
+        { }
 
         public FrmCompletarCamposHost(string Lista)
         {

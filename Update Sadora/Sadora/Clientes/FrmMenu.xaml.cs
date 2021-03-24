@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -12,6 +14,7 @@ using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using Sadora.Clases;
 
 namespace Sadora.Clientes
 {
@@ -24,7 +27,6 @@ namespace Sadora.Clientes
         bool FrmMenuClosed = true;
         bool Pasador = false;
         string Modulo = "";
-
 
         public FrmMenu()
         {
@@ -49,82 +51,129 @@ namespace Sadora.Clientes
             }
         }
 
-        //private void dispatcherTimer_Tick(object sender, EventArgs e)
-        //{
-        //    SnackbarOne.IsActive = false;
-        //}
-
-        void OpenUsercontrol(UserControl Usc, string Nombre, MaterialDesignThemes.Wpf.PackIconKind icon = MaterialDesignThemes.Wpf.PackIconKind.FileOutline)
+        void OpenUsercontrol(UserControl Usc, MaterialDesignThemes.Wpf.PackIconKind icon = MaterialDesignThemes.Wpf.PackIconKind.FileOutline)
         {
-            for (int i = 0; i < TabMain.Items.Count; i++)
+            if (Usc == null)
             {
-                TabMain.SelectedIndex = i;
-                string name = (TabMain.SelectedItem as TabItem).Header.ToString();
-                if (name == Nombre)
-                {
-                    Pasador = true;
-                    break;
-                }
-                else
-                {
-                    Pasador = false;
-                }
-            }
-
-            if (Pasador == true)
-            {
-                if (SnackbarThree.MessageQueue is { } messageQueue)
-                {
-                    //use the message queue to send a message.
-                    var message = "Dicha ventana se encuentra abierta";
-                    //the message queue can be called from any thread
-                    Task.Factory.StartNew(() => messageQueue.Enqueue(message));
-                }
-                //SnackbarOne.Message.Content = "Dicha ventana se encuentra abierta";
-                //SnackbarOne.IsActive = true;
-
-                //System.Windows.Threading.DispatcherTimer dispatcherTimer = new System.Windows.Threading.DispatcherTimer();
-                //dispatcherTimer.Tick += new EventHandler(dispatcherTimer_Tick);
-                //dispatcherTimer.Interval = new TimeSpan(0, 0, 4);
-                //dispatcherTimer.Start();
-
-                Pasador = false;
+                MiniDialogo.IsOpen = true;
             }
             else
             {
 
-                if (Usc == null)
+
+                string Titulo = "";
+                string Modulo = "";
+                for (int i = 0; i < TabMain.Items.Count; i++)
                 {
-                    MiniDialogo.IsOpen = true;
+                    TabMain.SelectedIndex = i;
+                    string name = (TabMain.SelectedItem as TabItem).Header.ToString();
+
+                    System.Reflection.Assembly assembly;
+                    assembly = System.Reflection.Assembly.GetExecutingAssembly();
+
+                    foreach (Type t in assembly.GetTypes())
+                    {
+                        var nombreTipo = t.BaseType.Name;
+                        if (nombreTipo.ToLower().Contains("usercontrol") || nombreTipo.ToLower().Contains("window"))
+                        {
+                            if (t.Name == Usc.Name)
+                            {
+                                Modulo = t.Namespace.Replace("Sadora.", string.Empty);
+                                break;
+                            }
+                        }
+                    }
+                    Titulo = Usc.Tag.ToString();
+
+                    if (name == Titulo)
+                    {
+                        Pasador = true;
+                        break;
+                    }
+                    else
+                    {
+                        Pasador = false;
+                    }
+                }
+                if (Pasador == true)
+                {
+                    if (SnackbarThree.MessageQueue is { } messageQueue)
+                    {
+                        var message = "Dicha ventana se encuentra abierta";
+                        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+                    }
+                    Pasador = false;
                 }
                 else
                 {
 
-                    var packIconMaterial = new MaterialDesignThemes.Wpf.PackIcon()
+                    //else
+                    //{
+                    List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
                     {
-                        Kind = icon,
-                        Width = 24,
-                        Height = 24,
-                        Margin = new Thickness(7, 0, 0, 0),
+                        new SqlParameter("Flag",-1),
+                        new SqlParameter("@UsuarioID", ClassVariables.UsuarioID),
+                        new SqlParameter("@Nombre", Usc.Name),
+                        new SqlParameter("@Modulo", Modulo),
+                        new SqlParameter("@Titulo", Titulo),
+                        new SqlParameter("@Visualiza", ""),
+                        new SqlParameter("@Imprime", ""),
+                        new SqlParameter("@Agrega", ""),
+                        new SqlParameter("@Modifica", ""),
+                        new SqlParameter("@Anula", "")
                     };
 
-                    Wpf.Controls.TabItem tabItem = new Wpf.Controls.TabItem()
-                    {
-                        FontSize = 18.5,
-                        FontWeight = FontWeights.SemiBold,
-                        FontFamily = new FontFamily("pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"),
-                        VerticalAlignment = VerticalAlignment.Center,
-                        HorizontalAlignment = HorizontalAlignment.Center,
-                        Header = Nombre,
-                        Content = Usc,
-                        Icon = packIconMaterial
-                    };
+                    DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysAccesos", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
-                    TabMain.Items.Add(tabItem);
+                    if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+                    {
+                        Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
+                        frm.ShowDialog();
+                        ClassVariables.GetSetError = null;
+                    }
+
+                    if (TablaGrid.Rows.Count == 1) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
+                    {
+                        if (Convert.ToBoolean(TablaGrid.Rows[0]["Visualiza"]))
+                        {
+                            ClassVariables.Imprime = Convert.ToBoolean(TablaGrid.Rows[0]["Imprime"]);
+                            ClassVariables.Agrega = Convert.ToBoolean(TablaGrid.Rows[0]["Agrega"]);
+                            ClassVariables.Modifica = Convert.ToBoolean(TablaGrid.Rows[0]["Modifica"]);
+
+                            var packIconMaterial = new MaterialDesignThemes.Wpf.PackIcon()
+                            {
+                                Kind = icon,
+                                Width = 24,
+                                Height = 24,
+                                Margin = new Thickness(7, 0, 0, 0),
+                            };
+
+                            Wpf.Controls.TabItem tabItem = new Wpf.Controls.TabItem()
+                            {
+                                FontSize = 18.5,
+                                FontWeight = FontWeights.SemiBold,
+                                FontFamily = new FontFamily("pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"),
+                                VerticalAlignment = VerticalAlignment.Center,
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                Header = Titulo,
+                                Content = Usc,
+                                Icon = packIconMaterial
+                            };
+                            TabMain.Items.Add(tabItem);
+                        }
+                        else
+                        {
+                            new Administracion.FrmCompletarCamposHost("Usted no tiene acceso a dicha ventana").ShowDialog();
+                        }
+                    }
+                    else
+                    {
+                        new Administracion.FrmCompletarCamposHost("Dicha ventana no existe o se encontro mas de una vez, por favor comuniquese con su proveedor de sistemas").ShowDialog();
+                    }
+                    listSqlParameter.Clear();
+
                 }
-
             }
-
         }
 
         private void ButtonOpenMenu_Click_1(object sender, RoutedEventArgs e)
@@ -146,7 +195,6 @@ namespace Sadora.Clientes
 
                 TextService();
             }
-
             FrmMenuClosed = !FrmMenuClosed;
         }
 
@@ -169,42 +217,45 @@ namespace Sadora.Clientes
 
                 TextService();
             }
-
             FrmMenuClosed = !FrmMenuClosed;
         }
 
         private void ButtonCerrar_Click(object sender, RoutedEventArgs e)
         {
             new Administracion.FrmMain().Show();
-            this.Close();
+            this.Hide();
+        }
+
+        private void ButtonMinimizar_Click(object sender, RoutedEventArgs e)
+        {
+            this.WindowState = WindowState.Minimized;
         }
 
         private void btnMenuMaestraClientes_MouseUp(object sender, MouseButtonEventArgs e)
         {
-
-            OpenUsercontrol(new UscClientes(), "Maestra de Clientes", iconMenuMaestraClientes.Kind);
+            OpenUsercontrol(new UscClientes(), iconMenuMaestraClientes.Kind);
         }
 
         private void btnMenuCuentasXCobrar_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(null, null);
+            OpenUsercontrol(null);
         }
 
         private void btnMenuClaseClientes_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(new UscClaseClientes(), "Clase de Clientes", iconMenuClaseClientes.Kind);
+            OpenUsercontrol(new UscClaseClientes(), iconMenuClaseClientes.Kind);
         }
 
         private void btnMenuGestionClientes_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(null, null);
+            OpenUsercontrol(null);
         }
 
         private void btnMenuGestionListados_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(null, null);
+            OpenUsercontrol(null);
         }
 
-
+        
     }
 }

@@ -22,7 +22,10 @@ namespace Sadora.Administracion
     {
         private DataTable dt;
 
-        public FrmMostrarDatosHost(string Lista, DataTable tabla)
+        public FrmMostrarDatosHost()
+        { }
+
+        public FrmMostrarDatosHost(string Lista, DataTable tabla, List<String> ListName = null)
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
@@ -34,7 +37,37 @@ namespace Sadora.Administracion
             {
                 dt = Clases.ClassData.runDataTable(Lista, null, "CommandText");
             }
+
             GridMuestra.ItemsSource = dt.DefaultView;
+            if (ListName != null)
+            {
+                bool Validator = false;
+                for (int i = 0; i < GridMuestra.Columns.Count; i++)
+                {
+                    foreach (String Valor in ListName)
+                    {
+                        if (GridMuestra.Columns[i].HeaderCaption.ToString() == Valor)
+                        {
+                            Validator = true;
+                            break;
+                            //GridMuestra.Columns[i].Visible = true;
+                        }
+                        else
+                        {
+                            Validator = false;
+                            //GridMuestra.Columns[i].Visible = false;
+                        }
+                    }
+                    if (Validator)
+                    {
+                        GridMuestra.Columns[i].Visible = true;
+                    }
+                    else
+                    {
+                        GridMuestra.Columns[i].Visible = false;
+                    }
+                }
+            }
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
@@ -46,6 +79,7 @@ namespace Sadora.Administracion
         private void btnCancelar_Click(object sender, RoutedEventArgs e)
         {
             //MiniDialogo.IsOpen = false;
+            GridMuestra.SelectedItem = null;
             this.Close();
         }
 
