@@ -92,7 +92,7 @@
                     </Button>
                 </Border>
                 <Border Padding="0" Grid.Column="10" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="3">
-                    <Button x:Name="BtnGuardar" Click="BtnGuardar_Click" Height="59" ToolTip="Pulsar para guardar el registro" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{StaticResource MaterialDesignFlatButton}" TabIndex="8" >
+                    <Button x:Name="BtnGuardar" Click="BtnGuardar_Click" Height="59" ToolTip="Pulsar para guardar el registro" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{StaticResource MaterialDesignFlatButton}" TabIndex="9" >
                         <materialDesign:PackIcon  Kind="ContentSave" Width="auto" Height="60" VerticalAlignment="Center"></materialDesign:PackIcon>
                     </Button>
                 </Border>
@@ -139,7 +139,7 @@
                                         <StackPanel Orientation="Vertical">
                                             <TextBlock x:Name="lProveedorID" Margin="5 5 0 0" Text="Proveedor ID" FontWeight="Bold"></TextBlock>
                                             <Grid>
-                                                <TextBox x:Name="txtProveedorID" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="6" KeyUp="txtProveedorID_KeyUp" KeyDown="txtProveedorID_KeyDown"/>
+                                                <TextBox x:Name="txtProveedorID" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="5" KeyUp="txtProveedorID_KeyUp" KeyDown="txtProveedorID_KeyDown"/>
                                                 <Button x:Name="btnProveedorID" HorizontalAlignment="Right" Padding="0" Height="30" Click="btnProveedorID_Click">
                                                     <materialDesign:PackIcon Kind="Magnify" Padding="0" Height="30" Width="25" />
                                                 </Button>
@@ -169,7 +169,7 @@
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lTipoTransaccion" Margin="10 5 0 0" Text="Tipo de transaccion" FontWeight="Bold"></TextBlock>
 
-                                    <ComboBox x:Name="cbxTipoTransaccion" materialDesign:ComboBoxAssist.ClassicMode = "true" Height="30" Background="#4CEDEDED" KeyUp="cbxTipoTransaccion_KeyUp" TabIndex="3">
+                                    <ComboBox x:Name="cbxTipoTransaccion" materialDesign:ComboBoxAssist.ClassicMode = "true" Height="30" Background="#4CEDEDED" KeyUp="cbxTipoTransaccion_KeyUp" TabIndex="2">
                                         <ComboBoxItem Content="Cuenta por pagar" IsSelected="True"/>
                                         <ComboBoxItem Content="Nota de credito"/>
                                         <ComboBoxItem Content="Nota de debito"/>
@@ -180,7 +180,7 @@
                             <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lMontoExcento" Margin="10 5 0 0" Text="Monto Exento" FontWeight="Bold"></TextBlock>
-                                    <TextBox x:Name="txtMontoExcento" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="6" KeyUp="txtMontoExcento_KeyUp" KeyDown="txtMontoExcento_KeyDown"/>
+                                    <TextBox x:Name="txtMontoExcento" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="6" KeyUp="txtMontoExcento_KeyUp" KeyDown="txtMontoExcento_KeyDown" GotFocus="txtMontoExcento_GotFocus"/>
                                 </StackPanel>
                             </Border>
 
@@ -195,7 +195,7 @@
                             <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lFechaTransaccion" Margin="10 5 0 0" Text="Fecha de Transaccion" FontWeight="Bold"></TextBlock>
-                                    <DatePicker  x:Name="dtpFechaTransaccion" Background="#4CEDEDED" KeyUp="dtpFechaTransaccion_KeyUp"/>
+                                    <DatePicker  x:Name="dtpFechaTransaccion" Background="#4CEDEDED" KeyUp="dtpFechaTransaccion_KeyUp" TabIndex="3"/>
 
                                     <!--materialDesign:HintAssist.Hint="Future Date"-->
                                     <!--<DatePicker x:Name="dtpFechaTransaccion"  Padding="0" materialDesign:HintAssist.Hint="Pick Date" Style="{StaticResource MaterialDesignFloatingHintDatePicker}" Background="#4CEDEDED" KeyUp="dtpFechaTransaccion_KeyUp"/>-->
@@ -206,7 +206,7 @@
                             <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lMontoGravado" Margin="10 5 0 0" Text="Monto Gravado" FontWeight="Bold"></TextBlock>
-                                    <TextBox x:Name="txtMontoGravado" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="0" KeyUp="txtMontoGravado_KeyUp"/>
+                                    <TextBox x:Name="txtMontoGravado" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="7" KeyUp="txtMontoGravado_KeyUp"/>
                                 </StackPanel>
                             </Border>
 
@@ -224,7 +224,7 @@
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lEstado" Margin="10 5 0 0" Text="Estado" FontWeight="Bold"></TextBlock>
 
-                                    <ComboBox x:Name="cbxEstado" materialDesign:ComboBoxAssist.ClassicMode = "true" Height="30" Background="#4CEDEDED" KeyUp="cbxEstado_KeyUp" TabIndex="3">
+                                    <ComboBox x:Name="cbxEstado" materialDesign:ComboBoxAssist.ClassicMode = "true" Height="30" Background="#4CEDEDED" KeyUp="cbxEstado_KeyUp" TabIndex="4">
                                         <ComboBoxItem Content="Abierta" IsSelected="True"/>
                                         <ComboBoxItem Content="Cerrada"/>
                                     </ComboBox>
@@ -234,7 +234,7 @@
                             <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lITBIS" Margin="10 5 0 0" Text="ITBIS" FontWeight="Bold"></TextBlock>
-                                    <TextBox x:Name="txtITBIS" Height="30" Padding="0" IsReadOnly="True" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="0" />
+                                    <TextBox x:Name="txtITBIS" Height="30" Padding="0" IsReadOnly="True" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="8" />
                                     <!--KeyUp="txtITBIS_KeyUp"-->
                                 </StackPanel>
                             </Border>

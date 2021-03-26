@@ -403,6 +403,38 @@ namespace Sadora.Proveedores
             }
         }
 
+        private void txtMontoExcento_GotFocus(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (Estado != "Modo Consulta" && Convert.ToDouble(txtMontoGravado.Text) > 0 && Convert.ToDouble(txtITBIS.Text) > 0)
+                {
+                    txtMontoExcento.Text = "0";
+                    txtMontoExcento.IsReadOnly = true;
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+                else
+                {
+                    txtMontoExcento.IsReadOnly = false;
+                    txtMontoGravado.IsReadOnly = true;
+                }
+            }
+            catch //(Exception)
+            {
+                if (Estado != "Modo Consulta" && txtMontoGravado.Text != "" && txtITBIS.Text != "")
+                {
+                    txtMontoExcento.Text = "0";
+                    txtMontoExcento.IsReadOnly = true;
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+                else
+                {
+                    txtMontoExcento.IsReadOnly = false;
+                    //txtMontoGravado.IsReadOnly = true;
+                }
+            }
+        }
+
         private void txtMontoExcento_KeyDown(object sender, KeyEventArgs e)
         {
             ClassControl.ValidadorNumeros(e);
@@ -414,8 +446,25 @@ namespace Sadora.Proveedores
             {
                 if (e.Key == Key.Enter)
                 {
-                    txtMontoExcento.IsReadOnly = true;
-                    txtITBIS.Text = (Convert.ToInt32(txtMontoGravado.Text) * 0.18).ToString();
+                    txtMontoExcento.IsReadOnly = false;
+                    try
+                    {
+                        if (Convert.ToDouble(txtMontoGravado.Text) >= 0)
+                        {
+                            txtITBIS.Text = (Convert.ToInt32(txtMontoGravado.Text) * 0.18).ToString();
+                            txtMontoExcento.IsReadOnly = true;
+                        }
+                        else
+                        {
+                            txtITBIS.Text = null;
+                        }
+                    }
+                    catch
+                    {
+                        txtITBIS.Text = null;
+                        txtMontoExcento.Focus();
+                        txtMontoGravado.IsReadOnly = false;
+                    }
                     ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
@@ -513,7 +562,7 @@ namespace Sadora.Proveedores
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtTransaccionID,txtMontoGravado,txtProveedorID//,  txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                txtTransaccionID,txtMontoGravado,txtMontoExcento,txtProveedorID,cbxTipoTransaccion,dtpFechaTransaccion,cbxEstado
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.

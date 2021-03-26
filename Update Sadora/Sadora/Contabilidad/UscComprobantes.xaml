@@ -130,14 +130,14 @@
                             <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lNomenclatura" Margin="10 5 0 0" Text="Nomenclatura" FontWeight="Bold"></TextBlock>
-                                    <TextBox x:Name="txtNomenclatura" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="6" KeyUp="txtNomenclatura_KeyUp" KeyDown="txtNomenclatura_KeyDown"/>
+                                    <TextBox x:Name="txtNomenclatura" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="6" KeyUp="txtNomenclatura_KeyUp" />
                                 </StackPanel>
                             </Border>
 
                             <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lNextNCF" Margin="10 5 0 0" Text="Proximo Comprobante" FontWeight="Bold"></TextBlock>
-                                    <TextBox x:Name="txtNextNCF" Height="30" Padding="0" IsReadOnly="True" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="0" KeyUp="txtNextNCF_KeyUp"/>
+                                    <TextBox x:Name="txtNextNCF" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="0" KeyUp="txtNextNCF_KeyUp"/>
                                 </StackPanel>
                             </Border>
 

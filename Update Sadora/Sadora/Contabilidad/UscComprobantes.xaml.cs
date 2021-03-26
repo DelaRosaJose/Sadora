@@ -263,7 +263,7 @@ namespace Sadora.Contabilidad
 
         }
 
-        
+
 
         private void txtNextNCF_KeyUp(object sender, KeyEventArgs e)
         {
@@ -271,28 +271,32 @@ namespace Sadora.Contabilidad
             {
                 if (e.Key == Key.Enter)
                 {
-                    reader = ClassControl.getDatosCedula(txtNextNCF.Text);
-                    if (reader != null)
-                    {
-                        if (reader.HasRows)
-                        {
-                            if (reader.Read())
-                            {
-                                txtNomenclatura.Text = reader["Nomenclaturas"].ToString() + " " + reader["Apellidos"].ToString();
-                                //txtDireccion.Text = reader["Direccion"].ToString();
-                                //txtTelefono.Text = reader["Telefono"].ToString();
-                                reader.NextResult();
+                    //reader = ClassControl.getDatosCedula(txtNextNCF.Text);
+                    //if (reader != null)
+                    //{
+                    //    if (reader.HasRows)
+                    //    {
+                    //        if (reader.Read())
+                    //        {
+                    //            txtNomenclatura.Text = reader["Nomenclaturas"].ToString() + " " + reader["Apellidos"].ToString();
+                    //            //txtDireccion.Text = reader["Direccion"].ToString();
+                    //            //txtTelefono.Text = reader["Telefono"].ToString();
+                    //            reader.NextResult();
 
-                            }
-                            reader.Close();
-                            reader.Dispose();
-                        }
-                        else
-                        {
-                            reader.Close();
-                            reader.Dispose();
-                        }
-                    }
+                    //        }
+                    //        reader.Close();
+                    //        reader.Dispose();
+                    //    }
+                    //    else
+                    //    {
+                    //        reader.Close();
+                    //        reader.Dispose();
+                    //    }
+                    //}
+
+                    //txtNextNCF.Text = 
+                    txtDisponibles.Text = (Convert.ToDouble(txtHasta.Text) - Convert.ToDouble(txtDesde.Text) - 1).ToString();
+
                     ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
@@ -320,10 +324,10 @@ namespace Sadora.Contabilidad
             }
         }
 
-        private void txtNomenclatura_KeyDown(object sender, KeyEventArgs e)
-        {
-            ClassControl.ValidadorNumeros(e);
-        }
+        //private void txtNomenclatura_KeyDown(object sender, KeyEventArgs e)
+        //{
+        //    ClassControl.ValidadorNumeros(e);
+        //}
 
         private void txtDesde_KeyUp(object sender, KeyEventArgs e)
         {
@@ -344,12 +348,20 @@ namespace Sadora.Contabilidad
 
         private void txtHasta_KeyDown(object sender, KeyEventArgs e)
         {
-
+            ClassControl.ValidadorNumeros(e);
         }
 
         private void txtHasta_KeyUp(object sender, KeyEventArgs e)
         {
-
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    //txtNextNCF.Text = 
+                    //    txtDisponibles.Text = Convert.ToDouble(txtDesde.Text) + Convert.ToDouble(txtHasta.Text)
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
         }
 
         private void txtDireccion_KeyUp(object sender, KeyEventArgs e)
