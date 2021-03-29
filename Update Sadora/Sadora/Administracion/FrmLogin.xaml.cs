@@ -19,7 +19,6 @@ namespace Sadora.Administracion
     /// </summary>
     public partial class FrmLogin : Window
     {
-        FrmMain main = new FrmMain();
         public FrmLogin()
         {
             InitializeComponent();
@@ -40,8 +39,9 @@ namespace Sadora.Administracion
             //hecho.IsOpen = true;
             if (hecho.IsOpen == false)
             {
-                main.Show();
                 Clases.ClassVariables.UsuarioID = 1;
+                FrmMain main = new FrmMain();
+                main.Show();
                 this.Close();
             }
             //main.Show();

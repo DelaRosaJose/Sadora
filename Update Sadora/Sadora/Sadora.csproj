@@ -100,6 +100,12 @@
     <Compile Include="Contabilidad\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Inventario\FrmMenu.xaml.cs">
+      <DependentUpon>FrmMenu.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Inventario\UscArticulos.xaml.cs">
+      <DependentUpon>UscArticulos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Proveedores\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
@@ -216,6 +222,14 @@
       <DependentUpon>UscClientes.xaml</DependentUpon>
     </Compile>
     <Page Include="Contabilidad\FrmMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Inventario\FrmMenu.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Inventario\UscArticulos.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -16,7 +16,7 @@ using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 
-namespace Sadora.Contabilidad
+namespace Sadora.Inventario
 {
     /// <summary>
     /// Lógica de interacción para FrmMenu.xaml
@@ -236,15 +236,16 @@ namespace Sadora.Contabilidad
             OpenUsercontrol(null);
         }
 
-        private void btnMenuRegistroContabilidad_MouseUp(object sender, MouseButtonEventArgs e)
+        private void btnMenuRegistroArticulos_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(null);
+            OpenUsercontrol(new UscArticulos(), iconMenuRegistroArticulos.Kind);
             //OpenUsercontrol(new UscEmpleados(), iconMenuRegistroEmpleados.Kind);
         }
 
         private void btnMenuConfiguracionComprobantes_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(new UscComprobantes(), iconMenuConfiguracionComprobantes.Kind);
+            OpenUsercontrol(null);
         }
+
     }
 }

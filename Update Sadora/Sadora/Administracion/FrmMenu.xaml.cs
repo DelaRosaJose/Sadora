@@ -38,6 +38,11 @@ namespace Sadora.Administracion
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            lNombreUsuario.Text = ClassVariables.UsuarioNombre;
+        }
+
         void TextService(bool cerrado = true)
         {
             if (cerrado == true)

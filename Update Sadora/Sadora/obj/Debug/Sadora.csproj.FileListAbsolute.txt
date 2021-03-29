@@ -99,3 +99,7 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.ba
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscArticulos.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscArticulos.g.cs

@@ -57,7 +57,7 @@
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Abel Dutra" VerticalAlignment="Center" FontSize="20"/>
+                <TextBlock Text="Abel Dutra" x:Name="lNombreUsuario" VerticalAlignment="Center" FontSize="20"/>
                 <materialDesign:PackIcon Kind="AccountCircle"  HorizontalAlignment="Center"  VerticalAlignment="Top" Width="100" Height="100"  Foreground="#FF13293D"/>
             </StackPanel>
 

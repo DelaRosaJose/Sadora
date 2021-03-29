@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sadora.Contabilidad"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
-        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Contabilidad">
+        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Contabilidad" Loaded="Window_Loaded">
 
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
@@ -43,7 +43,7 @@
                         <DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>
                     </Grid.Effect>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock Text="Abel Dutra" VerticalAlignment="Center" FontSize="16"/>
+                        <TextBlock Text="Abel Dutra" x:Name="lNombreUsuario" VerticalAlignment="Center" FontSize="16"/>
                         <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
                             <StackPanel Width="150">
                                 <Button Content="Settings"/>

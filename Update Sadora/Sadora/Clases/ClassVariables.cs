@@ -13,6 +13,7 @@ namespace Sadora.Clases
         //public static int IntentoEntrada;
         //public static string EmpleadoID;
         public static int UsuarioID;
+        public static string UsuarioNombre;
         //public static string UsuarioNombre;
         //public static string TipoCuenta;
         public static bool Imprime;

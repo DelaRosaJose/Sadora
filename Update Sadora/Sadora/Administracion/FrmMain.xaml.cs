@@ -1,6 +1,7 @@
 ﻿using Sadora.Clases;
 using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -55,6 +56,27 @@ namespace Sadora.Administracion
 
 
             //lblDate.Content = /*"Fecha " +*/dia +", "+ fecha.Day + " de " + mes + " de " + fecha.Year;
+
+            SqlDataReader reader = Clases.ClassData.runSqlDataReader("select * from TsysUsuarios where UsuarioID = " + ClassVariables.UsuarioID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+            if (reader.HasRows) //Validamos si el datareader trajo data.
+            {
+                if (reader.Read()) //Si puede leer la informacion
+                {
+                    ClassVariables.UsuarioNombre = reader["Nombre"].ToString();
+                    lNombreUsuario.Text = ClassVariables.UsuarioNombre; //Asignamos el resultado de la columna "Nombre" del datareader en el label que muestra el nombre del usuario.
+                    reader.NextResult();
+                }
+                reader.Close(); //Cerramos el datareader
+                reader.Dispose(); //Cortamos la conexion del datareader
+            }
+            else //Si no trajo data
+            {
+                reader.Close(); //limpiamos el reader
+                reader.Dispose();
+            }
+
+
         }
         
         public void AbrirFormulario<MiForm>(bool Pass = false) where MiForm : Window, new()
@@ -131,7 +153,7 @@ namespace Sadora.Administracion
 
         private void btnModuloInventarios_Click(object sender, RoutedEventArgs e)
         {
-            AbrirFormulario<Clientes.FrmMenu>();
+            AbrirFormulario<Inventario.FrmMenu>(true);
         }
 
         private void btnModuloVentas_Click(object sender, RoutedEventArgs e)
@@ -258,8 +280,5 @@ namespace Sadora.Administracion
             this.WindowState = WindowState.Minimized;
         }
 
-        
-
-        
     }
 }
