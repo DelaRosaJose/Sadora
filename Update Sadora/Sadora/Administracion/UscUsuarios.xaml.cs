@@ -546,11 +546,11 @@ namespace Sadora.Administracion
 
             if (Estado == "Modo Agregar" && Estado == "Modo Editar")
             {
-                Clases.ClassControl.GridAllowEdit(GridMain, listaColumnas, true);
+                Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
             }
             else
             {
-                GridMain.View.AllowEditing = false;
+                ClassControl.SetGridReadOnly(GridMain);
             }
 
             listSqlParameter.Clear(); listaColumnas.Clear(); //Limpiamos la lista de parametros.
@@ -677,8 +677,7 @@ namespace Sadora.Administracion
                 {
                     "Visualiza","Agrega","Modifica","Imprime","Anula"
                 };
-
-                Clases.ClassControl.GridAllowEdit(GridMain, listaColumnas, true);
+                Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
             }
             if (Imprime == false)
             {

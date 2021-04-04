@@ -236,9 +236,9 @@ namespace Sadora.Ventas
             OpenUsercontrol(null);
         }
 
-        private void btnMenuRegistroVentas_MouseUp(object sender, MouseButtonEventArgs e)
+        private void btnMenuFacturacion_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(null);
+            OpenUsercontrol(new UscVentas(), iconMenuFacturacion.Kind);
             //OpenUsercontrol(new UscEmpleados(), iconMenuRegistroEmpleados.Kind);
         }
     }

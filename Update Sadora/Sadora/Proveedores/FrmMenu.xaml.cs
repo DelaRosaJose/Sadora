@@ -253,7 +253,8 @@ namespace Sadora.Proveedores
 
         private void btnMenuClaseProveedores_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(new UscClaseProveedores(), iconMenuClaseProveedores.Kind);
+            //OpenUsercontrol(new UscClaseProveedores(), iconMenuClaseProveedores.Kind);
+            OpenUsercontrol(new Administracion.UscMantenimientoGeneral("TsupClaseProveedores"), iconMenuClaseProveedores.Kind);
         }
 
         private void btnMenuGestionListados_MouseUp(object sender, MouseButtonEventArgs e)

@@ -155,7 +155,7 @@
                                         </StackPanel>
                                     </TreeViewItem.Header>
 
-                                    <!--REGISTRO DE Articulos-->
+                                    <!--REGISTRO DE ARTICULOS-->
                                     <TreeViewItem x:Name="btnMenuRegistroArticulos" ToolTip="REGISTRO DE Inventario" MouseUp="btnMenuRegistroArticulos_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
@@ -185,7 +185,7 @@
                                 <Separator Width="260"/>
 
                                 <!--CONFIGURACION-->
-                                <!--<TreeViewItem  Cursor="Hand">
+                                <TreeViewItem  Cursor="Hand">
                                     <TreeViewItem.Header>
                                         <StackPanel Orientation="Horizontal" ToolTip="CONFIGURACION">
                                             <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
@@ -195,19 +195,31 @@
                                         </StackPanel>
                                     </TreeViewItem.Header>
 
-                                    --><!--CONFIGURACION DE COMPROBANTES--><!--
-                                    <TreeViewItem x:Name="btnMenuConfiguracionComprobantes" ToolTip="CONFIGURACION DE COMPROBANTES" MouseUp="btnMenuConfiguracionComprobantes_MouseUp">
+                                    <!--CONFIGURACION DE MARCAS-->
+                                    <TreeViewItem x:Name="btnMenuConfiguracionMarcas" ToolTip="CONFIGURACION DE MARCAS" MouseUp="btnMenuConfiguracionMarcas_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
-                                                <materialDesign:PackIcon x:Name="iconMenuConfiguracionComprobantes" Kind="AccountPlus" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <materialDesign:PackIcon x:Name="iconMenuConfiguracionMarcas" Kind="MarkerCheck" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                            Conf. de Comprobantes
+                                            Configuracion de Marcas
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
                                     </TreeViewItem>
 
-                                </TreeViewItem>-->
+                                    <!--CONFIGURACION DE DEPARTAMENTOS-->
+                                    <TreeViewItem x:Name="btnMenuConfiguracionDepartamentos" ToolTip="CONFIGURACION DE DEPARTAMENTOS" MouseUp="btnMenuConfiguracionDepartamentos_MouseUp">
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
+                                                <materialDesign:PackIcon x:Name="iconMenuConfiguracionDepartamentos" Kind="InboxMultiple" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
+                                            Configuracion de Marcas
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+
+                                </TreeViewItem>
 
 
                             </TreeView>

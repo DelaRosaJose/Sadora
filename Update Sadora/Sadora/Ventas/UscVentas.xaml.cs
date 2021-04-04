@@ -435,7 +435,7 @@ namespace Sadora.Ventas
                 //new SqlParameter("@Activo",cActivar.IsChecked)
             };
 
-            tabla = Clases.ClassData.runDataTable("sp_sysUsuarios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+            //tabla = Clases.ClassData.runDataTable("sp_sysUsuarios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
 
 
@@ -524,7 +524,7 @@ namespace Sadora.Ventas
                 new SqlParameter("@Anula", Anula)
             };
 
-            DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysAccesos", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+            DataTable TablaGrid = null/*= Clases.ClassData.runDataTable("sp_sysAccesos", listSqlParameter, "StoredProcedure")*/; //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
             if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
             {
@@ -547,11 +547,11 @@ namespace Sadora.Ventas
 
             if (Estado == "Modo Agregar" && Estado == "Modo Editar")
             {
-                Clases.ClassControl.GridAllowEdit(GridMain, listaColumnas, true);
+                Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
             }
             else
             {
-                GridMain.View.AllowEditing = false;
+                ClassControl.SetGridReadOnly(GridMain);
             }
 
             listSqlParameter.Clear(); listaColumnas.Clear(); //Limpiamos la lista de parametros.
@@ -678,8 +678,7 @@ namespace Sadora.Ventas
                 {
                     "Visualiza","Agrega","Modifica","Imprime","Anula"
                 };
-
-                Clases.ClassControl.GridAllowEdit(GridMain, listaColumnas, true);
+                Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
             }
             if (Imprime == false)
             {

@@ -19,27 +19,37 @@ using System.Windows.Shapes;
 namespace Sadora.Administracion
 {
     /// <summary>
-    /// Lógica de interacción para UscGruposUsuarios.xaml
+    /// Lógica de interacción para UscMantenimientoGeneral.xaml
     /// </summary>
-    public partial class UscGruposUsuarios : UserControl
+    public partial class UscMantenimientoGeneral : UserControl
     {
-        public UscGruposUsuarios()
+        public UscMantenimientoGeneral(string Tabla)
         {
             InitializeComponent();
-            Name = "UscGruposUsuarios";
+            Name = "UscMantenimientoGeneral";
+            Table = Tabla;
+            try
+            {
+                Tag = "Clases de " + Table.Substring(4).Replace("Clase","").Replace("clase","");
+            }
+            catch 
+            {}
         }
 
         bool Imprime;
         bool Agrega;
         bool Modifica;
 
-        public bool Inicializador = false;
+        bool Inicializador = false;
         DataTable tabla;
+        SqlDataReader reader;
         string Estado;
         string Lista;
-        int GrupoID;
-        int LastGrupoID;
-        string last = "";
+        int TransaccionID;
+        int LastTransaccionID;
+        string last;
+        string Table;
+        string Id;
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
@@ -54,9 +64,13 @@ namespace Sadora.Administracion
                 Agrega = ClassVariables.Agrega;
                 Modifica = ClassVariables.Modifica;
 
+                FinId();
+                lTransaccionID.Text = Id;
+
                 this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Inicializador = false;
             }
+
         }
 
         private void BtnPrimerRegistro_Click(object sender, RoutedEventArgs e)
@@ -82,15 +96,13 @@ namespace Sadora.Administracion
             SetEnabledButton("Modo Consulta");
             try
             {
-                GrupoID = Convert.ToInt32(txtGrupoID.Text) - 1;
+                TransaccionID = Convert.ToInt32(txtTransaccionID.Text) - 1;
             }
             catch (Exception exception)
             {
                 ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
             }
-
-
-            if (GrupoID <= 1)
+            if (TransaccionID <= 1)
             {
                 BtnPrimerRegistro.IsEnabled = false;
                 BtnAnteriorRegistro.IsEnabled = false;
@@ -98,7 +110,7 @@ namespace Sadora.Administracion
             }
             else
             {
-                setDatos(0, GrupoID.ToString());
+                setDatos(0, TransaccionID.ToString());
             }
         }
 
@@ -112,22 +124,21 @@ namespace Sadora.Administracion
             SetEnabledButton("Modo Consulta");
             try
             {
-                GrupoID = Convert.ToInt32(txtGrupoID.Text) + 1;
+                TransaccionID = Convert.ToInt32(txtTransaccionID.Text) + 1;
             }
             catch (Exception exception)
             {
                 ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
             }
-
-            if (GrupoID >= LastGrupoID)
+            if (TransaccionID >= LastTransaccionID)
             {
                 BtnUltimoRegistro.IsEnabled = false;
                 BtnProximoRegistro.IsEnabled = false;
-                setDatos(0, LastGrupoID.ToString());
+                setDatos(0, LastTransaccionID.ToString());
             }
             else
             {
-                setDatos(0, GrupoID.ToString());
+                setDatos(0, TransaccionID.ToString());
             }
         }
 
@@ -149,36 +160,25 @@ namespace Sadora.Administracion
 
             if (Estado == "Modo Consulta")
             {
-                last = txtGrupoID.Text;
+                last = txtTransaccionID.Text;
                 SetEnabledButton("Modo Busqueda");
             }
             else if (Estado == "Modo Busqueda")
             {
-                List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
-                {
-                    cActivar
-                };
-                Clases.ClassControl.ActivadorControlesReadonly(null, true, false, false, listaControles);
-
                 setDatos(0, null);
-
-                List<String> ListName = new List<String>() //Estos son los campos que saldran en la ventana de busqueda, solo si se le pasa esta lista de no ser asi, se mostrarian todos
-                {
-                    "Usuario ID","Nombre","Empleado ID","Grupo ID","Activo"
-                };
 
                 SetEnabledButton("Modo Consulta");
 
                 if (tabla.Rows.Count > 1)
                 {
-                    Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, tabla, ListName);
+                    Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, tabla);
                     frm.ShowDialog();
 
                     if (frm.GridMuestra.SelectedItem != null)
-                    { 
+                    {
                         DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
-                        txtGrupoID.Text = item.Row.ItemArray[0].ToString();
-                        setDatos(0, txtGrupoID.Text);
+                        txtTransaccionID.Text = item.Row.ItemArray[0].ToString();
+                        setDatos(0, txtTransaccionID.Text);
                         frm.Close();
                     }
                     else
@@ -196,6 +196,7 @@ namespace Sadora.Administracion
                         Task.Factory.StartNew(() => messageQueue.Enqueue(message));
                     }
                 }
+
             }
         }
 
@@ -206,7 +207,6 @@ namespace Sadora.Administracion
 
         private void BtnAgregar_Click(object sender, RoutedEventArgs e)
         {
-            last = txtGrupoID.Text;
             this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             SetEnabledButton("Modo Agregar");
         }
@@ -238,34 +238,15 @@ namespace Sadora.Administracion
                 }
                 else
                 {
-                    Estado = "Modo Agregar";
                     setDatos(1, null);
                 }
                 SetEnabledButton("Modo Consulta");
-                setDatos(0, txtGrupoID.Text);
+                setDatos(0, txtTransaccionID.Text);
                 //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
 
-        //private void btnEmpleadoID_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (Estado != "Modo Consulta")
-        //    {
-        //        Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select * from TrhnEmpleados where Activo = 1", null);
-        //        frm.ShowDialog();
-
-        //        if (frm.GridMuestra.SelectedItem != null)
-        //        {
-        //            DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
-        //            txtEmpleadoID.Text = item.Row.ItemArray[0].ToString();
-
-        //            ClassControl.setValidador("select * from TrhnEmpleados where EmpleadoID =", txtEmpleadoID, tbxEmpleadoID);
-        //        }
-
-        //    }
-        //}
-
-        private void txtGrupoID_KeyUp(object sender, KeyEventArgs e)
+        private void txtTransaccionID_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta")
             {
@@ -287,32 +268,23 @@ namespace Sadora.Administracion
             }
         }
 
-        //private void txtEmpleadoID_KeyUp(object sender, KeyEventArgs e)
+        //private void txtRepresentante_KeyUp(object sender, KeyEventArgs e)
         //{
         //    if (Estado != "Modo Consulta")
         //    {
         //        if (e.Key == Key.Enter)
         //        {
-        //            if (txtEmpleadoID.Text != "")
-        //            {
-        //                ClassControl.setValidador("select Nombre from TrhnEmpleados where  Activo = 1 and EmpleadoID =", txtEmpleadoID, tbxEmpleadoID);
-        //            }
-        //            else
-        //            {
-        //                txtEmpleadoID.Text = 0.ToString();
-        //                ClassControl.setValidador("select Nombre from TrhnEmpleados where EmpleadoID =", txtEmpleadoID, tbxEmpleadoID);
-        //            }
         //            ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
         //        }
         //    }
         //}
 
-        //private void txtEmpleadoID_KeyDown(object sender, KeyEventArgs e)
+        //private void txtTransaccionID_KeyDown(object sender, KeyEventArgs e)
         //{
         //    ClassControl.ValidadorNumeros(e);
         //}
 
-        //private void txtPassword_KeyUp(object sender, KeyEventArgs e)
+        //private void txtDireccion_KeyUp(object sender, KeyEventArgs e)
         //{
         //    if (Estado != "Modo Consulta")
         //    {
@@ -323,56 +295,84 @@ namespace Sadora.Administracion
         //    }
         //}
 
-        private void cActivar_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                {
-                    ((CheckBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-            }
-        }
+        //private void txtCorreoElectronico_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    if (Estado != "Modo Consulta")
+        //    {
+        //        if (e.Key == Key.Enter)
+        //        {
+        //            ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+        //        }
+        //    }
+        //}
 
-        void setDatos(int Flag, string Usuario) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
+        //private void txtTelefono_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    if (Estado != "Modo Consulta")
+        //    {
+        //        if (e.Key == Key.Enter)
+        //        {
+        //            ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+        //        }
+        //    }
+        //}
+
+        //private void txtCelular_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    if (Estado != "Modo Consulta")
+        //    {
+        //        if (e.Key == Key.Enter)
+        //        {
+        //            ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+        //        }
+        //    }
+        //}
+
+        //private void cActivar_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    if (Estado != "Modo Consulta")
+        //    {
+        //        if (e.Key == Key.Enter)
+        //        {
+        //            ((CheckBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+        //        }
+        //    }
+        //}
+
+        void setDatos(int Flag, string Cliente) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
         {
-            if (Usuario == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
+            if (Cliente == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
             {
-                if (txtGrupoID.Text == "")
+                if (txtTransaccionID.Text == "")
                 {
-                    GrupoID = 0;
+                    TransaccionID = 0;
                 }
                 else
                 {
                     try
                     {
-                        GrupoID = Convert.ToInt32(txtGrupoID.Text);
+                        TransaccionID = Convert.ToInt32(txtTransaccionID.Text);
                     }
                     catch (Exception exception)
                     {
-                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //Enviamos la excepcion que nos brinda el sistema en caso de que no pueda convertir el id del Usuario
+                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //Enviamos la excepcion que nos brinda el sistema en caso de que no pueda convertir el id del cliente
                     }
                 }
             }
-            else //Si pasamos un Usuario, lo convertimos actualizamos la variable Usuario principal
+            else //Si pasamos un cliente, lo convertimos actualizamos la variable cliente principal
             {
-                GrupoID = Convert.ToInt32(Usuario);
+                TransaccionID = Convert.ToInt32(Cliente);
             }
 
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
                 new SqlParameter("Flag",Flag),
-                new SqlParameter("@GrupoID",GrupoID),
+                new SqlParameter("@ClaseID",TransaccionID),
                 new SqlParameter("@Nombre",txtNombre.Text),
-                //new SqlParameter("@EmpleadoID",txtEmpleadoID.Text),
-                //new SqlParameter("@GrupoID",txtGrupoID.Text),
-                //new SqlParameter("@Contraseña",txtPassword.Password),
-                new SqlParameter("@Activo",cActivar.IsChecked)
+                new SqlParameter("@Tabla",Table)
             };
 
-            tabla = Clases.ClassData.runDataTable("sp_sysGruposUsuarios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
-
-
+            tabla = Clases.ClassData.runDataTable("sp_sysClases", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
             if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
             {
@@ -383,129 +383,39 @@ namespace Sadora.Administracion
 
             if (tabla.Rows.Count == 1) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
             {
-                txtGrupoID.Text = tabla.Rows[0]["GrupoID"].ToString();
+                txtTransaccionID.Text = tabla.Rows[0][Id].ToString();
                 txtNombre.Text = tabla.Rows[0]["Nombre"].ToString();
-                //txtEmpleadoID.Text = tabla.Rows[0]["EmpleadoID"].ToString();
-                //txtGrupoID.Text = tabla.Rows[0]["GrupoID"].ToString();
-                //txtPassword.Password = tabla.Rows[0]["Contraseña"].ToString();
-                cActivar.IsChecked = Convert.ToBoolean(tabla.Rows[0]["Activo"].ToString());
 
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
                     try
                     {
-                        LastGrupoID = Convert.ToInt32(txtGrupoID.Text); //intentamos convertir el id del Usuario
+                        LastTransaccionID = Convert.ToInt32(txtTransaccionID.Text); //intentamos convertir el id del cliente
                     }
                     catch (Exception exception)
                     {
-                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error ald intentar convertirlo lo enviamos
+                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error al intentar convertirlo lo enviamos
                     }
                 }
-                //ClassControl.setValidador("select * from TrhnEmpleados where EmpleadoID =", txtEmpleadoID, tbxEmpleadoID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
             }
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
-
-            if (Estado == "Modo Consulta")
-            {
-                setDatosGrid(0);
-            }
-            else if (Estado == "Modo Agregar" || Estado == "Modo Editar")
-            {
-                GridMain.View.MoveFirstRow();
-                for (int i = 0; i < GridMain.VisibleRowCount; i++)
-                {
-                    setDatosGrid(1);
-                    GridMain.View.MoveNextRow();
-                }
-            }
-        }
-
-        void setDatosGrid(int Flag) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
-        {
-
-            String Nombre = "";
-            String Titulo = "";
-            String Modulo = "";
-            Boolean Visualiza = false;
-            Boolean Imprime = false;
-            Boolean Agrega = false;
-            Boolean Modifica = false;
-            Boolean Anula = false;
-
-            if (Estado == "Modo Agregar" || Estado == "Modo Editar")
-            {
-                Nombre = GridMain.GetFocusedRowCellValue("Nombre").ToString();
-                Titulo = GridMain.GetFocusedRowCellValue("Titulo").ToString();
-                Modulo = GridMain.GetFocusedRowCellValue("Modulo").ToString();
-                Visualiza = Convert.ToBoolean(GridMain.GetFocusedRowCellValue("Visualiza"));
-                Imprime = Convert.ToBoolean(GridMain.GetFocusedRowCellValue("Imprime"));
-                Agrega = Convert.ToBoolean(GridMain.GetFocusedRowCellValue("Agrega"));
-                Modifica = Convert.ToBoolean(GridMain.GetFocusedRowCellValue("Modifica"));
-                Anula = Convert.ToBoolean(GridMain.GetFocusedRowCellValue("Anula"));
-            }
-
-            List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
-            {
-                new SqlParameter("Flag",Flag),
-                new SqlParameter("@GrupoID", txtGrupoID.Text),
-                new SqlParameter("@Nombre", Nombre),
-                new SqlParameter("@Modulo", Modulo),
-                new SqlParameter("@Titulo", Titulo),
-                new SqlParameter("@Visualiza", Visualiza),
-                new SqlParameter("@Imprime", Imprime),
-                new SqlParameter("@Agrega", Agrega),
-                new SqlParameter("@Modifica", Modifica),
-                new SqlParameter("@Anula", Anula)
-            };
-
-            DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysGruposAccesos", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
-
-            if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
-            {
-                Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
-                frm.ShowDialog();
-                ClassVariables.GetSetError = null;
-            }
-
-            if (TablaGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-            {
-
-                GridMain.ItemsSource = TablaGrid;
-                //GridMain.Columns["FormularioID"].Visible = false;
-            }
-
-            List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
-            {
-                "Visualiza","Agrega","Modifica","Imprime","Anula"
-            };
-
-            if (Estado == "Modo Agregar" && Estado == "Modo Editar")
-            {
-                Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
-            }
-            else
-            {
-                ClassControl.SetGridReadOnly(GridMain);
-            }
-
-            listSqlParameter.Clear(); listaColumnas.Clear(); //Limpiamos la lista de parametros.
         }
 
         void SetControls(bool Habilitador, string Modo, bool Editando) //Este metodo se encarga de controlar cada unos de los controles del cuerpo de la ventana como los textbox
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtGrupoID,txtNombre,txtGrupoID,cActivar
+                txtTransaccionID,txtNombre
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                cActivar
+                
             };
 
-            List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
+            List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
             {
-                txtGrupoID,txtNombre
+                txtTransaccionID,txtNombre
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador
@@ -551,7 +461,6 @@ namespace Sadora.Administracion
 
                 BtnCancelar.IsEnabled = false;
                 BtnGuardar.IsEnabled = false;
-                BtnOpciones.IsEnabled = false;
                 if (Estado == "Modo Consulta") //Si el estado es modo consulta enviamos a ejecutar otro metodo parametizado de forma especial
                 {
                     SetControls(true, null, false);
@@ -582,37 +491,18 @@ namespace Sadora.Administracion
 
                 BtnCancelar.IsEnabled = true;
                 BtnGuardar.IsEnabled = true;
-                BtnOpciones.IsEnabled = true;
                 if (Estado == "Modo Agregar") //Si el estado es modo Agregar enviamos a ejecutar otro metodo parametizado de forma especial
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtGrupoID.IsReadOnly = true;
-                    new FrmValidarAccion("Desea crear un usuario igual a este?").ShowDialog();
-                    if (ClassVariables.ValidarAccion)
-                    {
-                        Estado = "Modo Consulta";
-                        txtGrupoID.Text = last;
-                        setDatosGrid(0);
-                        txtGrupoID.Text = (LastGrupoID + 1).ToString();
-                    }
-                    else
-                    {
-                        txtGrupoID.Text = (LastGrupoID + 1).ToString();
-                        setDatosGrid(0);
-                    }
-                    
+                    txtTransaccionID.IsReadOnly = true;
+                    txtTransaccionID.Text = (LastTransaccionID + 1).ToString();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
                 {
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
-                List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
-                {
-                    "Visualiza","Agrega","Modifica","Imprime","Anula"
-                };
-                Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
             }
             if (Imprime == false)
             {
@@ -628,39 +518,49 @@ namespace Sadora.Administracion
             }
         }
 
-        //private void txtGrupoID_KeyDown(object sender, KeyEventArgs e)
-        //{
+        void setValidador(string Consulta, TextBox Enviador, TextBox Recibidor) //Este metodo se encarga de validar cualquier campo de la ventana que este llamando otro mantenimiento, Ejemplo(Campo clase de Administracion contiene(TransaccionID, Detalle de la clase que es el nombre)), 
+        {                                                                       // el metodo recibe el textbox que le envia la info, la consulta que debe buscar con esa info y el textbox donde debe depositar el resultado.
 
-        //}
+            reader = Clases.ClassData.runSqlDataReader(Consulta + Enviador.Text, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
 
-        //private void txtGrupoID_KeyUp(object sender, KeyEventArgs e)
-        //{
+            if (reader.HasRows) //Validamos si el datareader trajo data.
+            {
+                if (reader.Read()) //Si puede leer la informacion
+                {
+                    Recibidor.Text = reader["Nombre"].ToString(); //Asignamos el resultado de la columna "Nombre" del datareader en el textbox que le indicamos en el parametro previamente identificado.
+                    reader.NextResult();
+                }
+                reader.Close(); //Cerramos el datareader
+                reader.Dispose(); //Cortamos la conexion del datareader
+            }
+            else //Si no trajo data
+            {
+                Recibidor.Clear(); //Dejamos en blanco el campo que recibe
+                reader.Close(); //limpiamos el reader
+                reader.Dispose();
+            }
 
-        //}
+        }
 
-        //private void btnGrupoID_Click(object sender, RoutedEventArgs e)
-        //{
-
-        //}
-
-        private void BtnSeleccionMasiva_Click(object sender, RoutedEventArgs e)
+        void FinId()
         {
-
-            new FrmValidarAccion("Puede Visualizar masivamente?").ShowDialog();
-            ClassControl.GridCheckEdit(GridMain, "Visualiza", ClassVariables.ValidarAccion);
-
-            new FrmValidarAccion("Puede Imprimir masivamente?").ShowDialog();
-            ClassControl.GridCheckEdit(GridMain, "Imprime", ClassVariables.ValidarAccion);
+            SqlDataReader reader = Clases.ClassData.runSqlDataReader("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '"+Table+"' and ORDINAL_POSITION = 2", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
             
-            new FrmValidarAccion("Puede Agregar masivamente?").ShowDialog();
-            ClassControl.GridCheckEdit(GridMain, "Agrega", ClassVariables.ValidarAccion);
-            
-            new FrmValidarAccion("Puede Modificar masivamente?").ShowDialog();
-            ClassControl.GridCheckEdit(GridMain, "Modifica", ClassVariables.ValidarAccion);
-            
-            new FrmValidarAccion("Puede Anular masivamente?").ShowDialog();
-            ClassControl.GridCheckEdit(GridMain, "Anula", ClassVariables.ValidarAccion);
-            
+            if (reader.HasRows) //Validamos si el datareader trajo data.
+            {
+                if (reader.Read()) //Si puede leer la informacion
+                {
+                    Id = reader["COLUMN_NAME"].ToString(); //Asignamos el resultado de la columna "Nombre" del datareader en el textbox que le indicamos en el parametro previamente identificado.
+                    reader.NextResult();
+                }
+                reader.Close(); //Cerramos el datareader
+                reader.Dispose(); //Cortamos la conexion del datareader
+            }
+            else //Si no trajo data
+            {
+                reader.Close(); //limpiamos el reader
+                reader.Dispose();
+            }
         }
 
     }

@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Text.RegularExpressions;
 using System.Data.SqlClient;
 using System.Windows.Input;
+using DevExpress.Xpf.Grid;
 
 namespace Sadora.Clases
 {
@@ -33,24 +34,6 @@ namespace Sadora.Clases
                 reader.Dispose();
             }
 
-        }
-
-
-        public static void SetFormularios()
-        {
-
-            List<Clases.ClassVariables> listOfUsers = new List<Clases.ClassVariables>()
-            {
-                new Clases.ClassVariables() { Formulario = new Clientes.UscClientes().Name, Modulo = "Clientes", Titulo = "Maestra de Clientes" },
-                new Clases.ClassVariables() { Formulario = new Clientes.UscClaseClientes().Name, Modulo = "Clientes", Titulo = "Clases de Clientes" },
-                new Clases.ClassVariables() { Formulario = new Administracion.UscUsuarios().Name, Modulo = "Administracion", Titulo = "Configuracion de usuarios" },
-                new Clases.ClassVariables() { Formulario = new Recursos_Humanos.UscEmpleados().Name, Modulo = "Recursos Humanos", Titulo = "Maestra de empleados" },
-                new Clases.ClassVariables() { Formulario = new Administracion.UscGruposUsuarios().Name, Modulo = "Administracion", Titulo = "Configuracion de grupos de usuarios" },
-                //new Clases.ClassVariables() { Formulario = "UscCuentasxCobrar", Modulo = "Clientes", Titulo = "Cuentas por Cobrar" },
-                //new Clases.ClassVariables() { Formulario = "UscCuentasxCobrar", Modulo = "Clientes", Titulo = "soraya" },
-            };
-
-            Clases.ClassData.runDataTableSql("sp_sysFormularios", listOfUsers, "DTItemns");
         }
 
         public static void ClearControl(List<Control> listaControles)
@@ -200,7 +183,7 @@ namespace Sadora.Clases
                 }
                 listaControles.Clear();
             }
-            
+
         }
 
         public static string ValidadorControles(List<Control> listaControl)
@@ -232,7 +215,7 @@ namespace Sadora.Clases
                         }
                         Linea = Linea.Replace("txt", "").Replace("tbx", "");
                     }
-                        //(control as TextBox).IsReadOnly = !funcion;
+                    //(control as TextBox).IsReadOnly = !funcion;
                 }
                 else if (control is DatePicker)
                 {
@@ -255,27 +238,27 @@ namespace Sadora.Clases
                         }
                         Linea = Linea.Replace("txt", "").Replace("tbx", "").Replace("dtp", "");
                     }
-                        //(control as DatePicker).Text = funcion;
+                    //(control as DatePicker).Text = funcion;
                 }
 
                 //if (control.Text == "")
                 //{
-                    //if (contador == 0)
-                    //{
-                    //    control.Focus();
-                    //}
+                //if (contador == 0)
+                //{
+                //    control.Focus();
+                //}
 
-                    //contador++;
+                //contador++;
 
-                    //if (Linea == "Debe Completar los Campos: ")
-                    //{
-                    //    Linea = Linea + control.Name;
-                    //}
-                    //else
-                    //{
-                    //    Linea = Linea + ", " + control.Name;
-                    //}
-                    //Linea = Linea.Replace("txt", "").Replace("tbx", "");
+                //if (Linea == "Debe Completar los Campos: ")
+                //{
+                //    Linea = Linea + control.Name;
+                //}
+                //else
+                //{
+                //    Linea = Linea + ", " + control.Name;
+                //}
+                //Linea = Linea.Replace("txt", "").Replace("tbx", "");
                 //}
             }
             return Linea;
@@ -349,7 +332,7 @@ namespace Sadora.Clases
             {
                 //if (ClassControl.ValidateIdentityCard(Cedula) == true)
                 //{
-                    tabla = Clases.ClassData.runSqlDataReader("exec spCedula '" + Cedula + "'", null, "CommandText");
+                tabla = Clases.ClassData.runSqlDataReader("exec spCedula '" + Cedula + "'", null, "CommandText");
                 //}
                 //else
                 //{
@@ -370,26 +353,42 @@ namespace Sadora.Clases
                 e.Handled = true;
         }
 
-        public static void GridAllowEdit(DevExpress.Xpf.Grid.GridControl Grid, List<String> ListaColumnas, Boolean AllowEdit, string opcion = "--AllowEdit-- o --Visible--") 
+        public static void SetGridReadOnly(GridControl Grid, List<String> ListaColumnas = null, Boolean AllowEdit = true)
         {
-            DevExpress.Utils.DefaultBoolean DevExbool;
-
-            if (AllowEdit)
+            if (ListaColumnas == null)
             {
-                DevExbool = DevExpress.Utils.DefaultBoolean.True;
+                foreach (GridColumn col in Grid.Columns)
+                col.ReadOnly = true;
             }
             else
             {
-                DevExbool = DevExpress.Utils.DefaultBoolean.False;
-            }
-
-            foreach (String Valor in ListaColumnas)
-            {
-                Grid.Columns[Valor].AllowEditing = DevExbool;
-
-                //Grid.Columns[Valor].Visible    = false;
+                foreach (String Valor in ListaColumnas)
+                {
+                    Grid.Columns[Valor].ReadOnly = AllowEdit;
+                }
             }
         }
+
+        //public static void GridAllowEdit(DevExpress.Xpf.Grid.GridControl Grid, List<String> ListaColumnas, Boolean AllowEdit, string opcion = "--AllowEdit-- o --Visible--") 
+        //{
+        //    DevExpress.Utils.DefaultBoolean DevExbool;
+
+        //    if (AllowEdit)
+        //    {
+        //        DevExbool = DevExpress.Utils.DefaultBoolean.True;
+        //    }
+        //    else
+        //    {
+        //        DevExbool = DevExpress.Utils.DefaultBoolean.False;
+        //    }
+
+        //    foreach (String Valor in ListaColumnas)
+        //    {
+        //        Grid.Columns[Valor].AllowEditing = DevExbool;
+
+        //        //Grid.Columns[Valor].Visible    = false;
+        //    }
+        //}
 
         public static void GridCheckEdit(DevExpress.Xpf.Grid.GridControl Grid, string Columna, Boolean Opcion)
         {

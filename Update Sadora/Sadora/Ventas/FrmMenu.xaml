@@ -155,19 +155,19 @@
                                         </StackPanel>
                                     </TreeViewItem.Header>
 
-                                    <!--REGISTRO DE USUARIOS-->
-                                    <TreeViewItem x:Name="btnMenuRegistroVentas" ToolTip="REGISTRO DE VENTAS" MouseUp="btnMenuRegistroVentas_MouseUp">
+                                    <!--REGISTRO DE VENTAS-->
+                                    <TreeViewItem x:Name="btnMenuFacturacion" ToolTip="Facturacion" MouseUp="btnMenuFacturacion_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
-                                                <materialDesign:PackIcon x:Name="iconMenuRegistroVentas" Kind="CartOutline" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <materialDesign:PackIcon x:Name="iconMenuFacturacion" Kind="CartOutline" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                                    Registro de Ventas
+                                                    Facturacion
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
                                     </TreeViewItem>
 
-                                    <!--REGISTRO DE CAJAS-->
+                                    <!--REGISTRO DE CAJAS--><!--
                                     <TreeViewItem x:Name="btnMenuRegistroCajas" ToolTip="REGISTRO DE CAJAS" MouseUp="btnMenuRegistroCajas_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
@@ -177,7 +177,7 @@
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
-                                    </TreeViewItem>
+                                    </TreeViewItem>-->
 
 
                                 </TreeViewItem>

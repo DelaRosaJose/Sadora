@@ -234,6 +234,7 @@ namespace Sadora.Inventario
         private void btnMenuRegistroCajas_MouseUp(object sender, MouseButtonEventArgs e)
         {
             OpenUsercontrol(null);
+
         }
 
         private void btnMenuRegistroArticulos_MouseUp(object sender, MouseButtonEventArgs e)
@@ -247,5 +248,14 @@ namespace Sadora.Inventario
             OpenUsercontrol(null);
         }
 
+        private void btnMenuConfiguracionMarcas_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OpenUsercontrol(new Administracion.UscMantenimientoGeneral("tinvMarca"), iconMenuConfiguracionMarcas.Kind);
+        }
+
+        private void btnMenuConfiguracionDepartamentos_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OpenUsercontrol(new Administracion.UscMantenimientoGeneral("TinvDepartamento"), iconMenuConfiguracionDepartamentos.Kind);
+        }
     }
 }

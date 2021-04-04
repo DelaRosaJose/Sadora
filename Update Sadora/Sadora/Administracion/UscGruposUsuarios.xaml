@@ -242,7 +242,7 @@
             <Grid Grid.Row="2">
                 <dxg:GridControl x:Name="GridMain"  AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True">
                     <dxg:GridControl.View>
-                        <dxg:TableView ShowTotalSummary="True" ShowAutoFilterRow="True" AllowEditing="False" ShowGroupPanel="False" AutoWidth="True"/>
+                        <dxg:TableView ShowTotalSummary="True" ShowAutoFilterRow="True" ShowGroupPanel="False" AutoWidth="True"/>
                     </dxg:GridControl.View>
                 </dxg:GridControl>
             </Grid>

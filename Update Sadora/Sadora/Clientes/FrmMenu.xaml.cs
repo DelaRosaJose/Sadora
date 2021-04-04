@@ -248,7 +248,8 @@ namespace Sadora.Clientes
 
         private void btnMenuClaseClientes_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(new UscClaseClientes(), iconMenuClaseClientes.Kind);
+            OpenUsercontrol(new Administracion.UscMantenimientoGeneral("TcliClaseclientes"), iconMenuClaseClientes.Kind);
+            //OpenUsercontrol(new UscClaseClientes(), iconMenuClaseClientes.Kind);
         }
 
         private void btnMenuGestionClientes_MouseUp(object sender, MouseButtonEventArgs e)

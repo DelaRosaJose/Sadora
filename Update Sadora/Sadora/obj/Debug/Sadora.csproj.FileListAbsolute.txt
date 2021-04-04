@@ -14,7 +14,6 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMenu.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmSplash.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\FrmMenu.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\UscClaseClientes.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\UscClientes.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\App.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.cache
@@ -27,7 +26,6 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMenu.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmSplash.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\FrmMenu.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\UscClaseClientes.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\UscClientes.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.g.resources
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.Properties.Resources.resources
@@ -87,8 +85,6 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\FrmMenu.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscProveedores.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\FrmMenu.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscProveedores.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscClaseProveedores.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscClaseProveedores.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmMenu.g.cs
@@ -103,3 +99,5 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\FrmMenu.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\FrmMenu.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscArticulos.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscArticulos.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.baml

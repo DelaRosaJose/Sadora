@@ -80,10 +80,18 @@ namespace Sadora.Administracion
 
                     var nombreTipo = t.BaseType.Name;
                     Control control;
-                    
+
                     if (nombreTipo.ToLower().Contains("usercontrol") || nombreTipo.ToLower().Contains("window"))
                     {
-                        control = Activator.CreateInstance(t) as Control;
+                        try
+                        {
+                            control = Activator.CreateInstance(t) as Control;
+                        }
+                        catch
+                        {
+                            control = Activator.CreateInstance(t, "") as Control;
+                        }
+
                         if (control is Window)
                         {
                             Window frm = control as Window;
@@ -118,6 +126,32 @@ namespace Sadora.Administracion
                     }
 
                 }
+                List<string> ListVentanas = new List<string>()
+                {
+                    "Clases de Marca","Clases de Departamento","Clases de Proveedores"
+                };
+                foreach (string item in ListVentanas)
+                {
+                    List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
+                    {
+                        new SqlParameter("Flag", 1),
+                        new SqlParameter("@Nombre", "UscMantenimientoGeneral"),
+                        new SqlParameter("@Modulo", "Administracion"),
+                        new SqlParameter("@Titulo", item)
+                    };
+
+                    DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysFormularios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+
+                    if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+                    {
+                        Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
+                        frm.ShowDialog();
+                        ClassVariables.GetSetError = null;
+                    }
+
+                    listSqlParameter.Clear();
+                }
+
 
             }
             else if (pbStatus.Value == 100 && listBox1.Items.Count == 0)

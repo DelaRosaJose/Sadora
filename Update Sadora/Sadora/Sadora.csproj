@@ -94,6 +94,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Administracion\UscMantenimientoGeneral.xaml.cs">
+      <DependentUpon>UscMantenimientoGeneral.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administracion\UscGruposUsuarios.xaml.cs">
       <DependentUpon>UscGruposUsuarios.xaml</DependentUpon>
     </Compile>
@@ -108,9 +111,6 @@
     </Compile>
     <Compile Include="Proveedores\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Proveedores\UscClaseProveedores.xaml.cs">
-      <DependentUpon>UscClaseProveedores.xaml</DependentUpon>
     </Compile>
     <Compile Include="Proveedores\UscTransacciones.xaml.cs">
       <DependentUpon>UscTransacciones.xaml</DependentUpon>
@@ -161,6 +161,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Administracion\UscMantenimientoGeneral.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Administracion\UscGruposUsuarios.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -172,10 +176,6 @@
     <Page Include="Clientes\FrmMenu.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Clientes\UscClaseClientes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Page Include="Clientes\UscClientes.xaml">
       <SubType>Designer</SubType>
@@ -215,9 +215,6 @@
     <Compile Include="Clientes\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Clientes\UscClaseClientes.xaml.cs">
-      <DependentUpon>UscClaseClientes.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Clientes\UscClientes.xaml.cs">
       <DependentUpon>UscClientes.xaml</DependentUpon>
     </Compile>
@@ -234,10 +231,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Proveedores\FrmMenu.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Proveedores\UscClaseProveedores.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
