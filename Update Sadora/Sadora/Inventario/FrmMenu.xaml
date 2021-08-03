@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sadora.Inventario"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
-        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Inventario" Loaded="Window_Loaded">
+        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Inventario" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
 
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
@@ -147,7 +147,7 @@
                                 <!--TRANSACCIONES-->
                                 <TreeViewItem  Cursor="Hand">
                                     <TreeViewItem.Header>
-                                        <StackPanel Orientation="Horizontal" ToolTip="MODULO DE Inventario">
+                                        <StackPanel Orientation="Horizontal" ToolTip="MODULO DE INVENTARIO">
                                             <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
                                                     Transacciones
                                             </TextBlock>
@@ -156,7 +156,7 @@
                                     </TreeViewItem.Header>
 
                                     <!--REGISTRO DE ARTICULOS-->
-                                    <TreeViewItem x:Name="btnMenuRegistroArticulos" ToolTip="REGISTRO DE Inventario" MouseUp="btnMenuRegistroArticulos_MouseUp">
+                                    <TreeViewItem x:Name="btnMenuRegistroArticulos" ToolTip="REGISTRO DE ARTICULOS" MouseUp="btnMenuRegistroArticulos_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
                                                 <materialDesign:PackIcon x:Name="iconMenuRegistroArticulos" Kind="CartOutline" Height="25" Width="25" VerticalAlignment="Center"/>
@@ -179,7 +179,6 @@
                                         </TreeViewItem.Header>
                                     </TreeViewItem>
 
-
                                 </TreeViewItem>
 
                                 <Separator Width="260"/>
@@ -189,11 +188,23 @@
                                     <TreeViewItem.Header>
                                         <StackPanel Orientation="Horizontal" ToolTip="CONFIGURACION">
                                             <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
-                                            CONFIGURACION
+                                                CONFIGURACION
                                             </TextBlock>
                                             <materialDesign:PackIcon Kind="Cog"  Height="25" Width="25"/>
                                         </StackPanel>
                                     </TreeViewItem.Header>
+
+                                    <!--CLASES DE ARTICULOS-->
+                                    <TreeViewItem x:Name="btnMenuClaseArticulos" ToolTip="CLASES DE ARTICULOS" MouseUp="btnMenuClaseArticulos_MouseUp">
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
+                                                <materialDesign:PackIcon x:Name="iconMenuClaseArticulos" Kind="CogBox" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
+                                                    Clases de Articulos
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
 
                                     <!--CONFIGURACION DE MARCAS-->
                                     <TreeViewItem x:Name="btnMenuConfiguracionMarcas" ToolTip="CONFIGURACION DE MARCAS" MouseUp="btnMenuConfiguracionMarcas_MouseUp">
@@ -201,7 +212,7 @@
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
                                                 <materialDesign:PackIcon x:Name="iconMenuConfiguracionMarcas" Kind="MarkerCheck" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                            Configuracion de Marcas
+                                                    Configuracion de Marcas
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
@@ -213,7 +224,7 @@
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
                                                 <materialDesign:PackIcon x:Name="iconMenuConfiguracionDepartamentos" Kind="InboxMultiple" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                            Configuracion de Marcas
+                                                    Configuracion de Departamentos
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>

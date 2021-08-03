@@ -36,7 +36,7 @@ as
 	if (@flag = 1) -- INSERTAR CLIENTES
 	begin
 		insert into TsysUsuarios (UsuarioID, Nombre, EmpleadoID, GrupoID, Contraseña , Activo)
-		values (@UsuarioID, @Nombre, @EmpleadoID, @GrupoID, @Contraseña, @Activo)
+		values ((SELECT isnull(MAX(UsuarioID),0)+1 FROM TsysUsuarios), @Nombre, @EmpleadoID, @GrupoID, @Contraseña, @Activo)
 	end
 
 	if (@flag = 2) -- EDITAR CLIENTES

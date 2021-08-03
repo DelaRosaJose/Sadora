@@ -244,6 +244,7 @@ namespace Sadora.Administracion
                 }
                 SetEnabledButton("Modo Consulta");
                 setDatos(0, txtUsuarioID.Text);
+                ClassControl.UpdateNameUser();
                 //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }

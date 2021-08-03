@@ -1,5 +1,6 @@
 ﻿
 FC:\Users\Usuario\Desktop\Sadora\Sadora\App.xaml;;
+FC:\Users\Usuario\Desktop\Sadora\Sadora\Administracion\FrmControlAccesos.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Administracion\FrmValidarAccion.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Administracion\FrmCompletarCamposHost.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Administracion\FrmLogin.xaml;;
@@ -14,10 +15,12 @@ FC:\Users\Usuario\Desktop\Sadora\Sadora\Clientes\FrmMenu.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Clientes\UscClientes.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Contabilidad\FrmMenu.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Inventario\FrmMenu.xaml;;
+FC:\Users\Usuario\Desktop\Sadora\Sadora\Inventario\UscClaseArticulos.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Proveedores\FrmMenu.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Proveedores\UscProveedores.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Recursos Humanos\FrmMenu.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Recursos Humanos\UscEmpleados.xaml;;
+FC:\Users\Usuario\Desktop\Sadora\Sadora\Ventas\FrmControlComprobantes.xaml;;
 FC:\Users\Usuario\Desktop\Sadora\Sadora\Ventas\FrmMenu.xaml;;
-FC:\Users\Usuario\Desktop\Sadora\Sadora\Ventas\UscVentas.xaml;;
+FC:\Users\Usuario\Desktop\Sadora\Sadora\Ventas\UscFacturacion.xaml;;
 

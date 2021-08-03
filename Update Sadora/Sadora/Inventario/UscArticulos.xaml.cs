@@ -38,8 +38,8 @@ namespace Sadora.Inventario
         SqlDataReader reader;
         string Estado;
         string Lista;
-        int TransaccionID;
-        int LastTransaccionID;
+        int ArticuloID;
+        int LastArticuloID;
         string last;
 
         private void UserControl_Initialized(object sender, EventArgs e)
@@ -65,7 +65,7 @@ namespace Sadora.Inventario
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               /*txtCosto,*/txtDescripcion
+               txtNombre, txtTarjeta
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
@@ -78,13 +78,13 @@ namespace Sadora.Inventario
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               /*txtCosto,*/txtDescripcion
+               txtNombre, txtTarjeta
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
             try
             {
-                TransaccionID = Convert.ToInt32(txtArticuloID.Text) - 1;
+                ArticuloID = Convert.ToInt32(txtArticuloID.Text) - 1;
             }
             catch (Exception exception)
             {
@@ -92,7 +92,7 @@ namespace Sadora.Inventario
             }
 
 
-            if (TransaccionID <= 1)
+            if (ArticuloID <= 1)
             {
                 BtnPrimerRegistro.IsEnabled = false;
                 BtnAnteriorRegistro.IsEnabled = false;
@@ -100,7 +100,7 @@ namespace Sadora.Inventario
             }
             else
             {
-                setDatos(0, TransaccionID.ToString());
+                setDatos(0, ArticuloID.ToString());
             }
         }
 
@@ -108,28 +108,28 @@ namespace Sadora.Inventario
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               /*txtCosto,*/txtDescripcion
+               txtNombre, txtTarjeta
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
             try
             {
-                TransaccionID = Convert.ToInt32(txtArticuloID.Text) + 1;
+                ArticuloID = Convert.ToInt32(txtArticuloID.Text) + 1;
             }
             catch (Exception exception)
             {
                 ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
             }
 
-            if (TransaccionID >= LastTransaccionID)
+            if (ArticuloID >= LastArticuloID)
             {
                 BtnUltimoRegistro.IsEnabled = false;
                 BtnProximoRegistro.IsEnabled = false;
-                setDatos(0, LastTransaccionID.ToString());
+                setDatos(0, LastArticuloID.ToString());
             }
             else
             {
-                setDatos(0, TransaccionID.ToString());
+                setDatos(0, ArticuloID.ToString());
             }
         }
 
@@ -137,7 +137,7 @@ namespace Sadora.Inventario
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               /*txtCosto,*/txtDescripcion
+               txtNombre, txtTarjeta
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
@@ -158,7 +158,7 @@ namespace Sadora.Inventario
             {
                 List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
                 {
-                    txtPrecio//,txtDepartamentoID,tbxDepartamentoID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                    txtModelo,txtDepartamentoID,tbxDepartamentoID,txtMarcaID,tbxMarcaID,txtCosto,txtPrecio,txtDescripcion
                 };
                 Clases.ClassControl.ActivadorControlesReadonly(null, true, false, false, listaControles);
 
@@ -166,7 +166,7 @@ namespace Sadora.Inventario
 
                 List<String> ListName = new List<String>() //Estos son los campos que saldran en la ventana de busqueda, solo si se le pasa esta lista de no ser asi, se mostrarian todos
                 {
-                    "Proveedor ID","ITBIS","Descripcion","Precio","Direccion","Activo"
+                    "Articulo ID","Tarjeta","Nombre","Descripcion","Modelo","Costo","Precio"
                 };
 
                 SetEnabledButton("Modo Consulta");
@@ -197,12 +197,6 @@ namespace Sadora.Inventario
                         var message = "No se encontraron datos";
                         Task.Factory.StartNew(() => messageQueue.Enqueue(message));
                     }
-                    //List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
-                    //{
-                    //   txtCosto,txtDescripcion
-                    //};
-                    //ClassControl.ClearControl(listaControl);
-                    //setDatos(0, last);
                 }
 
             }
@@ -240,11 +234,6 @@ namespace Sadora.Inventario
             }
             else
             {
-                //SqlDataReader tabla = ClassControl.getDatosCedula(txtCosto.Text);
-                //if (tabla != null)
-                //{
-                //    tabla.Close();
-                //    tabla.Dispose();
                 if (Estado == "Modo Editar")
                 {
                     setDatos(2, null);
@@ -255,15 +244,9 @@ namespace Sadora.Inventario
                 }
                 SetEnabledButton("Modo Consulta");
                 setDatos(0, txtArticuloID.Text);
-                //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-
-                //}
-
             }
 
         }
-
-
 
         private void txtCosto_KeyUp(object sender, KeyEventArgs e)
         {
@@ -271,32 +254,6 @@ namespace Sadora.Inventario
             {
                 if (e.Key == Key.Enter)
                 {
-                    //reader = ClassControl.getDatosCedula(txtCosto.Text);
-                    //if (reader != null)
-                    //{
-                    //    if (reader.HasRows)
-                    //    {
-                    //        if (reader.Read())
-                    //        {
-                    //            txtDescripcion.Text = reader["Descripcions"].ToString() + " " + reader["Apellidos"].ToString();
-                    //            //txtDireccion.Text = reader["Direccion"].ToString();
-                    //            //txtTelefono.Text = reader["Telefono"].ToString();
-                    //            reader.NextResult();
-
-                    //        }
-                    //        reader.Close();
-                    //        reader.Dispose();
-                    //    }
-                    //    else
-                    //    {
-                    //        reader.Close();
-                    //        reader.Dispose();
-                    //    }
-                    //}
-
-                    //txtCosto.Text = 
-                    //txtDisponibles.Text = (Convert.ToDouble(txtModelo.Text) - Convert.ToDouble(txtPrecio.Text) - 1).ToString();
-
                     ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
@@ -324,18 +281,12 @@ namespace Sadora.Inventario
             }
         }
 
-        //private void txtDescripcion_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    ClassControl.ValidadorNumeros(e);
-        //}
-
         private void txtPrecio_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta")
             {
                 if (e.Key == Key.Enter)
                 {
-                    txtCosto.Text = (Convert.ToInt32(txtPrecio.Text) * 0.18).ToString();
                     ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
@@ -346,19 +297,12 @@ namespace Sadora.Inventario
             ClassControl.ValidadorNumeros(e);
         }
 
-        private void txtModelo_KeyDown(object sender, KeyEventArgs e)
-        {
-            ClassControl.ValidadorNumeros(e);
-        }
-
         private void txtModelo_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta")
             {
                 if (e.Key == Key.Enter)
                 {
-                    //txtCosto.Text = 
-                    //    txtDisponibles.Text = Convert.ToDouble(txtPrecio.Text) + Convert.ToDouble(txtModelo.Text)
                     ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
@@ -429,7 +373,7 @@ namespace Sadora.Inventario
             }
         }
 
-        private void cbxTipoTransaccion_KeyUp(object sender, KeyEventArgs e)
+        private void cbxTipoArticulo_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta")
             {
@@ -451,30 +395,181 @@ namespace Sadora.Inventario
             }
         }
 
-        private void dtpFechaTransaccion_KeyUp(object sender, KeyEventArgs e)
+        private void dtpFechaArticulo_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta")
             {
                 if (e.Key == Key.Enter)
                 {
-                    lDescripcion.Focus();                    //((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    lDescripcion.Focus();
                 }
             }
         }
 
-        void setDatos(int Flag, string Transaccion) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
+        private void txtNombre_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Transaccion == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
+        }
+
+        private void txtDisponibles_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
+        }
+
+        private void txtTarjeta_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
+        }
+
+        private void txtDepartamentoID_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    if (txtDepartamentoID.Text == "")
+                    {
+                        txtDepartamentoID.Text = 0.ToString();
+                    }
+                    ClassControl.setValidador("select Nombre from TinvDepartamento where DepartamentoID = ", txtDepartamentoID, tbxDepartamentoID);
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
+        }
+
+        private void txtDepartamentoID_KeyDown(object sender, KeyEventArgs e)
+        {
+            ClassControl.ValidadorNumeros(e);
+        }
+
+        private void btnDepartamentoID_Click(object sender, RoutedEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select DepartamentoID,Nombre from TinvDepartamento", null);
+                frm.ShowDialog();
+
+                if (frm.GridMuestra.SelectedItem != null)
+                {
+                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                    txtDepartamentoID.Text = item.Row.ItemArray[0].ToString();
+
+                    ClassControl.setValidador("select Nombre from TinvDepartamento where DepartamentoID =", txtDepartamentoID, tbxDepartamentoID);
+                }
+
+            }
+        }
+
+        private void btnMarcaID_Click(object sender, RoutedEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("select MarcaID,Nombre from TinvMarca", null);
+                frm.ShowDialog();
+
+                if (frm.GridMuestra.SelectedItem != null)
+                {
+                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                    txtMarcaID.Text = item.Row.ItemArray[0].ToString();
+
+                    ClassControl.setValidador("select Nombre from TinvMarca where MarcaID = ", txtMarcaID, tbxMarcaID);
+                }
+
+            }
+        }
+
+        private void txtMarcaID_KeyDown(object sender, KeyEventArgs e)
+        {
+            ClassControl.ValidadorNumeros(e);
+        }
+
+        private void txtMarcaID_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    if (txtMarcaID.Text == "")
+                    {
+                        txtMarcaID.Text = 0.ToString();
+                    }
+                    ClassControl.setValidador("select Nombre from TinvMarca where MarcaID =", txtMarcaID, tbxMarcaID);
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
+        }
+
+
+        private void txtClaseID_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    if (txtClaseID.Text == "")
+                    {
+                        txtClaseID.Text = 0.ToString();
+                    }
+                    ClassControl.setValidador("select Nombre from TinvClaseArticulos where ClaseID =", txtClaseID, tbxClaseID);
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
+        }
+
+        private void txtClaseID_KeyDown(object sender, KeyEventArgs e)
+        {
+            ClassControl.ValidadorNumeros(e);
+        }
+
+        private void btnClaseID_Click(object sender, RoutedEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("select ClaseID, Nombre, Porcentaje from TinvClaseArticulos", null);
+                frm.ShowDialog();
+
+                if (frm.GridMuestra.SelectedItem != null)
+                {
+                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                    txtClaseID.Text = item.Row.ItemArray[0].ToString();
+
+                    ClassControl.setValidador("select Nombre from TinvClaseArticulos where ClaseID =", txtClaseID, tbxClaseID);
+                }
+
+            }
+        }
+
+        void setDatos(int Flag, string Articulo) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
+        {
+            if (Articulo == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
             {
                 if (txtArticuloID.Text == "")
                 {
-                    TransaccionID = 0;
+                    ArticuloID = 0;
                 }
                 else
                 {
                     try
                     {
-                        TransaccionID = Convert.ToInt32(txtArticuloID.Text);
+                        ArticuloID = Convert.ToInt32(txtArticuloID.Text);
                     }
                     catch (Exception exception)
                     {
@@ -484,16 +579,17 @@ namespace Sadora.Inventario
             }
             else //Si pasamos un Proveedor, lo convertimos actualizamos la variable Proveedor principal
             {
-                TransaccionID = Convert.ToInt32(Transaccion);
+                ArticuloID = Convert.ToInt32(Articulo);
             }
 
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el Descripcion en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
                 new SqlParameter("Flag",Flag),
-                new SqlParameter("@ArticuloID",txtArticuloID.Text),
+                new SqlParameter("@ArticuloID",ArticuloID),
                 new SqlParameter("@Nombre",txtNombre.Text),
                 new SqlParameter("@Descripcion",txtDescripcion.Text),
                 new SqlParameter("@Modelo",txtModelo.Text),
+                new SqlParameter("@ClaseArticuloID",txtClaseID.Text),
                 new SqlParameter("@DepartamentoID",txtDepartamentoID.Text),
                 new SqlParameter("@MarcaID",txtMarcaID.Text),
                 new SqlParameter("@Tarjeta",txtTarjeta.Text),
@@ -502,7 +598,7 @@ namespace Sadora.Inventario
                 new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
             };
 
-            tabla = Clases.ClassData.runDataTable("sp_invArticulos", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+            tabla = Clases.ClassData.runDataTable("sp_invArticulos", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la Articulo digase, consulta, agregar,editar,eliminar en una tabla.
 
             if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
             {
@@ -517,6 +613,7 @@ namespace Sadora.Inventario
                 txtNombre.Text = tabla.Rows[0]["Nombre"].ToString();
                 txtDescripcion.Text = tabla.Rows[0]["Descripcion"].ToString();
                 txtModelo.Text = tabla.Rows[0]["Modelo"].ToString();
+                txtClaseID.Text = tabla.Rows[0]["ClaseArticuloID"].ToString();
                 txtDepartamentoID.Text = tabla.Rows[0]["DepartamentoID"].ToString();
                 txtMarcaID.Text = tabla.Rows[0]["MarcaID"].ToString();
                 txtTarjeta.Text = tabla.Rows[0]["Tarjeta"].ToString();
@@ -527,23 +624,18 @@ namespace Sadora.Inventario
                 {
                     try
                     {
-                        LastTransaccionID = Convert.ToInt32(txtArticuloID.Text); //intentamos convertir el id del Proveedor
+                        LastArticuloID = Convert.ToInt32(txtArticuloID.Text); //intentamos convertir el id del Proveedor
                     }
                     catch (Exception exception)
                     {
                         ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error al intentar convertirlo lo enviamos
                     }
                 }
-                //ClassControl.setValidador("select * from TsupProveedores where DepartamentoID =", txtDepartamentoID, tbxDepartamentoID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
+                ClassControl.setValidador("select Nombre from TinvDepartamento where DepartamentoID = ", txtDepartamentoID, tbxDepartamentoID);
+                ClassControl.setValidador("select Nombre from TinvMarca where MarcaID = ", txtMarcaID, tbxMarcaID);
+                ClassControl.setValidador("select Nombre from TinvClaseArticulos where ClaseID =", txtClaseID, tbxClaseID);
+
             }
-            //else
-            //{
-            //    if (SnackbarThree.MessageQueue is { } messageQueue)
-            //    {
-            //        var message = "No se encontraron datos";
-            //        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
-            //    }
-            //}
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
         }
 
@@ -551,17 +643,17 @@ namespace Sadora.Inventario
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtArticuloID,txtDescripcion,txtPrecio//,txtDepartamentoID//,  txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                txtArticuloID,txtTarjeta,txtNombre,txtModelo,txtMarcaID,txtDepartamentoID,txtCosto,txtPrecio,txtDescripcion
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                txtPrecio//,txtDepartamentoID,tbxDepartamentoID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                txtModelo,txtMarcaID,tbxMarcaID,txtDepartamentoID,tbxDepartamentoID,txtCosto,txtPrecio,txtDescripcion
             };
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
             {
-                txtArticuloID,txtDescripcion,txtPrecio//,txtDepartamentoID,tbxDepartamentoID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
+                txtArticuloID,txtTarjeta,txtNombre,txtModelo,txtMarcaID,tbxMarcaID,txtDepartamentoID,tbxDepartamentoID,txtCosto,txtPrecio,txtDescripcion
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador
@@ -642,8 +734,7 @@ namespace Sadora.Inventario
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
                     txtArticuloID.IsReadOnly = true;
-                    txtArticuloID.Text = (LastTransaccionID + 1).ToString();
-                    //txtCosto.Focus();
+                    txtArticuloID.Text = (LastArticuloID + 1).ToString();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
                 {
@@ -665,49 +756,5 @@ namespace Sadora.Inventario
             }
         }
 
-        private void txtNombre_KeyUp(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void txtNombre_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void txtDisponibles_KeyUp(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void txtTarjeta_KeyUp(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void txtTarjeta_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void txtDepartamentoID_KeyUp(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void txtDepartamentoID_KeyDown(object sender, KeyEventArgs e)
-        {
-
-        }
-
-        private void btnDepartamentoID_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void btnMarcaID_Click(object sender, RoutedEventArgs e)
-        {
-
-        }
     }
 }

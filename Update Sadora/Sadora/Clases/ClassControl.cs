@@ -13,7 +13,10 @@ namespace Sadora.Clases
 
         public static void setValidador(string Consulta, TextBox Enviador, TextBox Recibidor) //Este metodo se encarga de validar cualquier campo de la ventana que este llamando otro mantenimiento, Ejemplo(Campo clase de clientes contiene(ClaseID, Detalle de la clase que es el nombre)), 
         {                                                                       // el metodo recibe el textbox que le envia la info, la consulta que debe buscar con esa info y el textbox donde debe depositar el resultado.
-
+            if (Enviador.Text == null || Enviador.Text == "")
+            {
+                Consulta += "0";
+            }
 
             SqlDataReader reader = Clases.ClassData.runSqlDataReader(Consulta + Enviador.Text, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
 
@@ -323,10 +326,17 @@ namespace Sadora.Clases
         public static SqlDataReader getDatosCedula(string Cedula)
         {
             SqlDataReader tabla = null;
+            SqlDataReader Result = null;
             if (Cedula.Length > 13)
             {
                 Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost("No puede ingresar mas de 13 digitos en el RNC");
                 frm.ShowDialog();
+            }
+            else if ((Result = Clases.ClassData.runSqlDataReader("select count(*) from TcliClientes where RNC = '" + Cedula + "' ", null, "CommandText")).Read())
+            {
+                ClassVariables.ExistClient = true;
+                Result.Close();
+                Result.Dispose();
             }
             else
             {
@@ -341,13 +351,11 @@ namespace Sadora.Clases
                 //}
             }
             return tabla;
-
-
         }
 
         public static void ValidadorNumeros(KeyEventArgs e)
         {
-            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9)
+            if (e.Key >= Key.D0 && e.Key <= Key.D9 || e.Key >= Key.NumPad0 && e.Key <= Key.NumPad9 || e.Key == Key.OemPeriod)
                 e.Handled = false;
             else
                 e.Handled = true;
@@ -358,7 +366,7 @@ namespace Sadora.Clases
             if (ListaColumnas == null)
             {
                 foreach (GridColumn col in Grid.Columns)
-                col.ReadOnly = true;
+                col.ReadOnly = AllowEdit;
             }
             else
             {
@@ -369,6 +377,26 @@ namespace Sadora.Clases
             }
         }
 
+        public static void UpdateNameUser()
+        {
+            SqlDataReader reader = Clases.ClassData.runSqlDataReader("select * from TsysUsuarios where UsuarioID = " + ClassVariables.UsuarioID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+            if (reader.HasRows) //Validamos si el datareader trajo data.
+            {
+                if (reader.Read()) //Si puede leer la informacion
+                {
+                    ClassVariables.UsuarioNombre = reader["Nombre"].ToString();
+                    reader.NextResult();
+                }
+                reader.Close(); //Cerramos el datareader
+                reader.Dispose(); //Cortamos la conexion del datareader
+            }
+            else //Si no trajo data
+            {
+                reader.Close(); //limpiamos el reader
+                reader.Dispose();
+            }
+        }
         //public static void GridAllowEdit(DevExpress.Xpf.Grid.GridControl Grid, List<String> ListaColumnas, Boolean AllowEdit, string opcion = "--AllowEdit-- o --Visible--") 
         //{
         //    DevExpress.Utils.DefaultBoolean DevExbool;

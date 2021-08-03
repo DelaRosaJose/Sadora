@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Sadora.Clases;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
@@ -68,6 +69,8 @@ namespace Sadora.Administracion
                     }
                 }
             }
+
+            ClassControl.SetGridReadOnly(GridMuestra);
         }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)

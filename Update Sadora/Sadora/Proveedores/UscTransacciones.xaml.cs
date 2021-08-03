@@ -267,7 +267,7 @@ namespace Sadora.Proveedores
         {
             if (Estado != "Modo Consulta")
             {
-                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select * from TsupProveedores", null);
+                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select ProveedorID,RNC,Nombre,Representante,Activo from TsupProveedores", null);
                 frm.ShowDialog();
 
                 if (frm.GridMuestra.SelectedItem != null)

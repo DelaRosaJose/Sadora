@@ -94,6 +94,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Administracion\FrmControlAccesos.xaml.cs">
+      <DependentUpon>FrmControlAccesos.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administracion\UscMantenimientoGeneral.xaml.cs">
       <DependentUpon>UscMantenimientoGeneral.xaml</DependentUpon>
     </Compile>
@@ -108,6 +111,9 @@
     </Compile>
     <Compile Include="Inventario\UscArticulos.xaml.cs">
       <DependentUpon>UscArticulos.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Inventario\UscClaseArticulos.xaml.cs">
+      <DependentUpon>UscClaseArticulos.xaml</DependentUpon>
     </Compile>
     <Compile Include="Proveedores\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
@@ -124,15 +130,22 @@
     <Compile Include="Recursos Humanos\UscEmpleados.xaml.cs">
       <DependentUpon>UscEmpleados.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Ventas\FrmControlComprobantes.xaml.cs">
+      <DependentUpon>FrmControlComprobantes.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Ventas\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
     <Compile Include="Contabilidad\UscComprobantes.xaml.cs">
       <DependentUpon>UscComprobantes.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Ventas\UscVentas.xaml.cs">
-      <DependentUpon>UscVentas.xaml</DependentUpon>
+    <Compile Include="Ventas\UscFacturacion.xaml.cs">
+      <DependentUpon>UscFacturacion.xaml</DependentUpon>
     </Compile>
+    <Page Include="Administracion\FrmControlAccesos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Administracion\FrmValidarAccion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -230,6 +243,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Inventario\UscClaseArticulos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Proveedores\FrmMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -250,6 +267,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Ventas\FrmControlComprobantes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Ventas\FrmMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -258,7 +279,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Ventas\UscVentas.xaml">
+    <Page Include="Ventas\UscFacturacion.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

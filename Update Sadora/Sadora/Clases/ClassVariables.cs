@@ -15,15 +15,24 @@ namespace Sadora.Clases
         //public static string EmpleadoID;
         public static int UsuarioID;
         public static string UsuarioNombre;
+        private static bool existclient = false;
+
         //public static string UsuarioNombre;
         //public static string TipoCuenta;
         public static bool Imprime;
         public static bool Agrega;
         public static bool Modifica;
+        public static bool Anula;
 
         public string Nombre { get; set; }
         public string Formulario { get; set; }
         public string Modulo { get; set; }
         public string Titulo { get; set; }
+
+        public static bool ExistClient
+        {
+            get { return existclient; }
+            set { existclient = value; }
+        }
     }
 }

@@ -31,7 +31,6 @@ namespace Sadora.Ventas
         public FrmMenu()
         {
             InitializeComponent();
-
             Modulo = TextBlock1.Text;
             TextService();
 
@@ -141,6 +140,7 @@ namespace Sadora.Ventas
                             ClassVariables.Imprime = Convert.ToBoolean(TablaGrid.Rows[0]["Imprime"]);
                             ClassVariables.Agrega = Convert.ToBoolean(TablaGrid.Rows[0]["Agrega"]);
                             ClassVariables.Modifica = Convert.ToBoolean(TablaGrid.Rows[0]["Modifica"]);
+                            ClassVariables.Anula = Convert.ToBoolean(TablaGrid.Rows[0]["Anula"]);
 
                             var packIconMaterial = new MaterialDesignThemes.Wpf.PackIcon()
                             {
@@ -238,8 +238,19 @@ namespace Sadora.Ventas
 
         private void btnMenuFacturacion_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(new UscVentas(), iconMenuFacturacion.Kind);
-            //OpenUsercontrol(new UscEmpleados(), iconMenuRegistroEmpleados.Kind);
+            //OpenUsercontrol(new UscVentas(), iconMenuFacturacion.Kind);
+            OpenUsercontrol(new UscFacturacion(), iconMenuFacturacion.Kind);
         }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            lNombreUsuario.Text = ClassVariables.UsuarioNombre;
+        }
+
+
+        //private void btnMenuFacturacionTest_MouseUp(object sender, MouseButtonEventArgs e)
+        //{
+        //    OpenUsercontrol(new UscFacturacion(), iconMenuFacturacionTest.Kind);
+        //}
     }
 }

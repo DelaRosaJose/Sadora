@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sadora.Administracion"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
-        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Clientes" Loaded="Window_Loaded">
+        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Clientes" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
 
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">

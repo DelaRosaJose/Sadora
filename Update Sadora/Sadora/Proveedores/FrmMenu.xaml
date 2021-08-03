@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sadora.Administracion"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
-        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Proveedores" Loaded="Window_Loaded">
+        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Proveedores" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
 
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
@@ -145,24 +145,24 @@
 
                             <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FlowDirection="RightToLeft" Width="262" TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}">
 
-                                <!--CLIENTES-->
+                                <!--PROVEEDORES-->
                                 <TreeViewItem  Cursor="Hand">
                                     <TreeViewItem.Header>
                                         <StackPanel Orientation="Horizontal" ToolTip="MODULO DE PROVEEDORES">
                                             <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
-                                            TRANSACCIONES
+                                                TRANSACCIONES
                                             </TextBlock>
                                             <materialDesign:PackIcon Kind="AccountGroup"  Height="25" Width="25"/>
                                         </StackPanel>
                                     </TreeViewItem.Header>
 
-                                    <!--MAESTRA DE CLIENTES-->
+                                    <!--MAESTRA DE PROVEEDORES-->
                                     <TreeViewItem x:Name="btnMenuMaestraProveedores" ToolTip="REGISTRO DE PROVEEDORES" MouseUp="btnMenuMaestraProveedores_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
                                                 <materialDesign:PackIcon x:Name="iconMenuMaestraProveedores" Kind="AccountPlus" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                            Maestra de Clientes
+                                                    Maestra de Proveedores
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
@@ -174,7 +174,7 @@
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
                                                 <materialDesign:PackIcon x:Name="iconMenuCuentasXPagar" Kind="AccountCash" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                            Cuentas por Pagar
+                                                    Cuentas por Pagar
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
@@ -189,19 +189,19 @@
                                     <TreeViewItem.Header>
                                         <StackPanel Orientation="Horizontal"  ToolTip="REPORTES">
                                             <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
-                                            REPORTES
+                                                REPORTES
                                             </TextBlock>
                                             <materialDesign:PackIcon Kind="FileChart"  Height="25" Width="25"/>
                                         </StackPanel>
                                     </TreeViewItem.Header>
 
-                                    <!--GESTION DE CLIENTES-->
+                                    <!--GESTION DE PROVEEDORES-->
                                     <TreeViewItem x:Name="btnMenuGestionProveedores" ToolTip="Gestion de Proveedores" MouseUp="btnMenuGestionProveedores_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
                                                 <materialDesign:PackIcon x:Name="iconMenuGestionProveedores" Kind="FileAccount" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                            Gestion de Clientes
+                                                    Gestion de Proveedores
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
@@ -213,7 +213,7 @@
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
                                                 <materialDesign:PackIcon x:Name="iconMenuGestionListados" Kind="FileTable" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                            Gestion de Listados
+                                                    Gestion de Listados
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
@@ -228,19 +228,19 @@
                                     <TreeViewItem.Header>
                                         <StackPanel Orientation="Horizontal" ToolTip="CONFIGURACION">
                                             <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
-                                            CONFIGURACION
+                                                CONFIGURACION
                                             </TextBlock>
                                             <materialDesign:PackIcon Kind="Cog"  Height="25" Width="25"/>
                                         </StackPanel>
                                     </TreeViewItem.Header>
 
-                                    <!--CLASE DE CLIENTES-->
+                                    <!--CLASE DE PROVEEDORES-->
                                     <TreeViewItem x:Name="btnMenuClaseProveedores" ToolTip="CLASE DE PROVEEDORES" MouseUp="btnMenuClaseProveedores_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
                                                 <materialDesign:PackIcon x:Name="iconMenuClaseProveedores" Kind="AccountPlus" Height="25" Width="25" VerticalAlignment="Center"/>
                                                 <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
-                                            Clase de Clientes
+                                                    Clase de Proveedores
                                                 </TextBlock>
                                             </StackPanel>
                                         </TreeViewItem.Header>
@@ -253,7 +253,7 @@
                         </ScrollViewer>
 
 
-                        <TextBlock Grid.Row="1" Name="TextBlock1" Margin="5" FontSize="40" TextAlignment="Center" Text="CLIENTES" Foreground="{StaticResource MaterialDesignDarkForeground}" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="1" Name="TextBlock1" Margin="5" FontSize="40" TextAlignment="Center" Text="PROVEEDORES" Foreground="{StaticResource MaterialDesignDarkForeground}" FontWeight="Bold"/>
 
 
                     </Grid>

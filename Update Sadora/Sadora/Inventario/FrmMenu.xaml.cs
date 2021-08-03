@@ -257,5 +257,15 @@ namespace Sadora.Inventario
         {
             OpenUsercontrol(new Administracion.UscMantenimientoGeneral("TinvDepartamento"), iconMenuConfiguracionDepartamentos.Kind);
         }
+
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            lNombreUsuario.Text = ClassVariables.UsuarioNombre;
+        }
+
+        private void btnMenuClaseArticulos_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OpenUsercontrol(new Inventario.UscClaseArticulos(), iconMenuClaseArticulos.Kind);
+        }
     }
 }

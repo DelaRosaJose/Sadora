@@ -58,14 +58,13 @@ namespace Sadora.Contabilidad
                 this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Inicializador = false;
             }
-
         }
 
         private void BtnPrimerRegistro_Click(object sender, RoutedEventArgs e)
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               /*txtNextNCF,*/txtNomenclatura
+               txtNombre
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
@@ -78,7 +77,7 @@ namespace Sadora.Contabilidad
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               /*txtNextNCF,*/txtNomenclatura
+               txtNombre
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
@@ -108,7 +107,7 @@ namespace Sadora.Contabilidad
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               /*txtNextNCF,*/txtNomenclatura
+               txtNombre
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
@@ -137,7 +136,7 @@ namespace Sadora.Contabilidad
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               /*txtNextNCF,*/txtNomenclatura
+               txtNombre
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
@@ -158,7 +157,7 @@ namespace Sadora.Contabilidad
             {
                 List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
                 {
-                    txtDesde//,txtProveedorID,tbxProveedorID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                    cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
                 };
                 Clases.ClassControl.ActivadorControlesReadonly(null, true, false, false, listaControles);
 
@@ -197,12 +196,6 @@ namespace Sadora.Contabilidad
                         var message = "No se encontraron datos";
                         Task.Factory.StartNew(() => messageQueue.Enqueue(message));
                     }
-                    //List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
-                    //{
-                    //   txtNextNCF,txtNomenclatura
-                    //};
-                    //ClassControl.ClearControl(listaControl);
-                    //setDatos(0, last);
                 }
 
             }
@@ -240,11 +233,6 @@ namespace Sadora.Contabilidad
             }
             else
             {
-                //SqlDataReader tabla = ClassControl.getDatosCedula(txtNextNCF.Text);
-                //if (tabla != null)
-                //{
-                //    tabla.Close();
-                //    tabla.Dispose();
                 if (Estado == "Modo Editar")
                 {
                     setDatos(2, null);
@@ -255,15 +243,8 @@ namespace Sadora.Contabilidad
                 }
                 SetEnabledButton("Modo Consulta");
                 setDatos(0, txtComprobanteID.Text);
-                //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-
-                //}
-
             }
-
         }
-
-
 
         private void txtNextNCF_KeyUp(object sender, KeyEventArgs e)
         {
@@ -271,32 +252,7 @@ namespace Sadora.Contabilidad
             {
                 if (e.Key == Key.Enter)
                 {
-                    //reader = ClassControl.getDatosCedula(txtNextNCF.Text);
-                    //if (reader != null)
-                    //{
-                    //    if (reader.HasRows)
-                    //    {
-                    //        if (reader.Read())
-                    //        {
-                    //            txtNomenclatura.Text = reader["Nomenclaturas"].ToString() + " " + reader["Apellidos"].ToString();
-                    //            //txtDireccion.Text = reader["Direccion"].ToString();
-                    //            //txtTelefono.Text = reader["Telefono"].ToString();
-                    //            reader.NextResult();
-
-                    //        }
-                    //        reader.Close();
-                    //        reader.Dispose();
-                    //    }
-                    //    else
-                    //    {
-                    //        reader.Close();
-                    //        reader.Dispose();
-                    //    }
-                    //}
-
-                    //txtNextNCF.Text = 
                     txtDisponibles.Text = (Convert.ToDouble(txtHasta.Text) - Convert.ToDouble(txtDesde.Text) - 1).ToString();
-
                     ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
@@ -335,18 +291,12 @@ namespace Sadora.Contabilidad
             }
         }
 
-        //private void txtNomenclatura_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    ClassControl.ValidadorNumeros(e);
-        //}
-
         private void txtDesde_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta")
             {
                 if (e.Key == Key.Enter)
                 {
-                    txtNextNCF.Text = (Convert.ToInt32(txtDesde.Text) * 0.18).ToString();
                     ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
@@ -368,8 +318,36 @@ namespace Sadora.Contabilidad
             {
                 if (e.Key == Key.Enter)
                 {
-                    //txtNextNCF.Text = 
-                    //    txtDisponibles.Text = Convert.ToDouble(txtDesde.Text) + Convert.ToDouble(txtHasta.Text)
+                    if (txtDesde.Text != null && txtHasta.Text != null && txtDesde.Text != "" && txtHasta.Text != "")
+                    {
+                        if (Convert.ToInt32(txtDesde.Text) > Convert.ToInt32(txtHasta.Text))
+                        {
+                            if (SnackbarThree.MessageQueue is { } messageQueue)
+                            {
+                                Task.Factory.StartNew(() => messageQueue.Enqueue("La cantidad hasta de comprobantes es menor que desde"));
+                            }
+                        }
+                        else
+                        {
+                            txtDisponibles.Text = (Convert.ToInt32(txtHasta.Text) - Convert.ToInt32(txtDesde.Text)).ToString();
+                            if (txtDesde.Text.Length < 8)
+                            {
+                                string resultado = "";
+                                int CantLen = txtDesde.Text.Length;
+                                int Total = 8;
+                                while (Total > CantLen)
+                                {
+                                    resultado += "0";
+                                    Total--;
+                                }
+                                txtNextNCF.Text = (txtNomenclatura.Text+ resultado.ToString()+ txtDesde.Text).ToString();
+                            }
+                            else if (txtDesde.Text.Length == 8)
+                            {
+                                txtNextNCF.Text = txtNomenclatura.Text + txtDesde.Text;
+                            }
+                        }
+                    }
                     ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                 }
             }
@@ -501,7 +479,7 @@ namespace Sadora.Contabilidad
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el Nomenclatura en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
                 new SqlParameter("Flag",Flag),
-                new SqlParameter("@ComprobanteID",txtComprobanteID.Text),
+                new SqlParameter("@ComprobanteID",TransaccionID),
                 new SqlParameter("@Nombre",txtNombre.Text),
                 new SqlParameter("@Auxiliar",cbxAuxiliar.Text),
                 new SqlParameter("@Nomenclatura",txtNomenclatura.Text),
@@ -560,17 +538,17 @@ namespace Sadora.Contabilidad
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtComprobanteID,txtNomenclatura,txtDesde//,txtProveedorID//,  txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                txtComprobanteID,txtNombre,cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                txtDesde//,txtProveedorID,tbxProveedorID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
             };
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
             {
-                txtComprobanteID,txtNomenclatura,txtDesde//,txtProveedorID,tbxProveedorID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
+                txtComprobanteID,txtNombre,cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador
@@ -652,7 +630,6 @@ namespace Sadora.Contabilidad
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
                     txtComprobanteID.IsReadOnly = true;
                     txtComprobanteID.Text = (LastTransaccionID + 1).ToString();
-                    //txtNextNCF.Focus();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
                 {
@@ -673,6 +650,5 @@ namespace Sadora.Contabilidad
                 BtnEditar.IsEnabled = Modifica;
             }
         }
-
     }
 }

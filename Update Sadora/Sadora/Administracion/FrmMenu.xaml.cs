@@ -31,7 +31,7 @@ namespace Sadora.Administracion
         public FrmMenu()
         {
             InitializeComponent();
-
+            //DataContext = ClassVariables.UsuarioNombre;
             Modulo = TextBlock1.Text;
             TextService();
 
@@ -252,6 +252,9 @@ namespace Sadora.Administracion
             //OpenUsercontrol(new UscGruposUsuarios(), new UscGruposUsuarios().Name, "Administracion", "Configuracion de grupos de usuarios", iconMenuRegistroUsuarios.Kind);
         }
 
-        
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            lNombreUsuario.Text = ClassVariables.UsuarioNombre;
+        }
     }
 }

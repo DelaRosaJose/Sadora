@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sadora.Ventas"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
-        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Ventas" Loaded="Window_Loaded">
+        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Ventas" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
 
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
@@ -65,7 +65,7 @@
                 </Grid>
 
                 <r:TabControl Grid.Row="1" x:Name="TabMain" TabItemMinWidth="100" TabItemMaxWidth="300" TabItemMinHeight="30" 
-                              TabItemMaxHeight="50"  AllowAddNew="False" AllowDelete="False">
+                              TabItemMaxHeight="50"  AllowAddNew="False" AllowDelete="False" Margin="2 0 0 0">
 
                     <r:TabControl.TabItemNormalBackground>
                         <LinearGradientBrush EndPoint="0,1" StartPoint="0,0">
@@ -140,7 +140,7 @@
                             <RowDefinition Height="auto"/>
                         </Grid.RowDefinitions>
 
-                        <ScrollViewer Padding="0 10 0 0"   VerticalScrollBarVisibility="Auto">
+                        <ScrollViewer Padding="0 10 0 0" VerticalScrollBarVisibility="Auto">
 
                             <TreeView ScrollViewer.HorizontalScrollBarVisibility="Disabled" FlowDirection="RightToLeft" Width="262" TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}">
 
@@ -155,7 +155,19 @@
                                         </StackPanel>
                                     </TreeViewItem.Header>
 
-                                    <!--REGISTRO DE VENTAS-->
+                                    <!--REGISTRO DE VENTAS--><!--
+                                    <TreeViewItem x:Name="btnMenuFacturacion" ToolTip="Facturacion" MouseUp="btnMenuFacturacion_MouseUp">
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
+                                                <materialDesign:PackIcon x:Name="iconMenuFacturacion" Kind="CartOutline" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
+                                                    Facturacion
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>-->
+
+                                    <!--FACTURACION-->
                                     <TreeViewItem x:Name="btnMenuFacturacion" ToolTip="Facturacion" MouseUp="btnMenuFacturacion_MouseUp">
                                         <TreeViewItem.Header>
                                             <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">

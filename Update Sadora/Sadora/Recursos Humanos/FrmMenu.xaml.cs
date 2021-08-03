@@ -240,7 +240,10 @@ namespace Sadora.Recursos_Humanos
         {
             OpenUsercontrol(new UscEmpleados(), iconMenuRegistroEmpleados.Kind);
         }
+        private void Window_MouseMove(object sender, MouseEventArgs e)
+        {
+            lNombreUsuario.Text = ClassVariables.UsuarioNombre;
+        }
 
-        
     }
 }

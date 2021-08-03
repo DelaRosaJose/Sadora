@@ -1,48 +1,122 @@
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.csprojAssemblyReference.cache
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Inventario\UscArticulos.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Proveedores\UscTransacciones.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Contabilidad\UscComprobantes.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmValidarAccion.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmCompletarCamposHost.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmLogin.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmMain.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmSplash.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\UscGruposUsuarios.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\UscUsuarios.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Clientes\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Clientes\UscClientes.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Contabilidad\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Inventario\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Inventario\UscArticulos.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Proveedores\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Proveedores\UscTransacciones.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Proveedores\UscProveedores.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Recursos Humanos\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Recursos Humanos\UscEmpleados.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Ventas\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Contabilidad\UscComprobantes.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Ventas\UscFacturacion.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Ventas\UscVentas.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\App.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora_MarkupCompile.cache
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora_MarkupCompile.lref
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.exe
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.pdb
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\Sadora.exe.config
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\Sadora.exe
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\Sadora.pdb
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Data.v19.1.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Mvvm.v19.1.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Printing.v19.1.Core.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Xpf.Core.v19.1.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Xpf.Grid.v19.1.Core.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Xpf.Grid.v19.1.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\MaterialDesignColors.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\Wpf.TabControl.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Pdf.v19.1.Core.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Images.v19.1.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Data.v19.1.xml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Mvvm.v19.1.xml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Printing.v19.1.Core.xml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Xpf.Core.v19.1.xml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Xpf.Grid.v19.1.xml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Xpf.Grid.v19.1.Core.xml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\MaterialDesignThemes.Wpf.xml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\DevExpress.Pdf.v19.1.Core.xml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\de\DevExpress.Data.v19.1.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\es\DevExpress.Data.v19.1.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ja\DevExpress.Data.v19.1.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ru\DevExpress.Data.v19.1.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\de\DevExpress.Printing.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\es\DevExpress.Printing.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ja\DevExpress.Printing.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ru\DevExpress.Printing.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\de\DevExpress.Xpf.Core.v19.1.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\es\DevExpress.Xpf.Core.v19.1.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ja\DevExpress.Xpf.Core.v19.1.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ru\DevExpress.Xpf.Core.v19.1.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\de\DevExpress.Xpf.Grid.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\es\DevExpress.Xpf.Grid.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ja\DevExpress.Xpf.Grid.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ru\DevExpress.Xpf.Grid.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\de\DevExpress.Pdf.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\es\DevExpress.Pdf.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ja\DevExpress.Pdf.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\bin\Debug\ru\DevExpress.Pdf.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\App.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmValidarAccion.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmCompletarCamposHost.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmLogin.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmMain.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\FrmSplash.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\UscGruposUsuarios.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Administracion\UscUsuarios.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Clientes\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Clientes\UscClientes.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Contabilidad\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Inventario\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Proveedores\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Proveedores\UscProveedores.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Recursos Humanos\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Recursos Humanos\UscEmpleados.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Ventas\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Ventas\UscFacturacion.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Ventas\UscVentas.baml
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.g.resources
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.Properties.Resources.resources
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.csproj.GenerateResource.cache
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.exe.licenses
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Sadora.csproj.CopyComplete
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Inventario\UscClaseArticulos.g.cs
+C:\Users\Usuario\Desktop\Sadora - Copy\Sadora\obj\Debug\Inventario\UscClaseArticulos.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\Sadora.exe.config
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\Sadora.exe
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\Sadora.pdb
-C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignColors.dll
-C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignThemes.Wpf.dll
-C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignColors.pdb
-C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignThemes.Wpf.pdb
-C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignThemes.Wpf.xml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csprojAssemblyReference.cache
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmCompletarCamposHost.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmLogin.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMain.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMenu.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmSplash.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\FrmMenu.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\UscClientes.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\App.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.cache
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.lref
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\App.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmCompletarCamposHost.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmLogin.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMain.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMenu.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmSplash.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\FrmMenu.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\UscClientes.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.g.resources
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.Properties.Resources.resources
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csproj.GenerateResource.cache
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csproj.CoreCompileInputs.cache
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csproj.CopyComplete
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.exe
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.pdb
-C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\Wpf.TabControl.dll
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscUsuarios.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscUsuarios.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Data.v19.1.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Mvvm.v19.1.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Printing.v19.1.Core.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Xpf.Core.v19.1.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Xpf.Grid.v19.1.Core.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Xpf.Grid.v19.1.dll
+C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignColors.dll
+C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignThemes.Wpf.dll
+C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\Wpf.TabControl.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Pdf.v19.1.Core.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Images.v19.1.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Data.v19.1.xml
@@ -51,6 +125,9 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Printing.v19.1.Core.
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Xpf.Core.v19.1.xml
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Xpf.Grid.v19.1.xml
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Xpf.Grid.v19.1.Core.xml
+C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignColors.pdb
+C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignThemes.Wpf.pdb
+C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\MaterialDesignThemes.Wpf.xml
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\DevExpress.Pdf.v19.1.Core.xml
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\de\DevExpress.Data.v19.1.resources.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\es\DevExpress.Data.v19.1.resources.dll
@@ -68,36 +145,72 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\de\DevExpress.Xpf.Grid.v19.1.Co
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\es\DevExpress.Xpf.Grid.v19.1.Core.resources.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\ja\DevExpress.Xpf.Grid.v19.1.Core.resources.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\ru\DevExpress.Xpf.Grid.v19.1.Core.resources.dll
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.exe.licenses
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\de\DevExpress.Pdf.v19.1.Core.resources.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\es\DevExpress.Pdf.v19.1.Core.resources.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\ja\DevExpress.Pdf.v19.1.Core.resources.dll
 C:\Users\Usuario\Desktop\Sadora\Sadora\bin\Debug\ru\DevExpress.Pdf.v19.1.Core.resources.dll
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csprojAssemblyReference.cache
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscArticulos.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmControlAccesos.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmValidarAccion.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmValidarAccion.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Recursos Humanos\FrmMenu.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Recursos Humanos\FrmMenu.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Recursos Humanos\UscEmpleados.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Recursos Humanos\UscEmpleados.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmCompletarCamposHost.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmLogin.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMain.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmSplash.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscGruposUsuarios.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscGruposUsuarios.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscUsuarios.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\UscClientes.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscArticulos.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscClaseArticulos.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscProveedores.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Recursos Humanos\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Recursos Humanos\UscEmpleados.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmControlComprobantes.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\UscFacturacion.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\App.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.cache
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.lref
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\App.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmControlAccesos.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmValidarAccion.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmCompletarCamposHost.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmLogin.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMain.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\FrmSplash.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscGruposUsuarios.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscUsuarios.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Clientes\UscClientes.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscClaseArticulos.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\FrmMenu.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscProveedores.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmMenu.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Recursos Humanos\FrmMenu.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Recursos Humanos\UscEmpleados.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmControlComprobantes.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmMenu.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\UscVentas.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\UscVentas.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\FrmMenu.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\FrmMenu.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscArticulos.baml
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Inventario\UscArticulos.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.g.cs
-C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\UscFacturacion.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.g.resources
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.Properties.Resources.resources
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csproj.GenerateResource.cache
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.exe.licenses
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csproj.CoreCompileInputs.cache
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csproj.CopyComplete
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.exe
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.pdb

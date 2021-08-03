@@ -89,7 +89,7 @@ namespace Sadora.Clases
             catch (Exception exception)
             {
                 //ClassVariables.GetSetError = "error" + exception.ToString();
-                throw new Exception(exception.Message);//MessageBox.Show("hola mmg", ex.Message); // //
+                throw new Exception(exception.Message);
             }
             finally
             {

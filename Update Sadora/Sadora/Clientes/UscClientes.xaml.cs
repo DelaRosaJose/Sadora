@@ -192,17 +192,12 @@ namespace Sadora.Clientes
                 {
                     BtnProximoRegistro.IsEnabled = false;
                     BtnAnteriorRegistro.IsEnabled = false;
+
                     if (SnackbarThree.MessageQueue is { } messageQueue)
                     {
                         var message = "No se encontraron datos";
                         Task.Factory.StartNew(() => messageQueue.Enqueue(message));
                     }
-                    //List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
-                    //{
-                    //   txtRNC,txtNombre
-                    //};
-                    //ClassControl.ClearControl(listaControl);
-                    //setDatos(0, last);
                 }
                 
             }
@@ -258,7 +253,15 @@ namespace Sadora.Clientes
                     //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
                 }
-                
+                else if (ClassVariables.ExistClient)
+                {
+                    if (SnackbarThree.MessageQueue is { } messageQueue)
+                    {
+                        var message = "Ya existe un cliente con este RNC";
+                        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+                    }
+                }
+
             }
 
         }
@@ -308,8 +311,17 @@ namespace Sadora.Clientes
                             reader.Close();
                             reader.Dispose();
                         }
+                        ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
                     }
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    else if (ClassVariables.ExistClient)
+                    {
+                        if (SnackbarThree.MessageQueue is { } messageQueue)
+                        {
+                            var message = "Ya existe un cliente con este RNC";
+                            Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+                        }
+                    }
+                    
                 }
             }
         }
@@ -513,14 +525,6 @@ namespace Sadora.Clientes
                 }
                 ClassControl.setValidador("select * from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
             }
-            //else
-            //{
-            //    if (SnackbarThree.MessageQueue is { } messageQueue)
-            //    {
-            //        var message = "No se encontraron datos";
-            //        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
-            //    }
-            //}
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
         }
 
@@ -528,7 +532,7 @@ namespace Sadora.Clientes
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtClienteID,txtRNC,txtNombre,txtRepresentante,txtClaseID,  txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar
+                txtClienteID,txtRNC,txtNombre,txtRepresentante,txtClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
