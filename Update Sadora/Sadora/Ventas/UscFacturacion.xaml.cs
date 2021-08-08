@@ -38,12 +38,7 @@ namespace Sadora.Ventas
         int LastFacturaID = 100000;
         string last = "";
 
-        //string RNC = "";
-        //string Nombre = "";
-        //float Descuento = 0;
-        //float SubTotal = 0;
-        //float ITBIS = 0;
-        //float Total = 0;
+        double GenITBIS = 0;
 
         double TSubTotal = 0;
         double TITBIS = 0;
@@ -344,6 +339,7 @@ namespace Sadora.Ventas
             else
             {
                 PanelOpcionesPagos.Visibility = Visibility.Visible;
+                ControlEvent();
             }
 
         }
@@ -397,6 +393,8 @@ namespace Sadora.Ventas
 
                     if (reader.Rows.Count == 1)
                     {
+                        GenITBIS = Convert.ToDouble(reader.Rows[0]["ITBIS"].ToString());
+
                         if (ValidaArticulosGrid() == false)
                         {
                             TablaGrid.AddNewRow();
@@ -424,6 +422,7 @@ namespace Sadora.Ventas
                     }
                     else if (reader.Rows.Count > 1)
                     {
+
                         Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, reader, ColumCaption);
                         frm.ShowDialog();
                         string Tarjeta = null;
@@ -439,6 +438,7 @@ namespace Sadora.Ventas
                             Nombre = item.Row.ItemArray[2].ToString();
                             Precio = Convert.ToInt32(item.Row.ItemArray[4].ToString());
                             ITBIS = Convert.ToInt32(item.Row.ItemArray[6].ToString());
+                            GenITBIS = Convert.ToDouble(item.Row.ItemArray[6].ToString());
                             Total = Convert.ToInt32(item.Row.ItemArray[7].ToString());
                             frm.Close();
 
@@ -673,7 +673,7 @@ namespace Sadora.Ventas
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtFacturaID,txtClienteID, txtArticuloID, tbxClienteID, txtRNC//,txtClaseNCF
+                txtFacturaID,txtClienteID, txtArticuloID//,txtClaseNCF
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
@@ -683,22 +683,26 @@ namespace Sadora.Ventas
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                txtFacturaID
+                txtFacturaID, txtClienteID, tbxClienteID, txtRNC, txtNCF, txtTotal, txtSubTotal,txtITBIS
+            };
+            List<Control> listaControlesSoloLimpiar = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
+            {
+                txtRNC, txtNCF,tbxClienteID
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador
             {
                 if (Estado == "Modo Busqueda")
                 {
-                    Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, listaControles);
+                    Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, listaControles, listaControlesSoloLimpiar);
                 }
                 else if (Estado == "Modo Agregar")
                 {
-                    Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, true, null);
+                    Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, true, null, listaControlesSoloLimpiar);
                 }
                 else
                 {
-                    Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, null);
+                    Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, null, listaControlesSoloLimpiar);
                 }
             }
             else if (Modo == "Validador") //si el parametro modo es igual a validador ingresa.
@@ -847,11 +851,11 @@ namespace Sadora.Ventas
             double Precio = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "Precio").ToString());
             double Subtotal = (Cantidad * Precio);
             double ActualITBIS = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "ITBIS").ToString());
-            double ITBIS = 0;
-            if (Cantidad > 1)
-                ITBIS = ((ActualITBIS / (Cantidad - 1)) + ActualITBIS);
-            else
-                ITBIS = ActualITBIS; 
+            double ITBIS = (GenITBIS * Cantidad);
+            //if (Cantidad > 1)
+            //    ITBIS = ((ActualITBIS / (Cantidad - 1)) + ActualITBIS);
+            //else
+            //    ITBIS = ActualITBIS; 
 
 
 
@@ -966,7 +970,7 @@ namespace Sadora.Ventas
                         break;
                 }
             }
-            
+
         }
 
         private void TablaGrid_FocusedColumnChanged(object sender, DevExpress.Xpf.Grid.FocusedColumnChangedEventArgs e)
@@ -979,7 +983,6 @@ namespace Sadora.Ventas
             catch
             {
             }
-
         }
 
         private void TablaGrid_CellValueChanging(object sender, DevExpress.Xpf.Grid.CellValueChangedEventArgs e)
@@ -1052,6 +1055,60 @@ namespace Sadora.Ventas
         //        }
         //    }
         //}
+
+        private void ControlEvent()
+        {
+            Border myBorder = new Border()
+            {
+                BorderBrush = (Brush)Application.Current.FindResource("PrimaryHueDarkBrush"),
+                BorderThickness = new Thickness(2),
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Stretch,
+                Padding = new Thickness(0),
+                CornerRadius = new CornerRadius(5),
+                Margin = new Thickness(3)//,
+                                         //Width = (Width = 0),
+                                         //Height = (Height = 0)
+            };
+
+            Button MyButton = new Button()
+            {
+                Padding = new Thickness(0),
+                Height = 59,
+                Width = 100,
+                ToolTip = "Pulsar para elegir metodo de pago Efectivo",
+                Background = (Brush)new System.Windows.Media.BrushConverter().ConvertFromString("#33C8C8C8"),
+                Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style
+            };
+
+            StackPanel MyStack = new StackPanel();
+
+            var packIconMaterial = new MaterialDesignThemes.Wpf.PackIcon()
+            {
+                Kind = MaterialDesignThemes.Wpf.PackIconKind.Cash,
+                Width = 36,
+                Height = 36,
+                HorizontalAlignment = HorizontalAlignment.Center
+                //Margin = new Thickness(7, 0, 0, 0),
+            };
+
+            TextBlock MyText = new TextBlock()
+            {
+                Text = "Efectivo",
+                HorizontalAlignment = HorizontalAlignment.Center,
+                FontSize = 17
+            };
+
+            MyStack.Children.Add(packIconMaterial);
+            MyStack.Children.Add(MyText);
+            MyButton.Content = MyStack;
+            myBorder.Child = MyButton;
+
+            PanelWrap.Children.Add(myBorder);
+
+
+        }
+
 
     }
 }

@@ -268,9 +268,9 @@ namespace Sadora.Recursos_Humanos
                         {
                             if (reader.Read())
                             {
-                                txtNombre.Text = reader["Nombres"].ToString() + " " + reader["Apellidos"].ToString();
-                                txtDireccion.Text = reader["Direccion"].ToString();
-                                txtTelefono.Text = reader["Telefono"].ToString();
+                                txtNombre.Text = reader["NombreCompleto"].ToString();
+                                //txtDireccion.Text = reader["Direccion"].ToString();
+                                //txtTelefono.Text = reader["Telefono"].ToString();
                                 reader.NextResult();
 
                             }

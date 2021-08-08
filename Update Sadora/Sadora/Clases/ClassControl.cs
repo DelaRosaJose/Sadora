@@ -62,7 +62,7 @@ namespace Sadora.Clases
             listaControles.Clear();
         }
 
-        public static void ActivadorControlesReadonly(List<Control> listaControl, bool funcion, bool editando, bool Agregando = false, List<Control> listaControles = null)
+        public static void ActivadorControlesReadonly(List<Control> listaControl, bool funcion, bool editando, bool Agregando = false, List<Control> listaControles = null, List<Control> listaControlesSoloLimpiar = null)
         {
             if (listaControl != null)
             {
@@ -186,7 +186,25 @@ namespace Sadora.Clases
                 }
                 listaControles.Clear();
             }
-
+            if (listaControlesSoloLimpiar != null)
+            {
+                foreach (Control control in listaControlesSoloLimpiar)
+                {
+                    if (control is TextBox)
+                    {
+                        (control as TextBox).Clear();
+                    }
+                    else if (control is PasswordBox)
+                    {
+                        (control as PasswordBox).Clear();  //ClearValue();
+                    }
+                    else if (control is DatePicker)
+                    {
+                        (control as DatePicker).Text = "";  //ClearValue();
+                    }
+                }
+                listaControlesSoloLimpiar.Clear();
+            }
         }
 
         public static string ValidadorControles(List<Control> listaControl)
@@ -332,24 +350,20 @@ namespace Sadora.Clases
                 Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost("No puede ingresar mas de 13 digitos en el RNC");
                 frm.ShowDialog();
             }
-            else if ((Result = Clases.ClassData.runSqlDataReader("select count(*) from TcliClientes where RNC = '" + Cedula + "' ", null, "CommandText")).Read())
-            {
-                ClassVariables.ExistClient = true;
-                Result.Close();
-                Result.Dispose();
-            }
             else
             {
-                //if (ClassControl.ValidateIdentityCard(Cedula) == true)
+                //Result = Clases.ClassData.runSqlDataReader("select count(*) as Cant from TcliClientes where RNC = '" + Cedula + "' ", null, "CommandText");
+                //Console.WriteLine(Result["Cant"].ToString());
+                //if (Convert.ToInt32(Result["Cant"].ToString()) > 0)
                 //{
-                tabla = Clases.ClassData.runSqlDataReader("exec spCedula '" + Cedula + "'", null, "CommandText");
+                //        ClassVariables.ExistClient = true;
+                //        Result.Close();
+                //        Result.Dispose();
                 //}
                 //else
-                //{
-                //    Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost("RNC invalido");
-                //    frm.ShowDialog();
-                //}
+                    tabla = Clases.ClassData.runSqlDataReader("exec spCedula '" + Cedula + "'", null, "CommandText");
             }
+            //else 
             return tabla;
         }
 

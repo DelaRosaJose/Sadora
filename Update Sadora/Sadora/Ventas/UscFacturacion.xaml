@@ -188,7 +188,7 @@
 
                             <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" x:Name="PanelOpcionesPagos" Visibility="Hidden" LostFocus="PanelOpcionesPagos_LostFocus" Grid.Column="0" Margin="0 4 0 4">
 
-                                <WrapPanel HorizontalAlignment="Right">
+                                <WrapPanel HorizontalAlignment="Right" x:Name="PanelWrap">
 
                                     <Border Padding="0" HorizontalAlignment="Right" BorderBrush="{StaticResource PrimaryHueDarkBrush}" 
                                                 BorderThickness="2"  CornerRadius="5"  Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="3">
@@ -213,6 +213,7 @@
                                             </StackPanel>
                                         </Button>
                                     </Border>
+                                    
                                 </WrapPanel>
                             </materialDesign:Card>
 
