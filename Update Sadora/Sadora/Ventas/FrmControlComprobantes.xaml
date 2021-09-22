@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Title="FrmControlComprobantes" WindowState="Maximized" WindowStyle="None"  AllowsTransparency="True" Background="Transparent" Loaded="Window_Loaded">
     <Grid>
-        <materialDesign:DialogHost IsOpen="true" x:Name="MiniDialogo"  >
+        <materialDesign:DialogHost IsOpen="True" x:Name="MiniDialogo"  >
             <materialDesign:DialogHost.DialogContent>
 
                 <Grid Width="750" Height="590" Margin="0" Background="#19C8C8C8" HorizontalAlignment="Center">
@@ -35,7 +35,7 @@
                                         <Border TextElement.FontSize="15" Margin="15 10 5 10" Grid.Column="0" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                             <StackPanel Orientation="Vertical">
                                                 <TextBlock x:Name="lRNC" Margin="10 5 0 0" Text="RNC" FontWeight="Bold"></TextBlock>
-                                                <TextBox x:Name="txtRNC" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" KeyUp="txtRNC_KeyUp"/>
+                                                <TextBox x:Name="txtRNC" Height="30" Padding="0" materialDesign:HintAssist.Hint="Ingresar el rnc del cliente" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" KeyUp="txtRNC_KeyUp"/>
                                             </StackPanel>
                                         </Border>
 

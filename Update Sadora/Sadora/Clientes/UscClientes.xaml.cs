@@ -112,6 +112,10 @@ namespace Sadora.Clientes
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
+            //txtClienteID.Text += "p";
+            //int result = ClassControl.TryCastInt(txtClienteID.Text) == 0 ? ClienteID : ClassControl.TryCastInt(txtClienteID.Text) + 1;
+            //ClienteID = ClassControl.TryCastInt(txtClienteID.Text) == 0 ? ClienteID : ClienteID + 1;//Convert.ToInt32(txtClienteID.Text) + 1;
+
             try
             {
                 ClienteID = Convert.ToInt32(txtClienteID.Text) + 1;
@@ -148,7 +152,7 @@ namespace Sadora.Clientes
 
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (Estado == "Modo Consulta")
             {
                 last = txtClienteID.Text;
@@ -199,7 +203,7 @@ namespace Sadora.Clientes
                         Task.Factory.StartNew(() => messageQueue.Enqueue(message));
                     }
                 }
-                
+
             }
         }
 
@@ -235,52 +239,36 @@ namespace Sadora.Clientes
             }
             else
             {
-                SqlDataReader tabla = ClassControl.getDatosCedula(txtRNC.Text);
-                if (tabla != null)
+                if (Estado == "Modo Editar") 
                 {
-                    tabla.Close();
-                    tabla.Dispose();
-                    if (Estado == "Modo Editar")
-                    {
-                        setDatos(2, null);
-                    }
-                    else
-                    {
-                        setDatos(1, null);
-                    }
+                    setDatos(2, null);
                     SetEnabledButton("Modo Consulta");
                     setDatos(0, txtClienteID.Text);
-                    //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-
                 }
-                else if (ClassVariables.ExistClient)
+                else
                 {
-                    if (SnackbarThree.MessageQueue is { } messageQueue)
+                    SqlDataReader tabla = ClassControl.getDatosCedula(txtRNC.Text);
+                    if (tabla != null)
                     {
-                        var message = "Ya existe un cliente con este RNC";
-                        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+                        tabla.Close();
+                        tabla.Dispose();
+                        //if (Estado == "Modo Editar")
+                        //    setDatos(2, null);
+                        //else
+                        setDatos(1, null);
+
+                        SetEnabledButton("Modo Consulta");
+                        setDatos(0, txtClienteID.Text);
+                    }
+                    else if (ClassVariables.ExistClient)
+                    {
+                        if (SnackbarThree.MessageQueue is { } messageQueue)
+                        {
+                            var message = "Ya existe un cliente con este RNC";
+                            Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+                        }
                     }
                 }
-
-            }
-
-        }
-
-        private void btnClaseID_Click(object sender, RoutedEventArgs e)
-        {
-            if (Estado != "Modo Consulta")
-            {
-                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select * from TcliClaseClientes", null);
-                frm.ShowDialog();
-
-                if (frm.GridMuestra.SelectedItem != null)
-                {
-                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
-                    txtClaseID.Text = item.Row.ItemArray[0].ToString();
-
-                    ClassControl.setValidador("select * from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
-                }
-
             }
         }
 
@@ -321,7 +309,7 @@ namespace Sadora.Clientes
                             Task.Factory.StartNew(() => messageQueue.Enqueue(message));
                         }
                     }
-                    
+
                 }
             }
         }
@@ -359,6 +347,23 @@ namespace Sadora.Clientes
             }
         }
 
+        private void btnClaseID_Click(object sender, RoutedEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select ClaseID, Nombre from TcliClaseClientes", null);
+                frm.ShowDialog();
+
+                if (frm.GridMuestra.SelectedItem != null)
+                {
+                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                    txtClaseID.Text = item.Row.ItemArray[0].ToString();
+
+                    ClassControl.setValidador("select ClaseID, Nombre from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
+                }
+            }
+        }
+
         private void txtClaseID_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta")
@@ -366,9 +371,7 @@ namespace Sadora.Clientes
                 if (e.Key == Key.Enter)
                 {
                     if (txtClaseID.Text != "")
-                    {
                         ClassControl.setValidador("select Nombre from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID);
-                    }
                     else
                     {
                         txtClaseID.Text = 0.ToString();
@@ -382,6 +385,46 @@ namespace Sadora.Clientes
         private void txtClaseID_KeyDown(object sender, KeyEventArgs e)
         {
             ClassControl.ValidadorNumeros(e);
+        }
+
+        private void btnComprobanteID_Click(object sender, RoutedEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select ComprobanteID, Nombre, Auxiliar, NextNCF, Disponibles from TconComprobantes where Auxiliar = 'Clientes'", null);
+                frm.ShowDialog();
+
+                if (frm.GridMuestra.SelectedItem != null)
+                {
+                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                    txtComprobanteID.Text = item.Row.ItemArray[0].ToString();
+
+                    ClassControl.setValidador("select ComprobanteID, Nombre, Auxiliar, NextNCF, Disponibles from TconComprobantes where Auxiliar = 'Clientes' and ComprobanteID =", txtComprobanteID, tbxComprobanteID);
+                }
+            }
+        }
+
+        private void txtComprobanteID_KeyDown(object sender, KeyEventArgs e)
+        {
+            ClassControl.ValidadorNumeros(e);
+        }
+
+        private void txtComprobanteID_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    if (txtComprobanteID.Text != "")
+                        ClassControl.setValidador("select Nombre from TconComprobantes where Auxiliar = 'Clientes' and ComprobanteID =", txtComprobanteID, tbxComprobanteID);
+                    else
+                    {
+                        txtComprobanteID.Text = 0.ToString();
+                        ClassControl.setValidador("select Nombre from TconComprobantes where Auxiliar = 'Clientes' and ComprobanteID =", txtComprobanteID, tbxComprobanteID);
+                    }
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
         }
 
         private void txtDireccion_KeyUp(object sender, KeyEventArgs e)
@@ -454,11 +497,10 @@ namespace Sadora.Clientes
             if (Cliente == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
             {
                 if (txtClienteID.Text == "")
-                {
                     ClienteID = 0;
-                }
                 else
                 {
+                    //ClienteID = ClassControl.TryCastInt(txtClienteID.Text) == 0 ? ClienteID : ClienteID + 1;
                     try
                     {
                         ClienteID = Convert.ToInt32(txtClienteID.Text);
@@ -471,6 +513,7 @@ namespace Sadora.Clientes
             }
             else //Si pasamos un cliente, lo convertimos actualizamos la variable cliente principal
             {
+                //ClienteID = ClassControl.TryCastInt(Cliente) == 0 ? ClienteID : ClienteID + 1;
                 ClienteID = Convert.ToInt32(Cliente);
             }
 
@@ -482,12 +525,13 @@ namespace Sadora.Clientes
                 new SqlParameter("@Nombre",txtNombre.Text),
                 new SqlParameter("@Representante",txtRepresentante.Text),
                 new SqlParameter("@ClaseID",txtClaseID.Text),
+                new SqlParameter("@ClaseComprobanteID",txtComprobanteID.Text),
                 new SqlParameter("@Direccion",txtDireccion.Text),
                 new SqlParameter("@CorreoElectronico",txtCorreoElectronico.Text),
                 new SqlParameter("@Telefono",txtTelefono.Text),
                 new SqlParameter("@Celular",txtCelular.Text),
                 new SqlParameter("@Activo",cActivar.IsChecked),
-                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID) 
+                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
             };
 
             tabla = Clases.ClassData.runDataTable("sp_cliclientes", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
@@ -506,6 +550,7 @@ namespace Sadora.Clientes
                 txtNombre.Text = tabla.Rows[0]["Nombre"].ToString();
                 txtRepresentante.Text = tabla.Rows[0]["Representante"].ToString();
                 txtClaseID.Text = tabla.Rows[0]["ClaseID"].ToString();
+                txtComprobanteID.Text = tabla.Rows[0]["ClaseComprobanteID"].ToString();
                 txtDireccion.Text = tabla.Rows[0]["Direccion"].ToString();
                 txtCorreoElectronico.Text = tabla.Rows[0]["CorreoElectronico"].ToString();
                 txtTelefono.Text = tabla.Rows[0]["Telefono"].ToString();
@@ -524,6 +569,7 @@ namespace Sadora.Clientes
                     }
                 }
                 ClassControl.setValidador("select * from TcliClaseClientes where ClaseID =", txtClaseID, tbxClaseID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
+                ClassControl.setValidador("select * from TconComprobantes where ComprobanteID =", txtComprobanteID, tbxComprobanteID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
             }
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
         }
@@ -571,7 +617,6 @@ namespace Sadora.Clientes
 
         void SetEnabledButton(String status) //Este metodo se encarga de crear la interacion de los botones de la ventana segun el estado en el que se encuentra
         {
-
             Estado = status;
             lIconEstado.ToolTip = Estado;
 
@@ -646,6 +691,5 @@ namespace Sadora.Clientes
             }
         }
 
-        
     }
 }

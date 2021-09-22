@@ -5,20 +5,27 @@ using System.Text.RegularExpressions;
 using System.Data.SqlClient;
 using System.Windows.Input;
 using DevExpress.Xpf.Grid;
+using System.Linq;
+using System.Data;
+using System.Threading.Tasks;
 
 namespace Sadora.Clases
 {
     class ClassControl
     {
 
-        public static void setValidador(string Consulta, TextBox Enviador, TextBox Recibidor) //Este metodo se encarga de validar cualquier campo de la ventana que este llamando otro mantenimiento, Ejemplo(Campo clase de clientes contiene(ClaseID, Detalle de la clase que es el nombre)), 
+        public static void setValidador(string Consulta, TextBox Enviador, TextBox Recibidor, bool OnlySearch = false) //Este metodo se encarga de validar cualquier campo de la ventana que este llamando otro mantenimiento, Ejemplo(Campo clase de clientes contiene(ClaseID, Detalle de la clase que es el nombre)), 
         {                                                                       // el metodo recibe el textbox que le envia la info, la consulta que debe buscar con esa info y el textbox donde debe depositar el resultado.
-            if (Enviador.Text == null || Enviador.Text == "")
+            if (!OnlySearch)
             {
-                Consulta += "0";
+                if (Enviador.Text == null || Enviador.Text == "")
+                    Consulta += "0";
+
+                Consulta += Enviador.Text;
             }
 
-            SqlDataReader reader = Clases.ClassData.runSqlDataReader(Consulta + Enviador.Text, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+            SqlDataReader reader = Clases.ClassData.runSqlDataReader(Consulta, null, "CommandText");
+            //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
 
             if (reader.HasRows) //Validamos si el datareader trajo data.
             {
@@ -36,7 +43,6 @@ namespace Sadora.Clases
                 reader.Close(); //limpiamos el reader
                 reader.Dispose();
             }
-
         }
 
         public static void ClearControl(List<Control> listaControles)
@@ -46,17 +52,13 @@ namespace Sadora.Clases
                 foreach (Control control in listaControles)
                 {
                     if (control is TextBox)
-                    {
                         (control as TextBox).Clear();
-                    }
+
                     else if (control is PasswordBox)
-                    {
-                        (control as PasswordBox).Clear();  //ClearValue();
-                    }
+                        (control as PasswordBox).Clear();
+
                     else if (control is DatePicker)
-                    {
-                        (control as DatePicker).Text = "";  //ClearValue();
-                    }
+                        (control as DatePicker).Text = "";
                 }
             }
             listaControles.Clear();
@@ -73,50 +75,38 @@ namespace Sadora.Clases
                         control.IsEnabled = funcion;
 
                         if (control is TextBox)
-                        {
                             (control as TextBox).IsReadOnly = !funcion;
-                        }
+
                         else if (control is PasswordBox)
-                        {
                             (control as PasswordBox).IsEnabled = funcion;
-                        }
+
                         else if (control is ComboBox)
-                        {
                             (control as ComboBox).IsEnabled = funcion;
-                        }
+
                         else if (control is CheckBox)
-                        {
                             (control as CheckBox).IsEnabled = funcion;
-                        }
+
                         else if (control is DatePicker)
-                        {
                             (control as DatePicker).IsEnabled = funcion;
-                        }
                     }
                     else if (Agregando == true)
                     {
                         control.IsEnabled = !funcion;
 
                         if (control is TextBox)
-                        {
                             (control as TextBox).IsReadOnly = funcion;
-                        }
+
                         else if (control is PasswordBox)
-                        {
                             (control as PasswordBox).IsEnabled = !funcion;
-                        }
+
                         else if (control is ComboBox)
-                        {
                             (control as ComboBox).IsEnabled = !funcion;
-                        }
+
                         else if (control is CheckBox)
-                        {
                             (control as CheckBox).IsEnabled = !funcion;
-                        }
+
                         else if (control is DatePicker)
-                        {
                             (control as DatePicker).IsEnabled = !funcion;
-                        }
                     }
                     else
                     {
@@ -191,17 +181,13 @@ namespace Sadora.Clases
                 foreach (Control control in listaControlesSoloLimpiar)
                 {
                     if (control is TextBox)
-                    {
                         (control as TextBox).Clear();
-                    }
+
                     else if (control is PasswordBox)
-                    {
                         (control as PasswordBox).Clear();  //ClearValue();
-                    }
+
                     else if (control is DatePicker)
-                    {
                         (control as DatePicker).Text = "";  //ClearValue();
-                    }
                 }
                 listaControlesSoloLimpiar.Clear();
             }
@@ -214,73 +200,41 @@ namespace Sadora.Clases
 
             foreach (Control control in listaControl)
             {
-
                 if (control is TextBox)
                 {
                     if ((control as TextBox).Text == "")
                     {
                         if (contador == 0)
-                        {
                             control.Focus();
-                        }
 
                         contador++;
 
                         if (Linea == "Debe Completar los Campos: ")
-                        {
                             Linea = Linea + control.Name;
-                        }
                         else
-                        {
                             Linea = Linea + ", " + control.Name;
-                        }
+
                         Linea = Linea.Replace("txt", "").Replace("tbx", "");
                     }
-                    //(control as TextBox).IsReadOnly = !funcion;
                 }
                 else if (control is DatePicker)
                 {
                     if ((control as DatePicker).Text == "")
                     {
                         if (contador == 0)
-                        {
                             control.Focus();
-                        }
 
                         contador++;
 
                         if (Linea == "Debe Completar los Campos: ")
-                        {
                             Linea = Linea + control.Name;
-                        }
+
                         else
-                        {
                             Linea = Linea + ", " + control.Name;
-                        }
+
                         Linea = Linea.Replace("txt", "").Replace("tbx", "").Replace("dtp", "");
                     }
-                    //(control as DatePicker).Text = funcion;
                 }
-
-                //if (control.Text == "")
-                //{
-                //if (contador == 0)
-                //{
-                //    control.Focus();
-                //}
-
-                //contador++;
-
-                //if (Linea == "Debe Completar los Campos: ")
-                //{
-                //    Linea = Linea + control.Name;
-                //}
-                //else
-                //{
-                //    Linea = Linea + ", " + control.Name;
-                //}
-                //Linea = Linea.Replace("txt", "").Replace("tbx", "");
-                //}
             }
             return Linea;
         }
@@ -291,7 +245,6 @@ namespace Sadora.Clases
 
             if (Regex.IsMatch(replaceScore, "^[0-9]{11}$"))
             {
-
                 string identityCardSub = replaceScore.Substring(0, replaceScore.Length - 1);
                 string checkerNumber = replaceScore.Substring(replaceScore.Length - 1, 1);
                 int sum = 0;
@@ -322,29 +275,22 @@ namespace Sadora.Clases
                 int numberValidate = (10 - (sum % 10)) % 10;
 
                 if ((numberValidate == int.Parse(checkerNumber)) && (identityCardSub.Substring(0, 3) != "000"))
-                {
                     identityCardValid = true;
-                }
                 else
-                {
                     identityCardValid = false;
-                }
 
                 return identityCardValid;
 
             }
             else
-            {
                 return false;
-            }
-
-
         }
 
         public static SqlDataReader getDatosCedula(string Cedula)
         {
             SqlDataReader tabla = null;
             SqlDataReader Result = null;
+
             if (Cedula.Length > 13)
             {
                 Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost("No puede ingresar mas de 13 digitos en el RNC");
@@ -352,18 +298,20 @@ namespace Sadora.Clases
             }
             else
             {
-                //Result = Clases.ClassData.runSqlDataReader("select count(*) as Cant from TcliClientes where RNC = '" + Cedula + "' ", null, "CommandText");
-                //Console.WriteLine(Result["Cant"].ToString());
-                //if (Convert.ToInt32(Result["Cant"].ToString()) > 0)
-                //{
-                //        ClassVariables.ExistClient = true;
-                //        Result.Close();
-                //        Result.Dispose();
-                //}
-                //else
+                Result = Clases.ClassData.runSqlDataReader("select count(*) as Cant from TcliClientes where RNC = '" + Cedula + "' ", null, "CommandText");
+                if (Result.HasRows && Result.Read() && Convert.ToInt32(Result["Cant"].ToString()) > 0)
+                {
+                    ClassVariables.ExistClient = true;
+                    Result.Close();
+                    Result.Dispose();
+                }
+                else
+                {
+                    Result.Close();
+                    Result.Dispose();
                     tabla = Clases.ClassData.runSqlDataReader("exec spCedula '" + Cedula + "'", null, "CommandText");
+                }
             }
-            //else 
             return tabla;
         }
 
@@ -380,14 +328,12 @@ namespace Sadora.Clases
             if (ListaColumnas == null)
             {
                 foreach (GridColumn col in Grid.Columns)
-                col.ReadOnly = AllowEdit;
+                    col.ReadOnly = AllowEdit;
             }
             else
             {
                 foreach (String Valor in ListaColumnas)
-                {
                     Grid.Columns[Valor].ReadOnly = AllowEdit;
-                }
             }
         }
 
@@ -411,6 +357,7 @@ namespace Sadora.Clases
                 reader.Dispose();
             }
         }
+
         //public static void GridAllowEdit(DevExpress.Xpf.Grid.GridControl Grid, List<String> ListaColumnas, Boolean AllowEdit, string opcion = "--AllowEdit-- o --Visible--") 
         //{
         //    DevExpress.Utils.DefaultBoolean DevExbool;
@@ -441,7 +388,6 @@ namespace Sadora.Clases
                 Grid.View.MoveNextRow();
             }
         }
-
 
     }
 }

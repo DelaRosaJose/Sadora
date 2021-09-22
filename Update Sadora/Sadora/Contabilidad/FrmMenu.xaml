@@ -44,7 +44,7 @@
                     </Grid.Effect>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock Text="Abel Dutra" x:Name="lNombreUsuario" VerticalAlignment="Center" FontSize="16"/>
-                        <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
+                        <!--<materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
                             <StackPanel Width="150">
                                 <Button Content="Settings"/>
                                 <Button Content="Account"/>
@@ -52,7 +52,7 @@
                                 <Separator/>
                                 <Button Content="Logout"/>
                             </StackPanel>
-                        </materialDesign:PopupBox>
+                        </materialDesign:PopupBox>-->
                         <Button x:Name="ButtonMinimizar" Click="ButtonMinimizar_Click" TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}"  Margin="0 5 5 5" Style="{StaticResource MaterialDesignOutlinedButton}" >
                             <materialDesign:PackIcon Kind="Minus"  Width="25" Height="25"/>
                         </Button>

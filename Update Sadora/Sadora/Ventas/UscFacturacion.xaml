@@ -117,7 +117,7 @@
                     </Button>
                 </Border>
                 <Border Padding="0" Grid.Column="9" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="3">
-                    <Button x:Name="BtnGuardar" Padding="0" IsEnabled="True" Click="BtnGuardar_Click" Height="59" ToolTip="Pulsar para guardar el registro" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{StaticResource MaterialDesignFlatButton}" TabIndex="11" >
+                    <Button x:Name="BtnGuardar" Padding="0" IsEnabled="False" Click="BtnGuardar_Click" Height="59" ToolTip="Pulsar para guardar el registro" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{StaticResource MaterialDesignFlatButton}" TabIndex="11" >
                         <StackPanel>
                             <materialDesign:PackIcon  Kind="ContentSave" Width="auto" Height="36" HorizontalAlignment="Center"></materialDesign:PackIcon>
                             <TextBlock Text="Save" HorizontalAlignment="Center" FontSize="17"/>
@@ -190,7 +190,7 @@
 
                                 <WrapPanel HorizontalAlignment="Right" x:Name="PanelWrap">
 
-                                    <Border Padding="0" HorizontalAlignment="Right" BorderBrush="{StaticResource PrimaryHueDarkBrush}" 
+                                    <!--<Border Padding="0" HorizontalAlignment="Right" BorderBrush="{StaticResource PrimaryHueDarkBrush}" 
                                                 BorderThickness="2"  CornerRadius="5"  Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="3">
 
                                         <Button x:Name="BtnEfectivo" Padding="0" Click="BtnEfectivo_Click" Height="59" Width="100" 
@@ -212,7 +212,7 @@
                                                 <TextBlock Text="Tarjeta" HorizontalAlignment="Center" FontSize="17"/>
                                             </StackPanel>
                                         </Button>
-                                    </Border>
+                                    </Border>-->
                                     
                                 </WrapPanel>
                             </materialDesign:Card>

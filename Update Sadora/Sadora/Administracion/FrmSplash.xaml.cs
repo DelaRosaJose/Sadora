@@ -128,7 +128,7 @@ namespace Sadora.Administracion
                 }
                 List<string> ListVentanas = new List<string>()
                 {
-                    "Clases de Marca","Clases de Departamento","Clases de Proveedores"
+                    "Clases de Marca","Clases de Departamento","Clases de Proveedores","Clases de MetodoPagos"
                 };
                 foreach (string item in ListVentanas)
                 {

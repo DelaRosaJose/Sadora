@@ -16,6 +16,8 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Sadora.Administracion;
+using Sadora.Properties;
+using System.Linq;
 
 namespace Sadora.Ventas
 {
@@ -47,7 +49,13 @@ namespace Sadora.Ventas
         int NewCantidad = 1;
         int LastCantidad = 1;
 
-        bool LostFocus = false;
+        #region Variables para Eventos
+        string Efect = "";
+        string Tarj = "";
+        string Trans = "";
+        string Ck = "";
+        string FormaPago = "";
+        #endregion
 
         public UscFacturacion()
         {
@@ -72,6 +80,8 @@ namespace Sadora.Ventas
 
                 this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Inicializador = false;
+
+                ControlEvent();
             }
         }
 
@@ -225,6 +235,10 @@ namespace Sadora.Ventas
             this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             SetEnabledButton("Modo Agregar");
             AgregarModoGrid();
+            txtSubTotal.Text = 0.ToString("C");
+            txtDescuento.Text = 0.ToString("C");
+            txtITBIS.Text = 0.ToString("C");
+            txtTotal.Text = 0.ToString("C");
         }
 
         private void BtnEditar_Click(object sender, RoutedEventArgs e)
@@ -294,12 +308,15 @@ namespace Sadora.Ventas
                     {
                         ClassControl.setValidador("Select Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID, tbxClienteID);
                         ClassControl.setValidador("Select RNC as Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID, txtRNC);
+                        ClassControl.setValidador("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, txtNCF, true);
+
                     }
                     else
                     {
                         txtClienteID.Text = 0.ToString();
                         ClassControl.setValidador("Select Nombre from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
                         ClassControl.setValidador("Select RNC as Nombre from TcliClientes where ClienteID =", txtClienteID, txtRNC);
+                        ClassControl.setValidador("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, txtNCF, true);
                     }
                     txtArticuloID.Focus();
                     //((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
@@ -339,7 +356,7 @@ namespace Sadora.Ventas
             else
             {
                 PanelOpcionesPagos.Visibility = Visibility.Visible;
-                ControlEvent();
+                //ControlEvent();
             }
 
         }
@@ -349,31 +366,31 @@ namespace Sadora.Ventas
             PanelOpcionesPagos.Visibility = Visibility.Hidden;
         }
 
-        private void BtnEfectivo_Click(object sender, RoutedEventArgs e)
-        {
-            //MessageBox.Show(BtnEfectivo.Name);
-            PanelOpcionesPagos.Visibility = Visibility.Hidden;
-            int client;
-            try
-            {
-                client = Convert.ToInt32(txtClienteID.Text);
-            }
-            catch
-            {
-                client = 0;
-            }
+        //private void BtnEfectivo_Click(object sender, RoutedEventArgs e)
+        //{
+        //    //MessageBox.Show(BtnEfectivo.Name);
+        //    PanelOpcionesPagos.Visibility = Visibility.Hidden;
+        //    int client;
+        //    try
+        //    {
+        //        client = Convert.ToInt32(txtClienteID.Text);
+        //    }
+        //    catch
+        //    {
+        //        client = 0;
+        //    }
 
-            new FrmControlComprobantes(client).ShowDialog();
+        //    new FrmControlComprobantes(client).ShowDialog();
 
-            //Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, reader, ColumCaption);
-            //frm.ShowDialog();
-        }
+        //    //Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, reader, ColumCaption);
+        //    //frm.ShowDialog();
+        //}
 
-        private void BtnTarjeta_Click(object sender, RoutedEventArgs e)
-        {
-            MessageBox.Show(BtnTarjeta.Name);
-            PanelOpcionesPagos.Visibility = Visibility.Hidden;
-        }
+        //private void BtnTarjeta_Click(object sender, RoutedEventArgs e)
+        //{
+        //    MessageBox.Show(BtnTarjeta.Name);
+        //    PanelOpcionesPagos.Visibility = Visibility.Hidden;
+        //}
 
         private void txtArticuloID_KeyUp(object sender, KeyEventArgs e)
         {
@@ -685,6 +702,7 @@ namespace Sadora.Ventas
             {
                 txtFacturaID, txtClienteID, tbxClienteID, txtRNC, txtNCF, txtTotal, txtSubTotal,txtITBIS
             };
+
             List<Control> listaControlesSoloLimpiar = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
                 txtRNC, txtNCF,tbxClienteID
@@ -702,7 +720,7 @@ namespace Sadora.Ventas
                 }
                 else
                 {
-                    Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, null, listaControlesSoloLimpiar);
+                    Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, null, null);
                 }
             }
             else if (Modo == "Validador") //si el parametro modo es igual a validador ingresa.
@@ -1003,112 +1021,297 @@ namespace Sadora.Ventas
             }
         }
 
-        //private void CargarGrid()
-        //{
-        //    reader = Clases.ClassData.runDataTable("Select a.Tarjeta, a.Nombre, 1 as Cantidad, a.Precio, a.Precio as SubTotal, ((a.Precio * b.Porcentaje) / 100) as ITBIS " +
-        //        ", ((a.Precio * b.Porcentaje) / 100)+a.Precio as Total from TinvArticulos a inner join TinvClaseArticulos b on a.ClaseArticuloID = b.ClaseID " +
-        //        "where a.Tarjeta = '" + txtArticuloID.Text + "' or a.Nombre like '%" + txtArticuloID.Text + "%' order by a.ArticuloID", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
-
-        //    if (reader.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-        //    {
-        //        GridMain.ItemsSource = reader.DefaultView;
-
-        //        foreach (DataGridColumn Col in GridMain.Columns)
-        //        {
-
-        //            int columninde = 0;
-
-        //            if (GridMain.Columns.Equals("Cantidad"))
-        //                columninde = GridMain.SelectedIndex;
-
-        //            switch (Col.Header)
-        //            {
-        //                case "Tarjeta":
-        //                    Col.Width = new DataGridLength(1, DataGridLengthUnitType.SizeToCells);
-        //                    Col.IsReadOnly = true;
-        //                    break;
-        //                case "Nombre":
-        //                    Col.Width = new DataGridLength(2, DataGridLengthUnitType.Star);
-        //                    Col.IsReadOnly = true;
-        //                    break;
-        //                case "Cantidad":
-        //                    Col.IsReadOnly = false;
-        //                    Col.Width = new DataGridLength(101, DataGridLengthUnitType.Pixel);
-        //                    break;
-        //                case "Precio":
-        //                    Col.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
-        //                    Col.IsReadOnly = true;
-        //                    ((DataGridTextColumn)Col).Binding.StringFormat = "00.00";
-        //                    break;
-        //                case "ITBIS":
-        //                    //Col.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
-        //                    Col.IsReadOnly = true;
-        //                    //((DataGridTextColumn)Col).Binding.StringFormat = "00.00";
-        //                    break;
-        //                case "Total":
-        //                    Col.Width = new DataGridLength(1, DataGridLengthUnitType.Star);
-        //                    Col.IsReadOnly = true;
-        //                    ((DataGridTextColumn)Col).Binding.StringFormat = "00.00";
-        //                    //(Col as DataGridTextColumn).Binding.StringFormat = "$00.00";
-        //                    break;
-        //            }
-        //        }
-        //    }
-        //}
-
         private void ControlEvent()
         {
-            Border myBorder = new Border()
+            var CajaConfigurada = (int)Settings.Default["Caja"];
+
+            if (CajaConfigurada == 0)
             {
-                BorderBrush = (Brush)Application.Current.FindResource("PrimaryHueDarkBrush"),
-                BorderThickness = new Thickness(2),
-                HorizontalAlignment = HorizontalAlignment.Right,
-                VerticalAlignment = VerticalAlignment.Stretch,
-                Padding = new Thickness(0),
-                CornerRadius = new CornerRadius(5),
-                Margin = new Thickness(3)//,
-                                         //Width = (Width = 0),
-                                         //Height = (Height = 0)
-            };
-
-            Button MyButton = new Button()
+                if (SnackbarThree.MessageQueue is { } messageQueue)
+                    Task.Factory.StartNew(() => messageQueue.Enqueue("No hay caja configurada"));
+            }
+            else
             {
-                Padding = new Thickness(0),
-                Height = 59,
-                Width = 100,
-                ToolTip = "Pulsar para elegir metodo de pago Efectivo",
-                Background = (Brush)new System.Windows.Media.BrushConverter().ConvertFromString("#33C8C8C8"),
-                Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style
-            };
+                string CreateNameButton = "";
 
-            StackPanel MyStack = new StackPanel();
+                DataTable MetodoCaja = Clases.ClassData.runDataTable("select a.Nombre from TvenMetodoPagos a inner join TvenCajasDetalle b on a.MetodoID = b.MetodoID where b.CajaID = " + CajaConfigurada + " and Alta = 1", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+                for (int i = 0; i < MetodoCaja.Rows.Count; i++)
+                {
+                    CreateNameButton = MetodoCaja.Rows[i]["Nombre"].ToString();
 
-            var packIconMaterial = new MaterialDesignThemes.Wpf.PackIcon()
-            {
-                Kind = MaterialDesignThemes.Wpf.PackIconKind.Cash,
-                Width = 36,
-                Height = 36,
-                HorizontalAlignment = HorizontalAlignment.Center
-                //Margin = new Thickness(7, 0, 0, 0),
-            };
+                    switch (CreateNameButton)
+                    {
+                        case string a when a.ToUpper().Contains("EFECTIVO"):
+                            #region Create Border
+                            Border myBorderEfect = new Border()
+                            {
+                                BorderBrush = (Brush)Application.Current.FindResource("PrimaryHueDarkBrush"),
+                                BorderThickness = new Thickness(2),
+                                HorizontalAlignment = HorizontalAlignment.Right,
+                                VerticalAlignment = VerticalAlignment.Stretch,
+                                Padding = new Thickness(0),
+                                CornerRadius = new CornerRadius(5),
+                                Margin = new Thickness(3)
+                            };
+                            #endregion
+                            #region Create Button
+                            Button MyButtonEfect = new Button()
+                            {
+                                Padding = new Thickness(0),
+                                Height = 59,
+                                MinWidth = 100,
+                                //Width = 100,
+                                ToolTip = "Pulsar para elegir metodo de pago " + CreateNameButton,
+                                Background = (Brush)new System.Windows.Media.BrushConverter().ConvertFromString("#33C8C8C8"),
+                                Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style
+                            };
+                            #endregion
+                            #region Asing event, Create Stack and Icon with text
+                            MyButtonEfect.Click += new RoutedEventHandler(handlerEfect_Click);
 
-            TextBlock MyText = new TextBlock()
-            {
-                Text = "Efectivo",
-                HorizontalAlignment = HorizontalAlignment.Center,
-                FontSize = 17
-            };
+                            StackPanel MyStackEfect = new StackPanel();
 
-            MyStack.Children.Add(packIconMaterial);
-            MyStack.Children.Add(MyText);
-            MyButton.Content = MyStack;
-            myBorder.Child = MyButton;
+                            Efect = CreateNameButton;
 
-            PanelWrap.Children.Add(myBorder);
+                            var packIconMaterialEfect = new MaterialDesignThemes.Wpf.PackIcon()
+                            {
+                                Kind = MaterialDesignThemes.Wpf.PackIconKind.Cash,
+                                Width = 36,
+                                Height = 36,
+                                HorizontalAlignment = HorizontalAlignment.Center
+                            };
 
+                            TextBlock MyTextEfect = new TextBlock()
+                            {
+                                Text = CreateNameButton,
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                FontSize = 17
+                            };
+                            #endregion
+                            #region Asing Childs
+                            MyStackEfect.Children.Add(packIconMaterialEfect);
+                            MyStackEfect.Children.Add(MyTextEfect);
+                            MyButtonEfect.Content = MyStackEfect;
+                            myBorderEfect.Child = MyButtonEfect;
 
+                            PanelWrap.Children.Add(myBorderEfect);
+                            #endregion
+                            break;
+                        case string a when a.ToUpper().Contains("TARJETA"):
+                            #region Create Border
+                            Border myBorderTarj = new Border()
+                            {
+                                BorderBrush = (Brush)Application.Current.FindResource("PrimaryHueDarkBrush"),
+                                BorderThickness = new Thickness(2),
+                                HorizontalAlignment = HorizontalAlignment.Right,
+                                VerticalAlignment = VerticalAlignment.Stretch,
+                                Padding = new Thickness(0),
+                                CornerRadius = new CornerRadius(5),
+                                Margin = new Thickness(3)
+                            };
+                            #endregion
+                            #region Create Button
+                            Button MyButtonTarj = new Button()
+                            {
+                                Padding = new Thickness(0),
+                                Height = 59,
+                                MinWidth = 100,
+                                //Width = 100,
+                                ToolTip = "Pulsar para elegir metodo de pago " + CreateNameButton,
+                                Background = (Brush)new System.Windows.Media.BrushConverter().ConvertFromString("#33C8C8C8"),
+                                Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style
+                            };
+                            #endregion
+                            #region Asing event, Create Stack and Icon with text
+                            MyButtonTarj.Click += new RoutedEventHandler(handlerTarj_Click);
+
+                            StackPanel MyStackTarj = new StackPanel();
+
+                            Tarj = CreateNameButton;
+
+                            var packIconMaterialTarj = new MaterialDesignThemes.Wpf.PackIcon()
+                            {
+                                Kind = MaterialDesignThemes.Wpf.PackIconKind.CreditCardOutline,
+                                Width = 36,
+                                Height = 36,
+                                HorizontalAlignment = HorizontalAlignment.Center
+                            };
+
+                            TextBlock MyTextTarj = new TextBlock()
+                            {
+                                Text = CreateNameButton/*"Tarjeta"*/,
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                FontSize = 17
+                            };
+                            #endregion
+                            #region Asing Childs
+                            MyStackTarj.Children.Add(packIconMaterialTarj);
+                            MyStackTarj.Children.Add(MyTextTarj);
+                            MyButtonTarj.Content = MyStackTarj;
+                            myBorderTarj.Child = MyButtonTarj;
+
+                            PanelWrap.Children.Add(myBorderTarj);
+                            #endregion
+                            break;
+                        case string a when a.ToUpper().Contains("TRANSFERENCIA"):
+                            #region Create Border
+                            Border myBorderTrans = new Border()
+                            {
+                                BorderBrush = (Brush)Application.Current.FindResource("PrimaryHueDarkBrush"),
+                                BorderThickness = new Thickness(2),
+                                HorizontalAlignment = HorizontalAlignment.Right,
+                                VerticalAlignment = VerticalAlignment.Stretch,
+                                Padding = new Thickness(0),
+                                CornerRadius = new CornerRadius(5),
+                                Margin = new Thickness(3)
+                            };
+                            #endregion
+                            #region Create Button
+                            Button MyButtonTrans = new Button()
+                            {
+                                Padding = new Thickness(0),
+                                Height = 59,
+                                MinWidth = 100,
+                                //Width = 100,
+                                ToolTip = "Pulsar para elegir metodo de pago " + CreateNameButton,
+                                Background = (Brush)new System.Windows.Media.BrushConverter().ConvertFromString("#33C8C8C8"),
+                                Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style
+                            };
+                            #endregion
+                            #region Asing event, Create Stack and Icon with text
+                            MyButtonTrans.Click += new RoutedEventHandler(handlerTrans_Click);
+
+                            StackPanel MyStackTrans = new StackPanel();
+
+                            Trans = CreateNameButton;
+
+                            var packIconMaterialTrans = new MaterialDesignThemes.Wpf.PackIcon()
+                            {
+                                Kind = MaterialDesignThemes.Wpf.PackIconKind.BankTransfer,
+                                Width = 36,
+                                Height = 36,
+                                HorizontalAlignment = HorizontalAlignment.Center
+                            };
+
+                            TextBlock MyTextTrans = new TextBlock()
+                            {
+                                Text = /*"Transferencia"*/ CreateNameButton,
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                FontSize = 17
+                            };
+                            #endregion
+                            #region Asing Childs
+                            MyStackTrans.Children.Add(packIconMaterialTrans);
+                            MyStackTrans.Children.Add(MyTextTrans);
+                            MyButtonTrans.Content = MyStackTrans;
+                            myBorderTrans.Child = MyButtonTrans;
+
+                            PanelWrap.Children.Add(myBorderTrans);
+                            #endregion
+                            break;
+                        case string a when a.ToUpper().Contains("CHEQUE"):
+                            #region Create Border
+                            Border myBorderCk = new Border()
+                            {
+                                BorderBrush = (Brush)Application.Current.FindResource("PrimaryHueDarkBrush"),
+                                BorderThickness = new Thickness(2),
+                                HorizontalAlignment = HorizontalAlignment.Right,
+                                VerticalAlignment = VerticalAlignment.Stretch,
+                                Padding = new Thickness(0),
+                                CornerRadius = new CornerRadius(5),
+                                Margin = new Thickness(3)
+                            };
+                            #endregion
+                            #region Create Button
+                            Button MyButtonCk = new Button()
+                            {
+                                Padding = new Thickness(0),
+                                Height = 59,
+                                MinWidth = 100,
+                                //Width = 100,
+                                ToolTip = "Pulsar para elegir metodo de pago " + CreateNameButton,
+                                Background = (Brush)new System.Windows.Media.BrushConverter().ConvertFromString("#33C8C8C8"),
+                                Style = Application.Current.FindResource("MaterialDesignFlatButton") as Style
+                            };
+                            #endregion
+                            #region Asing event, Create Stack and Icon with text
+                            MyButtonCk.Click += new RoutedEventHandler(handlerCk_Click);
+
+                            StackPanel MyStackCk = new StackPanel();
+
+                            Ck = CreateNameButton;
+
+                            var packIconMaterialCk = new MaterialDesignThemes.Wpf.PackIcon()
+                            {
+                                Kind = MaterialDesignThemes.Wpf.PackIconKind.Bank,
+                                Width = 36,
+                                Height = 36,
+                                HorizontalAlignment = HorizontalAlignment.Center
+                            };
+
+                            TextBlock MyTextCk = new TextBlock()
+                            {
+                                Text = CreateNameButton/*"Cheque"*/,
+                                HorizontalAlignment = HorizontalAlignment.Center,
+                                FontSize = 17
+                            };
+                            #endregion
+                            #region Asing Childs
+                            MyStackCk.Children.Add(packIconMaterialCk);
+                            MyStackCk.Children.Add(MyTextCk);
+                            MyButtonCk.Content = MyStackCk;
+                            myBorderCk.Child = MyButtonCk;
+
+                            PanelWrap.Children.Add(myBorderCk);
+                            #endregion
+                            break;
+                    }
+                }
+            }
         }
 
+        private void handlerEfect_Click(object sender, RoutedEventArgs e)
+        {
+            FormaPago = Efect;
+            OpenControlComprobantes();
+        }
+        private void handlerTarj_Click(object sender, RoutedEventArgs e)
+        {
+            FormaPago = Tarj;
+            OpenControlComprobantes();
+        }
+        private void handlerTrans_Click(object sender, RoutedEventArgs e)
+        {
+            FormaPago = Trans;
+            OpenControlComprobantes();
+        }
+        private void handlerCk_Click(object sender, RoutedEventArgs e)
+        {
+            FormaPago = Ck;
+            OpenControlComprobantes();
+        }
 
+        void OpenControlComprobantes()
+        {
+            PanelOpcionesPagos.Visibility = Visibility.Hidden;
+            int client;
+            try
+            {
+                client = Convert.ToInt32(txtClienteID.Text);
+            }
+            catch
+            {
+                client = 0;
+            }
+            if (txtClienteID.Text != "")
+                new FrmControlComprobantes(client, FormaPago, TTotal).ShowDialog();
+            else 
+            {
+                if (SnackbarThree.MessageQueue is { } messageQueue)
+                {
+                    Task.Factory.StartNew(() => messageQueue.Enqueue("Alerta, Debe seleccionar un cliente."));
+                }
+            }
+        }
     }
 }

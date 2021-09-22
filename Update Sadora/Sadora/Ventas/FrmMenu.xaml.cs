@@ -247,6 +247,16 @@ namespace Sadora.Ventas
             lNombreUsuario.Text = ClassVariables.UsuarioNombre;
         }
 
+        private void btnMenuMetodosPagos_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OpenUsercontrol(new Administracion.UscMantenimientoGeneral("TvenMetodoPagos"), iconMenuMetodosPagos.Kind);
+        }
+
+        private void btnMenuConfiguracionCajas_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OpenUsercontrol(new UscCajas(), iconMenuConfiguracionCajas.Kind);
+        }
+
 
         //private void btnMenuFacturacionTest_MouseUp(object sender, MouseButtonEventArgs e)
         //{

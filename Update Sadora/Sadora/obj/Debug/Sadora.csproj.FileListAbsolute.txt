@@ -214,3 +214,9 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csproj.CoreCompileInputs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.csproj.CopyComplete
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.exe
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Sadora.pdb
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\UscCajas.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\UscCajas.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Custom Controls\CTextBox.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Custom Controls\CTextBox.baml
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmControlFormaPago.g.cs
+C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmControlFormaPago.baml

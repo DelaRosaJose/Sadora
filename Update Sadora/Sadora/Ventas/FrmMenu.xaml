@@ -44,7 +44,7 @@
                     </Grid.Effect>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                         <TextBlock Text="Abel Dutra" x:Name="lNombreUsuario" VerticalAlignment="Center" FontSize="16"/>
-                        <materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
+                        <!--<materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
                             <StackPanel Width="150">
                                 <Button Content="Settings"/>
                                 <Button Content="Account"/>
@@ -52,7 +52,7 @@
                                 <Separator/>
                                 <Button Content="Logout"/>
                             </StackPanel>
-                        </materialDesign:PopupBox>
+                        </materialDesign:PopupBox>-->
                         <Button x:Name="ButtonMinimizar" Click="ButtonMinimizar_Click" TextElement.Foreground="{StaticResource PrimaryHueMidForegroundBrush}"  Margin="0 5 5 5" Style="{StaticResource MaterialDesignOutlinedButton}" >
                             <materialDesign:PackIcon Kind="Minus"  Width="25" Height="25"/>
                         </Button>
@@ -193,7 +193,69 @@
 
 
                                 </TreeViewItem>
-                                <!--<Separator Width="260"/>-->
+                                <Separator Width="260"/>
+
+                                <!--CONFIGURACION-->
+                                <TreeViewItem  Cursor="Hand">
+                                    <TreeViewItem.Header>
+                                        <StackPanel Orientation="Horizontal" ToolTip="CONFIGURACION">
+                                            <TextBlock Margin="0 0 16 0" FontSize="18" FontFamily="Segoe UI Semibold" Width="160">
+                                                CONFIGURACION
+                                            </TextBlock>
+                                            <materialDesign:PackIcon Kind="Cog"  Height="25" Width="25"/>
+                                        </StackPanel>
+                                    </TreeViewItem.Header>
+
+                                    <!--CONFIGURACION DE METODOS DE PAGOS-->
+                                    <TreeViewItem x:Name="btnMenuMetodosPagos" ToolTip="METODOS DE PAGOS" MouseUp="btnMenuMetodosPagos_MouseUp">
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
+                                                <materialDesign:PackIcon x:Name="iconMenuMetodosPagos" Kind="CogBox" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
+                                                    Metodos de Pagos
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+
+                                    <!--CONFIGURACION DE CAJAS-->
+                                    <TreeViewItem x:Name="btnMenuConfiguracionCajas" ToolTip="CONFIGURACION DE CAJAS" MouseUp="btnMenuConfiguracionCajas_MouseUp">
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
+                                                <materialDesign:PackIcon x:Name="iconMenuConfiguracionCajas" Kind="DesktopClassic" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
+                                                    Configuracion de Cajas
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+                                    
+                                    <!--CONFIGURACION DE MARCAS--><!--
+                                    <TreeViewItem x:Name="btnMenuConfiguracionMarcas" ToolTip="CONFIGURACION DE MARCAS" MouseUp="btnMenuConfiguracionMarcas_MouseUp">
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
+                                                <materialDesign:PackIcon x:Name="iconMenuConfiguracionMarcas" Kind="MarkerCheck" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
+                                                    Configuracion de Marcas
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>
+
+                                    --><!--CONFIGURACION DE DEPARTAMENTOS--><!--
+                                    <TreeViewItem x:Name="btnMenuConfiguracionDepartamentos" ToolTip="CONFIGURACION DE DEPARTAMENTOS" MouseUp="btnMenuConfiguracionDepartamentos_MouseUp">
+                                        <TreeViewItem.Header>
+                                            <StackPanel Orientation="Horizontal" FlowDirection="LeftToRight" Margin="-10 0 0 0">
+                                                <materialDesign:PackIcon x:Name="iconMenuConfiguracionDepartamentos" Kind="InboxMultiple" Height="25" Width="25" VerticalAlignment="Center"/>
+                                                <TextBlock Margin="16 0 0 0"  FontSize="14.5" FontFamily="Segoe UI Semibold" Width="155">
+                                                    Configuracion de Departamentos
+                                                </TextBlock>
+                                            </StackPanel>
+                                        </TreeViewItem.Header>
+                                    </TreeViewItem>-->
+
+                                </TreeViewItem>
+
 
                             </TreeView>
 
