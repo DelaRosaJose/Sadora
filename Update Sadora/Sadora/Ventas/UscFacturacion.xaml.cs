@@ -1025,7 +1025,7 @@ namespace Sadora.Ventas
         {
             var CajaConfigurada = (int)Settings.Default["Caja"];
 
-            if (CajaConfigurada == 0)
+            if (CajaConfigurada <= 0)
             {
                 if (SnackbarThree.MessageQueue is { } messageQueue)
                     Task.Factory.StartNew(() => messageQueue.Enqueue("No hay caja configurada"));

@@ -455,9 +455,25 @@ namespace Sadora.Ventas
             //}
         }
 
-        private void txtClienteID_KeyUp(object sender, KeyEventArgs e)
+        private void txtMontoDistribuido_KeyUp(object sender, KeyEventArgs e)
         {
+            try
+            {
+                txtMontoRestante.Text = default;
+                var result = "";
 
+                //txtMontoRestante.Text = Convert.ToDouble(txtMontoDistribuido.Text = txtMontoDistribuido.Text != null && txtMontoDistribuido.Text != "" ? txtMontoDistribuido.Text : "0") == 0 ? (Convert.ToDouble(lMonto.Text)).ToString() :
+                //   (Convert.ToDouble(lMonto.Text) - Convert.ToDouble(txtMontoRestante.Text = (txtMontoRestante.Text != null && txtMontoRestante.Text != "" ? txtMontoRestante.Text : txtMontoDistribuido.Text))).ToString();
+
+                txtMontoRestante.Text = Convert.ToDouble(result = txtMontoDistribuido.Text != null && txtMontoDistribuido.Text != "" ? txtMontoDistribuido.Text : "0") == 0 ? (Convert.ToDouble(lMonto.Text)).ToString() :
+                    (Convert.ToDouble(lMonto.Text) - Convert.ToDouble(txtMontoRestante.Text = (txtMontoRestante.Text != null && txtMontoRestante.Text != "" ? txtMontoRestante.Text : txtMontoDistribuido.Text))).ToString();
+
+            }
+            catch (Exception exception)
+            {
+                Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost("Ha ocurrido un error: " + exception.ToString());
+                frm.ShowDialog();
+            }
         }
     }
 }
