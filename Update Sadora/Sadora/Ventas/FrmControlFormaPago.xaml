@@ -26,7 +26,7 @@
                         <TextBlock HorizontalAlignment="Right" Text="Monto:  " FontSize="29" FontWeight="Bold"/>
                         <TextBlock x:Name="lMonto" HorizontalAlignment="Right" Text="110,000.00" FontSize="29" Foreground="#FF75AC57" FontWeight="Bold"/>
                     </StackPanel>
-                    
+
                     <!--<materialDesign:Card Background="#19C8C8C8">-->
                     <TabControl Height="auto" Grid.RowSpan="2" Margin="20" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold">
                         <TabItem Header="Desglose de pago" x:Name="TabItem" FontSize="25" >
@@ -86,15 +86,15 @@
 
                                 <Border TextElement.FontSize="20" Grid.Row="0" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock x:Name="lMontoDistribuido" Margin="10 5 0 0" Text="Monto a pagar" FontWeight="Bold"/>
-                                        <TextBox x:Name="txtMontoDistribuido" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="1" KeyUp="txtMontoDistribuido_KeyUp"/>
+                                        <TextBlock x:Name="lMontoDistribuido" Margin="10 5 0 0" Text="{Binding MontoRestante, UpdateSourceTrigger=PropertyChanged, StringFormat='Monto a pagar con {0}' }" FontWeight="Bold"/>
+                                        <TextBox x:Name="txtMontoDistribuido" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="1" KeyDown="txtMontoDistribuido_KeyDown" KeyUp="txtMontoDistribuido_KeyUp"/>
                                     </StackPanel>
                                 </Border>
 
                                 <Border TextElement.FontSize="20"  Grid.Row="1" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock x:Name="lMontoRestante" Margin="10 5 0 0" Text="Monto restante" FontWeight="Bold"/>
-                                        <TextBox x:Name="txtMontoRestante" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="1"/>
+                                        <TextBlock x:Name="lMontoRestante" Margin="10 5 0 0" Text="Monto faltante" FontWeight="Bold"/>
+                                        <TextBox x:Name="txtMontoRestante" IsReadOnly="True" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED"/>
                                     </StackPanel>
                                 </Border>
 
@@ -102,32 +102,64 @@
                         </TabItem>
                     </TabControl>
                     <!--</materialDesign:Card>-->
-                    
+
                     <!--#region Botones Aceptar y cerrar -->
                     <Grid Grid.Row="3" >
-                        <Grid.ColumnDefinitions>
-                            <ColumnDefinition Width="*"/>
-                            <ColumnDefinition Width="*"/>
-                        </Grid.ColumnDefinitions>
+                        <materialDesign:Card materialDesign:ShadowAssist.ShadowDepth="Depth2" x:Name="PanelOpcionesPagos" Visibility="Hidden" LostFocus="PanelOpcionesPagos_LostFocus" Grid.Column="0" Margin="0 4 0 4">
 
-                        <Border Padding="0" Grid.Column="0" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="20 10 8 10">
-                            <Button x:Name="btnAceptar" FontSize="35" Height="auto" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="CheckBold"  Foreground="Green" Height="35" Width="35"></materialDesign:PackIcon>
-                                    <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" >ACEPTAR</TextBlock>
-                                </StackPanel>
-                            </Button>
-                        </Border>
+                            <WrapPanel HorizontalAlignment="Right" x:Name="PanelWrap">
 
-                        <Border Padding="0" Grid.Column="1" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="8 10 20 10">
-                            <Button x:Name="btnCancelar"  FontSize="35" Height="auto" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{DynamicResource MaterialDesignFlatButton}">
-                                <StackPanel Orientation="Horizontal">
-                                    <materialDesign:PackIcon VerticalAlignment="Center" Kind="Cancel" Foreground="Red" Height="35" Width="35"></materialDesign:PackIcon>
-                                    <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" >CANCELAR</TextBlock>
-                                </StackPanel>
-                            </Button>
-                        </Border>
+                                <!--<Border Padding="0" HorizontalAlignment="Right" BorderBrush="{StaticResource PrimaryHueDarkBrush}" 
+                                                BorderThickness="2"  CornerRadius="5"  Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="3">
 
+                                        <Button x:Name="BtnEfectivo" Padding="0" Click="BtnEfectivo_Click" Height="59" Width="100" 
+                                                ToolTip="Pulsar para elegir metodo de pago Efectivo" Style="{StaticResource MaterialDesignFlatButton}" Background="#33C8C8C8">
+                                            <StackPanel>
+                                                <materialDesign:PackIcon Kind="Cash" Width="auto" Height="36" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                                                <TextBlock Text="Efectivo" HorizontalAlignment="Center" FontSize="17"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Border>
+
+                                    <Border Padding="0" HorizontalAlignment="Right" BorderBrush="{StaticResource PrimaryHueDarkBrush}" 
+                                                BorderThickness="2"  CornerRadius="5"  Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="3">
+
+                                        <Button x:Name="BtnTarjeta" Padding="0" Click="BtnTarjeta_Click" Height="59" Width="100" 
+                                                ToolTip="Pulsar para elegir metodo de pago Tarjeta" Style="{StaticResource MaterialDesignFlatButton}" Background="#CCC8C8C8">
+                                            <StackPanel>
+                                                <materialDesign:PackIcon Kind="CreditCardOutline" Width="auto" Height="36" HorizontalAlignment="Center"></materialDesign:PackIcon>
+                                                <TextBlock Text="Tarjeta" HorizontalAlignment="Center" FontSize="17"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Border>-->
+
+                            </WrapPanel>
+                        </materialDesign:Card>
+                        
+                        <Grid x:Name="BtAceptarCancelar" Visibility="Visible">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+
+                            <Border Padding="0" Grid.Column="0" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="20 10 8 10">
+                                <Button x:Name="btnAceptar" FontSize="35" Height="auto" Click="btnAceptar_Click" TabIndex="2" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon VerticalAlignment="Center" Kind="CheckBold"  Foreground="Green" Height="35" Width="35"></materialDesign:PackIcon>
+                                        <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" >ACEPTAR</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </Border>
+
+                            <Border Padding="0" Grid.Column="1" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="8 10 20 10">
+                                <Button x:Name="btnCancelar"  FontSize="35" Height="auto" Click="btnCancelar_Click" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{DynamicResource MaterialDesignFlatButton}">
+                                    <StackPanel Orientation="Horizontal">
+                                        <materialDesign:PackIcon VerticalAlignment="Center" Kind="Cancel" Foreground="Red" Height="35" Width="35"></materialDesign:PackIcon>
+                                        <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" >CANCELAR</TextBlock>
+                                    </StackPanel>
+                                </Button>
+                            </Border>
+                        </Grid>
                     </Grid>
                     <!--#endregion-->
                     <!--#region Snackbar -->
@@ -234,7 +266,7 @@
                         </Button>
 
                     </StackPanel>-->
-                    
+
                 </Grid>
 
                 <!--#region Codigo Comentado Anterior diseño-->
@@ -245,12 +277,14 @@
                         <RowDefinition Height="auto"/>
                     </Grid.RowDefinitions>
 
-                    --><!--<TabControl Height="auto" x:Name="TabMainControl" Margin="20 0 20 20" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold">
+                    -->
+                <!--<TabControl Height="auto" x:Name="TabMainControl" Margin="20 0 20 20" Grid.Row="1" VerticalAlignment="Top" FontWeight="Bold">
 
                     </TabControl>
                     <Button x:Name="ButtonCerrar" Grid.Row="0" TextElement.Foreground="{StaticResource MaterialDesignBody}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0,5,0,0" Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonCerrar_Click" >
                         <materialDesign:PackIcon Kind="WindowClose"  Width="25" Height="25"/>
-                    </Button>--><!--
+                    </Button>-->
+                <!--
                     <Grid Grid.Row="0" Background="#F713293D" TextElement.Foreground="{DynamicResource SecundaryAccentBrush}">
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="auto"/>
@@ -271,13 +305,15 @@
                     </Grid>
                     <Grid Background="#4FC8C8C8" Grid.Row="1"></Grid>
 
-                    --><!--<StackPanel Orientation="Horizontal" Grid.Row="0" 
+                    -->
+                <!--<StackPanel Orientation="Horizontal" Grid.Row="0" 
                                 TextElement.FontSize="15" TextElement.Foreground="{StaticResource MaterialDesignBody}" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="5,5,0,0" >
                         <TextBlock Text="Monto a Pagar:  " FontWeight="Bold"/>
 
                         <TextBlock x:Name="LblMonto"/>
 
-                    </StackPanel>--><!--
+                    </StackPanel>-->
+                <!--
                      
                     <materialDesign:Snackbar Grid.Row="1" MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarThree" Background="{StaticResource PrimaryHueDarkBrush}"/>
 
@@ -314,6 +350,6 @@
 
             </materialDesign:DialogHost.DialogContent>
         </materialDesign:DialogHost>
-        
+
     </Grid>
 </Window>
