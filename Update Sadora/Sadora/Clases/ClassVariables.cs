@@ -29,6 +29,11 @@ namespace Sadora.Clases
         public string Modulo { get; set; }
         public string Titulo { get; set; }
 
+        #region FormaPagoProperty
+        public string FormaPago { get; set; }
+        public double CantidadFormaPago { get; set; }
+        #endregion
+        
         public static bool ExistClient
         {
             get { return existclient; }
