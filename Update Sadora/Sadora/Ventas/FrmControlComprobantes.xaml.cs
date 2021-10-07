@@ -27,11 +27,12 @@ namespace Sadora.Ventas
         private bool NotData = false;
         string FormaPago;
         double MontoPagar = 0;
+        ClassVariables ClasesVariab;
 
         public FrmControlComprobantes()
         { }
 
-        public FrmControlComprobantes(int clienteID, string formaPago, double montoPagar)
+        public FrmControlComprobantes(int clienteID, string formaPago, double montoPagar, ClassVariables ClasesVariables)
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
@@ -41,6 +42,7 @@ namespace Sadora.Ventas
             ClienteID = clienteID != 1 ? clienteID : 0;
 
             MontoPagar = montoPagar;
+            ClasesVariab = ClasesVariables;
 
             if (ClienteID != 0)
                 txtRNC.IsReadOnly = true;
@@ -232,6 +234,7 @@ namespace Sadora.Ventas
             }
             else
             {
+                ClasesVariab.ClienteDinamic = txtRazonSocial.Text + " (CM)";
                 this.Close();
                 new FrmControlFormaPago(FormaPago, MontoPagar).ShowDialog();
                 

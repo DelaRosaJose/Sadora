@@ -18,6 +18,8 @@ using System.Windows.Shapes;
 using Sadora.Administracion;
 using Sadora.Properties;
 using System.Linq;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace Sadora.Ventas
 {
@@ -49,6 +51,8 @@ namespace Sadora.Ventas
         int NewCantidad = 1;
         int LastCantidad = 1;
 
+        ClassVariables ClasesVariables = new ClassVariables();
+
         #region Variables para Eventos
         string Efect = "";
         string Tarj = "";
@@ -60,7 +64,7 @@ namespace Sadora.Ventas
         public UscFacturacion()
         {
             InitializeComponent();
-            this.DataContext = this;
+            this.DataContext = ClasesVariables;
             Name = "UscFacturacion";
         }
 
@@ -123,9 +127,7 @@ namespace Sadora.Ventas
                 setDatos(0, "1");
             }
             else
-            {
                 setDatos(0, FacturaID.ToString());
-            }
         }
 
         private void BtnProximoRegistro_Click(object sender, RoutedEventArgs e)
@@ -152,9 +154,7 @@ namespace Sadora.Ventas
                 setDatos(0, LastFacturaID.ToString());
             }
             else
-            {
                 setDatos(0, FacturaID.ToString());
-            }
         }
 
         private void BtnUltimoRegistro_Click(object sender, RoutedEventArgs e)
@@ -208,9 +208,7 @@ namespace Sadora.Ventas
                         frm.Close();
                     }
                     else
-                    {
                         setDatos(0, last);
-                    }
                 }
                 else if (tabla.Rows.Count < 1)
                 {
@@ -306,7 +304,7 @@ namespace Sadora.Ventas
                 {
                     if (txtClienteID.Text != "")
                     {
-                        ClassControl.setValidador("Select Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID, tbxClienteID);
+                        ClassControl.setPropBinding("Select Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID, ClasesVariables);
                         ClassControl.setValidador("Select RNC as Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID, txtRNC);
                         ClassControl.setValidador("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, txtNCF, true);
 
@@ -314,7 +312,7 @@ namespace Sadora.Ventas
                     else
                     {
                         txtClienteID.Text = 0.ToString();
-                        ClassControl.setValidador("Select Nombre from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
+                        ClassControl.setPropBinding("Select Nombre from TcliClientes where ClienteID =", txtClienteID, ClasesVariables);
                         ClassControl.setValidador("Select RNC as Nombre from TcliClientes where ClienteID =", txtClienteID, txtRNC);
                         ClassControl.setValidador("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, txtNCF, true);
                     }
@@ -341,7 +339,7 @@ namespace Sadora.Ventas
                     DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
                     txtClienteID.Text = item.Row.ItemArray[0].ToString();
 
-                    ClassControl.setValidador("select * from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
+                    ClassControl.setPropBinding("select * from TcliClientes where ClienteID =", txtClienteID, ClasesVariables);
                 }
 
             }
@@ -590,7 +588,7 @@ namespace Sadora.Ventas
                     }
                 }
 
-                //ClassControl.setValidador("select * from TcliClientes where ClienteID = ", txtClienteID, tbxClienteID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
+                ClassControl.setPropBinding("select * from TcliClientes where ClienteID = ", txtClienteID, ClasesVariables); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
 
             }
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
@@ -1295,6 +1293,7 @@ namespace Sadora.Ventas
         {
             PanelOpcionesPagos.Visibility = Visibility.Hidden;
             int client;
+
             try
             {
                 client = Convert.ToInt32(txtClienteID.Text);
@@ -1303,14 +1302,33 @@ namespace Sadora.Ventas
             {
                 client = 0;
             }
+
             if (txtClienteID.Text != "")
-                new FrmControlComprobantes(client, FormaPago, TTotal).ShowDialog();
-            else 
+            {
+                SetControls(false, "Validador", false);
+                if (Lista != "Debe Completar los Campos: ")
+                    new Administracion.FrmCompletarCamposHost(Lista).ShowDialog();
+                else
+                {
+                    new FrmControlComprobantes(client, FormaPago, TTotal, ClasesVariables).ShowDialog();
+                    if (ClassVariables.IsFullFormaPago)
+                    {
+                        if (Estado == "Modo Editar")
+                            setDatos(2, null);
+                        else
+                        {
+                            Estado = "Modo Agregar";
+                            setDatos(1, null);
+                        }
+                        SetEnabledButton("Modo Consulta");
+                    }
+
+                }
+            }
+            else
             {
                 if (SnackbarThree.MessageQueue is { } messageQueue)
-                {
                     Task.Factory.StartNew(() => messageQueue.Enqueue("Alerta, Debe seleccionar un cliente."));
-                }
             }
         }
     }

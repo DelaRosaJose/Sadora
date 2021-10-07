@@ -86,7 +86,7 @@
 
                                 <Border TextElement.FontSize="20" Grid.Row="0" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                     <StackPanel Orientation="Vertical">
-                                        <TextBlock x:Name="lMontoDistribuido" Margin="10 5 0 0" Text="{Binding MontoRestante, UpdateSourceTrigger=PropertyChanged, StringFormat='Monto a pagar con {0}' }" FontWeight="Bold"/>
+                                        <TextBlock x:Name="lMontoDistribuido" Margin="10 5 0 0" Text="{Binding FormaPagoAplicada, UpdateSourceTrigger=PropertyChanged, StringFormat='Monto a pagar con {0}' }" FontWeight="Bold"/>
                                         <TextBox x:Name="txtMontoDistribuido" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="1" KeyDown="txtMontoDistribuido_KeyDown" KeyUp="txtMontoDistribuido_KeyUp"/>
                                     </StackPanel>
                                 </Border>

@@ -1,12 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace Sadora.Clases
 {
-    public class ClassVariables
+    public class ClassVariables : INotifyPropertyChanged
     {
         public static string GetSetError;
 
@@ -39,5 +41,27 @@ namespace Sadora.Clases
             get { return existclient; }
             set { existclient = value; }
         }
+
+        public static bool IsFullFormaPago;
+
+        private string cliente;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+        protected void OnPropertyChanged([CallerMemberName] string name = null)
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        }
+
+        public  string ClienteDinamic
+        {
+            get { return cliente; }
+            set
+            {
+                cliente = value;
+                OnPropertyChanged();
+            }
+        }
+
+
     }
 }
