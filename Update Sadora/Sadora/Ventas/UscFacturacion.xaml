@@ -290,7 +290,7 @@
                                                 <Border TextElement.FontSize="15" Margin="5 10 15 10" Grid.Column="1" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                                     <StackPanel Orientation="Vertical">
                                                         <TextBlock x:Name="lRNC" Margin="10 5 0 0" Text="RNC" FontWeight="Bold"></TextBlock>
-                                                        <TextBox x:Name="txtRNC" Height="30" IsReadOnly="True" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED"/>
+                                                        <TextBox x:Name="txtRNC" Height="30" Text="{Binding RNCDinamic, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED"/>
                                                     </StackPanel>
                                                 </Border>
 
@@ -312,7 +312,7 @@
                                                 <Border TextElement.FontSize="15" Margin="5 10 15 10" Grid.Column="1" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                                     <StackPanel Orientation="Vertical">
                                                         <TextBlock x:Name="lNCF" Margin="10 5 0 0" Text="NCF" FontWeight="Bold"></TextBlock>
-                                                        <TextBox x:Name="txtNCF" Height="30" IsReadOnly="True" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" KeyUp="txtNCF_KeyUp"/>
+                                                        <TextBox x:Name="txtNCF" Height="30" Text="{Binding NCFDinamic, UpdateSourceTrigger=PropertyChanged}" IsReadOnly="True" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" KeyUp="txtNCF_KeyUp"/>
                                                     </StackPanel>
                                                 </Border>
 

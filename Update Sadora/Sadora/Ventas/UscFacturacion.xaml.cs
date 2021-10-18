@@ -106,7 +106,7 @@ namespace Sadora.Ventas
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               txtNCF
+               //txtNCF
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
@@ -120,11 +120,11 @@ namespace Sadora.Ventas
             }
 
 
-            if (FacturaID <= 1)
+            if (FacturaID <= 100001)
             {
                 BtnPrimerRegistro.IsEnabled = false;
                 BtnAnteriorRegistro.IsEnabled = false;
-                setDatos(0, "1");
+                setDatos(0, "100001");
             }
             else
                 setDatos(0, FacturaID.ToString());
@@ -304,17 +304,16 @@ namespace Sadora.Ventas
                 {
                     if (txtClienteID.Text != "")
                     {
-                        ClassControl.setPropBinding("Select Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID, ClasesVariables);
-                        ClassControl.setValidador("Select RNC as Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID, txtRNC);
-                        ClassControl.setValidador("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, txtNCF, true);
-
+                        ClasesVariables.ClienteDinamic = ClassControl.setPropBinding("Select Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID);
+                        ClasesVariables.NCFDinamic = ClassControl.setPropBinding("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, true);
+                        ClasesVariables.RNCDinamic = ClassControl.setPropBinding("Select RNC as Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID);
                     }
                     else
                     {
                         txtClienteID.Text = 0.ToString();
-                        ClassControl.setPropBinding("Select Nombre from TcliClientes where ClienteID =", txtClienteID, ClasesVariables);
-                        ClassControl.setValidador("Select RNC as Nombre from TcliClientes where ClienteID =", txtClienteID, txtRNC);
-                        ClassControl.setValidador("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, txtNCF, true);
+                        ClasesVariables.ClienteDinamic = ClassControl.setPropBinding("Select Nombre from TcliClientes where ClienteID =", txtClienteID);
+                        ClasesVariables.NCFDinamic = ClassControl.setPropBinding("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, true);
+                        ClasesVariables.RNCDinamic = ClassControl.setPropBinding("Select RNC as Nombre from TcliClientes where ClienteID =", txtClienteID);
                     }
                     txtArticuloID.Focus();
                     //((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
@@ -339,7 +338,7 @@ namespace Sadora.Ventas
                     DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
                     txtClienteID.Text = item.Row.ItemArray[0].ToString();
 
-                    ClassControl.setPropBinding("select * from TcliClientes where ClienteID =", txtClienteID, ClasesVariables);
+                    ClasesVariables.ClienteDinamic = ClassControl.setPropBinding("select * from TcliClientes where ClienteID =", txtClienteID);
                 }
 
             }
@@ -542,7 +541,7 @@ namespace Sadora.Ventas
                 new SqlParameter("@flag",Flag),
                 new SqlParameter("@FacturaID",FacturaID),
                 new SqlParameter("@ClienteID", txtClienteID.Text),
-                new SqlParameter("@RNC", ""),
+                new SqlParameter("@RNC", txtRNC.Text),
                 new SqlParameter("@ClaseNCF", ""),
                 new SqlParameter("@NCF", txtNCF.Text),
                 new SqlParameter("@Nombre", tbxClienteID.Text),
@@ -567,10 +566,10 @@ namespace Sadora.Ventas
             {
                 txtFacturaID.Text = tabla.Rows[0]["FacturaID"].ToString();
                 txtClienteID.Text = tabla.Rows[0]["ClienteID"].ToString();
-                tbxClienteID.Text = tabla.Rows[0]["Nombre"].ToString();
-                txtRNC.Text = tabla.Rows[0]["RNC"].ToString();
+                ClasesVariables.ClienteDinamic = tabla.Rows[0]["Nombre"].ToString();
+                ClasesVariables.RNCDinamic = tabla.Rows[0]["RNC"].ToString();
                 txtDescuento.Text = tabla.Rows[0]["Descuento"].ToString();
-                txtNCF.Text = tabla.Rows[0]["NCF"].ToString();
+                ClasesVariables.NCFDinamic = tabla.Rows[0]["NCF"].ToString();
                 txtSubTotal.Text = tabla.Rows[0]["SubTotal"].ToString();
                 txtITBIS.Text = tabla.Rows[0]["ITBIS"].ToString();
                 txtTotal.Text = tabla.Rows[0]["Total"].ToString();
@@ -588,7 +587,7 @@ namespace Sadora.Ventas
                     }
                 }
 
-                ClassControl.setPropBinding("select * from TcliClientes where ClienteID = ", txtClienteID, ClasesVariables); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
+                //ClasesVariables.ClienteDinamic = ClassControl.setPropBinding("select * from TcliClientes where ClienteID = ", txtClienteID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
 
             }
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
@@ -662,10 +661,10 @@ namespace Sadora.Ventas
                 //GridMain.ItemsSource = TablaGrid;
                 //GridMain.Columns["FormularioID"].Visible = false;
             }
-            else
-            {
-                GridMain.ItemsSource = null;
-            }
+            //else
+            //{
+            //    GridMain.ItemsSource = null;
+            //}
 
             List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
             {
@@ -1317,6 +1316,7 @@ namespace Sadora.Ventas
                             setDatos(2, null);
                         else
                         {
+                            cbxEstado.Text = "Cerrada";
                             Estado = "Modo Agregar";
                             setDatos(1, null);
                         }

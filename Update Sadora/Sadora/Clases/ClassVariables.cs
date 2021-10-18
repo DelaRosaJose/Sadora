@@ -45,22 +45,16 @@ namespace Sadora.Clases
         public static bool IsFullFormaPago;
 
         private string cliente;
+        private string rnc;
+        private string ncf;
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
+        protected void OnPropertyChanged([CallerMemberName] string name = null) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name)); }
 
-        public  string ClienteDinamic
-        {
-            get { return cliente; }
-            set
-            {
-                cliente = value;
-                OnPropertyChanged();
-            }
-        }
+        public  string ClienteDinamic { get{return cliente;} set{cliente = value; OnPropertyChanged();} }
+        public string RNCDinamic { get{return rnc;} set{rnc = value; OnPropertyChanged();} }
+        public string NCFDinamic { get{return ncf;} set{ncf = value; OnPropertyChanged();} }
+
 
 
     }

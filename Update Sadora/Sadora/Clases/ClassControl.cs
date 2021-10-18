@@ -13,7 +13,7 @@ namespace Sadora.Clases
 {
     class ClassControl
     {
-        public static void setPropBinding(string Consulta, TextBox Enviador, ClassVariables Recibidor, bool OnlySearch = false) //Este metodo se encarga de validar cualquier campo de la ventana que este llamando otro mantenimiento, Ejemplo(Campo clase de clientes contiene(ClaseID, Detalle de la clase que es el nombre)), 
+        public static string setPropBinding(string Consulta, TextBox Enviador, bool OnlySearch = false) //Este metodo se encarga de validar cualquier campo de la ventana que este llamando otro mantenimiento, Ejemplo(Campo clase de clientes contiene(ClaseID, Detalle de la clase que es el nombre)), 
         {                                                                       // el metodo recibe el textbox que le envia la info, la consulta que debe buscar con esa info y el textbox donde debe depositar el resultado.
             if (!OnlySearch)
             {
@@ -30,19 +30,23 @@ namespace Sadora.Clases
             {
                 if (reader.Read()) //Si puede leer la informacion
                 {
-                    
-                    Recibidor.ClienteDinamic = reader["Nombre"].ToString(); //Asignamos el resultado de la columna "Nombre" del datareader en el textbox que le indicamos en el parametro previamente identificado.
-                    reader.NextResult();
+                    var result = reader["Nombre"].ToString(); //Asignamos el resultado de la columna "Nombre" del datareader en el textbox que le indicamos en el parametro previamente identificado.
+                    reader.Close(); //Cerramos el datareader
+                    reader.Dispose(); //Cortamos la conexion del datareader
+                    return result;
                 }
                 reader.Close(); //Cerramos el datareader
                 reader.Dispose(); //Cortamos la conexion del datareader
+                return default;
             }
             else //Si no trajo data
             {
                 //Recibidor.Clear(); //Dejamos en blanco el campo que recibe
                 reader.Close(); //limpiamos el reader
                 reader.Dispose();
+                return default;
             }
+
         }
 
         public static void setValidador(string Consulta, TextBox Enviador, TextBox Recibidor, bool OnlySearch = false) //Este metodo se encarga de validar cualquier campo de la ventana que este llamando otro mantenimiento, Ejemplo(Campo clase de clientes contiene(ClaseID, Detalle de la clase que es el nombre)), 

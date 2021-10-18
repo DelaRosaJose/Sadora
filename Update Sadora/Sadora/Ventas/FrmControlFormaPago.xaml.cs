@@ -109,7 +109,11 @@ namespace Sadora.Ventas
                 {
                     new Administracion.FrmValidarAccion("Esta seguro que desea distribuir esta cantidad?").ShowDialog();
                     if (ClassVariables.ValidarAccion)
-                        new Administracion.FrmCompletarCamposHost("Devuelta: " + txtMontoRestante.Text).ShowDialog();
+                    {
+                        new Administracion.FrmCompletarCamposHost("Devuelta: " + txtMontoRestante.Text.Replace("-", "")).ShowDialog();
+                        ClassVariables.IsFullFormaPago = true;
+                        this.Close();
+                    }
                 }
                 else if (Convert.ToDouble(txtMontoRestante.Text) != 0 && Convert.ToDouble(lMonto.Text) != Convert.ToDouble(txtMontoDistribuido.Text))
                 {
@@ -131,9 +135,11 @@ namespace Sadora.Ventas
                 }
                 else if (txtMontoRestante.Text == "0")
                 {
-                    var Devuelta = txtMontoRestante.Text.Replace("-", "");
-                    lMonto.Text = Devuelta;
-                    new Administracion.FrmCompletarCamposHost("Devuelta: " + (Devuelta.Replace("-", ""))).ShowDialog();
+                    lMonto.Text = txtMontoRestante.Text;
+                    //new Administracion.FrmCompletarCamposHost("Devuelta: " + txtMontoRestante.Text).ShowDialog();
+                    ClassVariables.IsFullFormaPago = true;
+                    this.Close();
+                    //new Administracion.FrmCompletarCamposHost("Devuelta: " + (Devuelta.Replace("-", ""))).ShowDialog();
                 }
             }
             catch { }

@@ -203,6 +203,7 @@ namespace Sadora.Ventas
                 else if (txtNCF.Text.ToUpper().Contains("B15"))
                     PutTextbox(4, true);
 
+                ClasesVariab.ClienteDinamic = txtRazonSocial.Text;
                 txtFechaVencimiento.Text = "12/31/2021";
                 getFinalView();
             }
@@ -218,6 +219,7 @@ namespace Sadora.Ventas
                 else if (txtNCF.Text.ToUpper().Contains("B15"))
                     PutTextbox(4);
 
+                ClasesVariab.ClienteDinamic = txtRazonSocial.Text + " (CM)";
                 txtFechaVencimiento.Text = "12/31/2021";
                 getFinalView();
             }
@@ -234,7 +236,9 @@ namespace Sadora.Ventas
             }
             else
             {
-                ClasesVariab.ClienteDinamic = txtRazonSocial.Text + " (CM)";
+                
+                ClasesVariab.RNCDinamic = txtRNC.Text;
+                ClasesVariab.NCFDinamic = txtNCF.Text;
                 this.Close();
                 new FrmControlFormaPago(FormaPago, MontoPagar).ShowDialog();
                 
