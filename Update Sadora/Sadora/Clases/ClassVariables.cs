@@ -32,6 +32,7 @@ namespace Sadora.Clases
         public string Titulo { get; set; }
 
         #region FormaPagoProperty
+        public string IdFormaPago { get; set; }
         public string FormaPago { get; set; }
         public double CantidadFormaPago { get; set; }
         #endregion
@@ -55,6 +56,7 @@ namespace Sadora.Clases
         public string RNCDinamic { get{return rnc;} set{rnc = value; OnPropertyChanged();} }
         public string NCFDinamic { get{return ncf;} set{ncf = value; OnPropertyChanged();} }
 
+        public static List<Clases.ClassVariables> ListFormasPagos = new List<Clases.ClassVariables>();
 
 
     }

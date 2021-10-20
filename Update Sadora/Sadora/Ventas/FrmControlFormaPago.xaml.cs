@@ -30,22 +30,12 @@ namespace Sadora.Ventas
         //private bool NotData = false;
         private string FormaPago;
         //private string montorestante;
-        private List<Clases.ClassVariables> listOfUsers = new List<Clases.ClassVariables>();
+        private List<Clases.ClassVariables> ListOfFormasPagos = new List<Clases.ClassVariables>();
 
         public event PropertyChangedEventHandler PropertyChanged;
-        protected void OnPropertyChanged([CallerMemberName] string name = null)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-        public string FormaPagoAplicada
-        {
-            get { return FormaPago; }
-            set
-            {
-                FormaPago = value;
-                OnPropertyChanged();
-            }
-        }
+        protected void OnPropertyChanged([CallerMemberName] string name = null) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name)); }
+
+        public string FormaPagoAplicada { get { return FormaPago; } set { FormaPago = value; OnPropertyChanged(); } }
 
         #region Variables para Eventos
         string Efect = "";
@@ -55,8 +45,7 @@ namespace Sadora.Ventas
         //string FormaPago = "";
         #endregion
 
-        public FrmControlFormaPago()
-        { }
+        public FrmControlFormaPago() { }
 
         public FrmControlFormaPago(string formaPago, double MontoPagar)
         {
@@ -111,8 +100,12 @@ namespace Sadora.Ventas
                     if (ClassVariables.ValidarAccion)
                     {
                         new Administracion.FrmCompletarCamposHost("Devuelta: " + txtMontoRestante.Text.Replace("-", "")).ShowDialog();
-                        ClassVariables.IsFullFormaPago = true;
-                        this.Close();
+
+                        Counter();
+
+                        FinishScreen();
+                        //ClassVariables.IsFullFormaPago = true;
+                        //this.Close();
                     }
                 }
                 else if (Convert.ToDouble(txtMontoRestante.Text) != 0 && Convert.ToDouble(lMonto.Text) != Convert.ToDouble(txtMontoDistribuido.Text))
@@ -120,12 +113,7 @@ namespace Sadora.Ventas
                     BtAceptarCancelar.Visibility = Visibility.Hidden;
                     PanelOpcionesPagos.Visibility = Visibility.Visible;
 
-                    var FormasDePago = listOfUsers.FindAll(x => x.FormaPago == FormaPagoAplicada);//.Where(x => x.FormaPago == FormaPagoAplicada);//new ClassVariables().FormaPago;
-
-                    if (FormasDePago.Any())
-                        FormasDePago.ForEach(c => c.CantidadFormaPago = Convert.ToDouble(txtMontoDistribuido.Text));
-                    else
-                        listOfUsers.Add(new ClassVariables() { FormaPago = FormaPagoAplicada, CantidadFormaPago = Convert.ToDouble(txtMontoDistribuido.Text) });
+                    Counter();
 
                     lMonto.Text = txtMontoRestante.Text;
                     txtMontoDistribuido.IsReadOnly = true;
@@ -136,13 +124,32 @@ namespace Sadora.Ventas
                 else if (txtMontoRestante.Text == "0")
                 {
                     lMonto.Text = txtMontoRestante.Text;
+                    Counter();
+                    FinishScreen();
                     //new Administracion.FrmCompletarCamposHost("Devuelta: " + txtMontoRestante.Text).ShowDialog();
-                    ClassVariables.IsFullFormaPago = true;
-                    this.Close();
+                    //ClassVariables.IsFullFormaPago = true;
+                    //this.Close();
                     //new Administracion.FrmCompletarCamposHost("Devuelta: " + (Devuelta.Replace("-", ""))).ShowDialog();
                 }
             }
             catch { }
+        }
+
+        private void Counter()
+        {
+            var FormasDePago = ListOfFormasPagos.FindAll(x => x.FormaPago == FormaPagoAplicada);//.Where(x => x.FormaPago == FormaPagoAplicada);//new ClassVariables().FormaPago;
+
+            if (FormasDePago.Any())
+                FormasDePago.ForEach(c => c.CantidadFormaPago = Convert.ToDouble(txtMontoDistribuido.Text));
+            else
+                ListOfFormasPagos.Add(new ClassVariables() { FormaPago = FormaPagoAplicada, CantidadFormaPago = Convert.ToDouble(txtMontoDistribuido.Text) });
+        }
+
+        private void FinishScreen()
+        {
+            ClassVariables.IsFullFormaPago = true;
+            ClassVariables.ListFormasPagos = ListOfFormasPagos;
+            this.Close();
         }
 
         private void ControlEvent()
@@ -423,7 +430,7 @@ namespace Sadora.Ventas
             BtAceptarCancelar.Visibility = Visibility.Visible;
             PanelOpcionesPagos.Visibility = Visibility.Hidden;
 
-            var FormasDePago = listOfUsers.Select(x => new { x.FormaPago, x.CantidadFormaPago }).Where(x => x.FormaPago == Formapago);//new ClassVariables().FormaPago;
+            var FormasDePago = ListOfFormasPagos.Select(x => new { x.FormaPago, x.CantidadFormaPago }).Where(x => x.FormaPago == Formapago);//new ClassVariables().FormaPago;
 
             if (FormasDePago.Any())
             {

@@ -106,7 +106,7 @@ namespace Sadora.Ventas
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
-               //txtNCF
+                //txtNCF
             };
             ClassControl.ClearControl(listaControl);
             SetEnabledButton("Modo Consulta");
@@ -604,6 +604,61 @@ namespace Sadora.Ventas
                     setDatosGrid(1);
                     GridMain.View.MoveNextRow();
                 }
+
+                DataTable AllMetodos = Clases.ClassData.runDataTable("SELECT MetodoID, Nombre FROM [Sadora].[dbo].[TvenMetodoPagos]", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+                List<Clases.ClassVariables> ListMetodos = new List<Clases.ClassVariables>();
+
+                if (AllMetodos.Rows.Count > 0)
+                {
+                    if (AllMetodos.Columns.Contains("Nombre") && AllMetodos.Columns.Contains("MetodoID"))
+                    {
+                        for (int i = 0; i < AllMetodos.Rows.Count; i++)
+                            ListMetodos.Add(new ClassVariables() { IdFormaPago = AllMetodos.Rows[i]["MetodoID"].ToString(), FormaPago = AllMetodos.Rows[i]["Nombre"].ToString() });
+
+                    }
+                }
+
+
+                var FormasDePago = ClassVariables.ListFormasPagos.ToList();//.Where(x => x.FormaPago == FormaPagoAplicada);//new ClassVariables().FormaPago;
+
+                if (FormasDePago.Any() && ListMetodos.Any())
+                {
+                    foreach (var Forma in FormasDePago)
+                    {
+                        var MetodoID = ListMetodos.Where(x => x.FormaPago == Forma.FormaPago).Select(x => x.IdFormaPago).FirstOrDefault();
+
+                        MessageBox.Show("MetodoID = " + MetodoID + ", Forma Pago = " + Forma.FormaPago + ", Cantidad Pago = " + Forma.CantidadFormaPago.ToString());
+                        //var cantidad = Forma.CantidadFormaPago;
+                        //var forma = Forma.FormaPago;
+
+
+                        List<SqlParameter> listSqlParamet = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el NCF en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
+                        {
+                            new SqlParameter("@flag", Flag),
+                            new SqlParameter("@MetodoPagoID", MetodoID),
+                            new SqlParameter("@TransaccionID", txtFacturaID.Text),                            
+                            new SqlParameter("@Monto", Forma.CantidadFormaPago)
+                        };
+
+                        tabla = Clases.ClassData.runDataTable("sp_venDesglosePago", listSqlParamet, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+
+                        listSqlParamet.Clear();
+
+                        if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+                        {
+                            new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError).ShowDialog();
+                            ClassVariables.GetSetError = null;
+                        }
+
+
+                    }
+                }
+                //FormasDePago.ForEach(var c on) ;
+                //FormasDePago.ForEach(c => c.CantidadFormaPago = Convert.ToDouble(txtMontoDistribuido.Text));
+                //else
+                //    ListOfFormasPagos.Add(new ClassVariables() { FormaPago = FormaPagoAplicada, CantidadFormaPago = Convert.ToDouble(txtMontoDistribuido.Text) });
+
+
             }
         }
 
