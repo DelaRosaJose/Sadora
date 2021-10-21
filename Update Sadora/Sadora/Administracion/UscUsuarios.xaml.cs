@@ -431,13 +431,11 @@ namespace Sadora.Administracion
                 new SqlParameter("@Nombre",txtNombre.Text),
                 new SqlParameter("@EmpleadoID",txtEmpleadoID.Text),
                 new SqlParameter("@GrupoID",txtGrupoID.Text),
-                new SqlParameter("@Contraseña",txtPassword.Password),
+                new SqlParameter("@Contraseña",Clases.ClassControl.GetSHA256(txtPassword.Password)),
                 new SqlParameter("@Activo",cActivar.IsChecked)
             };
 
             tabla = Clases.ClassData.runDataTable("sp_sysUsuarios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
-
-
 
             if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
             {
@@ -452,7 +450,7 @@ namespace Sadora.Administracion
                 txtNombre.Text = tabla.Rows[0]["Nombre"].ToString();
                 txtEmpleadoID.Text = tabla.Rows[0]["EmpleadoID"].ToString();
                 txtGrupoID.Text = tabla.Rows[0]["GrupoID"].ToString();
-                txtPassword.Password = tabla.Rows[0]["Contraseña"].ToString();
+                txtPassword.Password = tabla.Rows[0]["Contraseña"].ToString().Substring(0, new Random().Next(6, 15));
                 cActivar.IsChecked = Convert.ToBoolean(tabla.Rows[0]["Activo"].ToString());
 
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial

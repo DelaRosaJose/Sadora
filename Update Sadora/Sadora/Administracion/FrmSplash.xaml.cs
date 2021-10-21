@@ -32,13 +32,6 @@ namespace Sadora.Administracion
             InitializeComponent();
         }
 
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-            login.Show();
-            this.Hide();
-        }
-
         private void Window_ContentRendered(object sender, EventArgs e)
         {
             BackgroundWorker worker = new BackgroundWorker();

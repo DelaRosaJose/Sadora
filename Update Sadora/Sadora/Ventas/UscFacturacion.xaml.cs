@@ -627,7 +627,7 @@ namespace Sadora.Ventas
                     {
                         var MetodoID = ListMetodos.Where(x => x.FormaPago == Forma.FormaPago).Select(x => x.IdFormaPago).FirstOrDefault();
 
-                        MessageBox.Show("MetodoID = " + MetodoID + ", Forma Pago = " + Forma.FormaPago + ", Cantidad Pago = " + Forma.CantidadFormaPago.ToString());
+                        //MessageBox.Show("MetodoID = " + MetodoID + ", Forma Pago = " + Forma.FormaPago + ", Cantidad Pago = " + Forma.CantidadFormaPago.ToString());
                         //var cantidad = Forma.CantidadFormaPago;
                         //var forma = Forma.FormaPago;
 

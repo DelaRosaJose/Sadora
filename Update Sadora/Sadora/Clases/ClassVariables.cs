@@ -58,6 +58,8 @@ namespace Sadora.Clases
 
         public static List<Clases.ClassVariables> ListFormasPagos = new List<Clases.ClassVariables>();
 
+        public string UserID { get; set; }
+        public int CountIntent { get; set; }
 
     }
 }
