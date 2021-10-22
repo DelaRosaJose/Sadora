@@ -10,7 +10,7 @@
         xmlns:local="clr-namespace:Sadora"
         mc:Ignorable="d"
         Title="MainWindow" Height="470" Width="425" WindowStyle="None" Background="Transparent"
-        AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Border_MouseLeftButtonDown">
+        AllowsTransparency="True" WindowStartupLocation="CenterScreen" MouseLeftButtonDown="Border_MouseLeftButtonDown" Loaded="Window_Loaded">
 
     <!--codigo removido de la etiqueta windows para poder poner el formulario transparente y poder diseñar el login-->
     <!--TextElement.Foreground="{DynamicResource MaterialDesignBody}"

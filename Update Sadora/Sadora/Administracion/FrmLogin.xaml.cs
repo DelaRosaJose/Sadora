@@ -164,7 +164,12 @@ namespace Sadora.Administracion
         private void txtPassword_KeyUp(object sender, KeyEventArgs e)
         {
             if (e.Key == Key.Enter)
-                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                this.BotonAcceder.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            txtUsuarioID.Focus();
         }
     }
 }

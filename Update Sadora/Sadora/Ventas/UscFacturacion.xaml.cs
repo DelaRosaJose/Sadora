@@ -225,7 +225,11 @@ namespace Sadora.Ventas
 
         private void BtnImprimir_Click(object sender, RoutedEventArgs e)
         {
+            DevExpress.Xpf.Printing.PrintHelper.ShowPrintPreview(this, new Reportes.RpFacturacion()).WindowState = WindowState.Maximized;
 
+            //Reportes.RpFacturacion.CreatePrintingSystem();
+
+            //new Reportes.RpFacturacion().pr;
         }
 
         private void BtnAgregar_Click(object sender, RoutedEventArgs e)
