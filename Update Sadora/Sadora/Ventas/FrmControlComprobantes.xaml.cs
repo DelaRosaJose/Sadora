@@ -194,6 +194,7 @@ namespace Sadora.Ventas
                 Result.Clear();
                 Result.Dispose();
                 ClassControl.setValidador("Select NCF as Nombre from getNextNCF(" + ClassComprobante + ",NULL) --", null, txtNCF, true);
+                ClasesVariab.ClaseNCFDinamic = ClassControl.setPropBinding("Select ClaseID as Nombre from getNextNCF(" + ClassComprobante + ",NULL) --", null, true);
                 if (txtNCF.Text.ToUpper().Contains("B01"))
                     PutTextbox(1, true);
                 else if (txtNCF.Text.ToUpper().Contains("B02"))
@@ -210,6 +211,7 @@ namespace Sadora.Ventas
             else if (TipoComprobante != 0 && !string.IsNullOrWhiteSpace(txtRNC.Text) && (txtRNC.Text.Length == 11 || txtRNC.Text.Length == 9))
             {
                 ClassControl.setValidador("Select NCF as Nombre from getNextNCF(" + TipoComprobante + ",NULL) --", null, txtNCF, true);
+                ClasesVariab.ClaseNCFDinamic = ClassControl.setPropBinding("Select ClaseID as Nombre from getNextNCF(" + TipoComprobante + ",NULL) --", null, true);
                 if (txtNCF.Text.ToUpper().Contains("B01"))
                     PutTextbox(1);
                 else if (txtNCF.Text.ToUpper().Contains("B02"))

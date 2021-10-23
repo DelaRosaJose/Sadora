@@ -48,6 +48,7 @@ namespace Sadora.Clases
         private string cliente;
         private string rnc;
         private string ncf;
+        private string Clasencf;
 
         public event PropertyChangedEventHandler PropertyChanged;
         protected void OnPropertyChanged([CallerMemberName] string name = null) { PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name)); }
@@ -55,6 +56,7 @@ namespace Sadora.Clases
         public  string ClienteDinamic { get{return cliente;} set{cliente = value; OnPropertyChanged();} }
         public string RNCDinamic { get{return rnc;} set{rnc = value; OnPropertyChanged();} }
         public string NCFDinamic { get{return ncf;} set{ncf = value; OnPropertyChanged();} }
+        public string ClaseNCFDinamic { get { return Clasencf; } set { Clasencf = value; OnPropertyChanged(); } }
 
         public static List<Clases.ClassVariables> ListFormasPagos = new List<Clases.ClassVariables>();
 

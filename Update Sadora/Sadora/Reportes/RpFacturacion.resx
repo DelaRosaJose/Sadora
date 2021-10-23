@@ -360,6 +360,9 @@
   <data name="LbFechaCreacion.Text" xml:space="preserve">
     <value>22/10/2021</value>
   </data>
+  <data name="LbFechaCreacion.TextFormatString" xml:space="preserve">
+    <value>{0:dd/MM/yyyy}</value>
+  </data>
   <data name="LbSucursal.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
@@ -524,12 +527,6 @@
   </data>
   <data name="ReportHeader.HeightF" type="System.Single, mscorlib">
     <value>370.729279</value>
-  </data>
-  <metadata name="sqlDataSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
-    <value>17, 17</value>
-  </metadata>
-  <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
-    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlR2ZW5GYWN0dXJhcyI+PEZpZWxkIE5hbWU9IlR2ZW5GYWN0dXJhc1R2ZW5GYWN0dXJhc0RldGFsbGVzIiBUeXBlPSJVbmtub3duIiAvPjxGaWVsZCBOYW1lPSJGYWN0dXJhSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJDbGllbnRlSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJSTkMiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQ2xhc2VOQ0YiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTkNGIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik5vbWJyZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEZXNjdWVudG8iIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iU3ViVG90YWwiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iSVRCSVMiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG90YWwiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVXN1YXJpb0lEIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iRXN0YWRvIiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjxWaWV3IE5hbWU9IlR2ZW5GYWN0dXJhc0RldGFsbGVzIj48RmllbGQgTmFtZT0iVHZlbkZhY3R1cmFzRGV0YWxsZXNUdmVuRmFjdHVyYXMiIFR5cGU9IlVua25vd24iIC8+PEZpZWxkIE5hbWU9IkZhY3R1cmFJRCIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkFydGljdWxvSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJDYW50aWRhZCIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlByZWNpbyIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJEZXNjdWVudG8iIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iU3ViVG90YWwiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iSVRCSVMiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG90YWwiIFR5cGU9IkRvdWJsZSIgLz48L1ZpZXc+PFJlbGF0aW9uIE1hc3Rlcj0iVHZlbkZhY3R1cmFzIiBEZXRhaWw9IlR2ZW5GYWN0dXJhc0RldGFsbGVzIj48S2V5Q29sdW1uIE1hc3Rlcj0iRmFjdHVyYUlEIiBEZXRhaWw9IkZhY3R1cmFJRCIgLz48L1JlbGF0aW9uPjxSZWxhdGlvbiBNYXN0ZXI9IlR2ZW5GYWN0dXJhc0RldGFsbGVzIiBEZXRhaWw9IlR2ZW5GYWN0dXJhcyI+PEtleUNvbHVtbiBNYXN0ZXI9IkZhY3R1cmFJRCIgRGV0YWlsPSJGYWN0dXJhSUQiIC8+PC9SZWxhdGlvbj48L0RhdGFTZXQ+</value>
   </data>
   <data name="LbTotal.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 10.8pt</value>

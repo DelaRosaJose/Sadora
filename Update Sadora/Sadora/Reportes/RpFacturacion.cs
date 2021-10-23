@@ -56,9 +56,10 @@ namespace Sadora.Reportes
                     this.xrTable2.Rows.LastRow.Cells.AddRange(new XRTableCell[]
                     {
                         new XRTableCell() {Text = DetailTable.Columns.Contains("Cantidad") ? (DetailTable.Columns.Contains("Precio") ? DetailTable.Rows[i]["Cantidad"].ToString() + " x "+ DetailTable.Rows[i]["Precio"].ToString() : DetailTable.Rows[i]["Cantidad"].ToString()): "0" },
-                        new XRTableCell() {Text = /*DetailTable.Rows[i]["Nombre"].ToString()*/DetailTable.Columns.Contains("Nombre") ? DetailTable.Rows[i]["Nombre"].ToString() : "0" },
-                        new XRTableCell() {Text = /*DetailTable.Rows[i]["ITBIS"].ToString()*/DetailTable.Columns.Contains("ITBIS") ? DetailTable.Rows[i]["ITBIS"].ToString() : "0" },
-                        new XRTableCell() {Text = /*DetailTable.Rows[i]["Precio"].ToString()*/DetailTable.Columns.Contains("Precio") ? DetailTable.Rows[i]["Precio"].ToString() : "0" }
+                        new XRTableCell() {Text = DetailTable.Columns.Contains("Nombre") ? DetailTable.Rows[i]["Nombre"].ToString() : "0" },
+                        new XRTableCell() {Text = DetailTable.Columns.Contains("ITBIS") ? ((Convert.ToDouble(DetailTable.Rows[i]["ITBIS"].ToString()) / Convert.ToDouble(DetailTable.Rows[i]["Cantidad"].ToString())).ToString()): "0" },
+                        new XRTableCell() {Text = DetailTable.Columns.Contains("Precio") ? DetailTable.Rows[i]["Precio"].ToString() : "0" }
+                        //DetailTable.Rows[i]["ITBIS"].ToString() : "0" },
                     });
                 }
             }

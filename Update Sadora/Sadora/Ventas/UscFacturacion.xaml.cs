@@ -238,6 +238,7 @@ namespace Sadora.Ventas
             txtDescuento.Text = 0.ToString("C");
             txtITBIS.Text = 0.ToString("C");
             txtTotal.Text = 0.ToString("C");
+            dtpFechaCreacion.Text = DateTime.Now.ToShortDateString();
         }
 
         private void BtnEditar_Click(object sender, RoutedEventArgs e)
@@ -307,6 +308,7 @@ namespace Sadora.Ventas
                     {
                         ClasesVariables.ClienteDinamic = ClassControl.setPropBinding("Select Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID);
                         ClasesVariables.NCFDinamic = ClassControl.setPropBinding("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, true);
+                        ClasesVariables.ClaseNCFDinamic = ClassControl.setPropBinding("Select ClaseID as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, true);
                         ClasesVariables.RNCDinamic = ClassControl.setPropBinding("Select RNC as Nombre from TcliClientes where  Activo = 1 and ClienteID =", txtClienteID);
                     }
                     else
@@ -314,6 +316,7 @@ namespace Sadora.Ventas
                         txtClienteID.Text = 0.ToString();
                         ClasesVariables.ClienteDinamic = ClassControl.setPropBinding("Select Nombre from TcliClientes where ClienteID =", txtClienteID);
                         ClasesVariables.NCFDinamic = ClassControl.setPropBinding("Select NCF as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, true);
+                        ClasesVariables.ClaseNCFDinamic = ClassControl.setPropBinding("Select ClaseID as Nombre from getNextNCF(NULL," + txtClienteID.Text + ") --", null, true);
                         ClasesVariables.RNCDinamic = ClassControl.setPropBinding("Select RNC as Nombre from TcliClientes where ClienteID =", txtClienteID);
                     }
                     txtArticuloID.Focus();
@@ -543,7 +546,8 @@ namespace Sadora.Ventas
                 new SqlParameter("@FacturaID",FacturaID),
                 new SqlParameter("@ClienteID", txtClienteID.Text),
                 new SqlParameter("@RNC", txtRNC.Text),
-                new SqlParameter("@ClaseNCF", ""),
+                new SqlParameter("@FechaCreacion", dtpFechaCreacion.Text),
+                new SqlParameter("@ClaseNCF", !string.IsNullOrWhiteSpace(ClasesVariables.ClaseNCFDinamic)? ClasesVariables.ClaseNCFDinamic : "0"),
                 new SqlParameter("@NCF", txtNCF.Text),
                 new SqlParameter("@Nombre", tbxClienteID.Text),
                 new SqlParameter("@Descuento", "0"),
@@ -575,6 +579,7 @@ namespace Sadora.Ventas
                 txtITBIS.Text = tabla.Rows[0]["ITBIS"].ToString();
                 txtTotal.Text = tabla.Rows[0]["Total"].ToString();
                 cbxEstado.SelectedItem = tabla.Rows[0]["Estado"].ToString();
+                dtpFechaCreacion.Text = tabla.Rows[0]["FechaCreacion"].ToString();
 
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
@@ -641,7 +646,7 @@ namespace Sadora.Ventas
                             new SqlParameter("@Monto", Forma.CantidadFormaPago)
                         };
 
-                        tabla = Clases.ClassData.runDataTable("sp_venDesglosePago", listSqlParamet, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+                       DataTable Setter = Clases.ClassData.runDataTable("sp_venDesglosePago", listSqlParamet, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
                         listSqlParamet.Clear();
 
@@ -743,7 +748,7 @@ namespace Sadora.Ventas
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtFacturaID,txtClienteID, txtArticuloID//,txtClaseNCF
+                txtFacturaID,txtClienteID, txtArticuloID, dtpFechaCreacion//,txtClaseNCF
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
@@ -1377,6 +1382,7 @@ namespace Sadora.Ventas
                             setDatos(1, null);
                         }
                         SetEnabledButton("Modo Consulta");
+                        this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                         DevExpress.Xpf.Printing.PrintHelper.ShowPrintPreview(this, new Reportes.RpFacturacion(tabla, TableGrid)).WindowState = WindowState.Maximized;
                     }
 
