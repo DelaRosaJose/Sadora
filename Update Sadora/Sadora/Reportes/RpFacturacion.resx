@@ -134,42 +134,45 @@
   <data name="xrTable2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>0, 0</value>
   </data>
-  <data name="xrTableCell5.Text" xml:space="preserve">
+  <data name="LCellCant.Text" xml:space="preserve">
     <value>CANT.</value>
   </data>
-  <data name="xrTableCell5.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+  <data name="LCellCant.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="xrTableCell5.Weight" type="System.Double, mscorlib">
+  <data name="LCellCant.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
-  <data name="xrTableCell6.Text" xml:space="preserve">
+  <data name="LCellDescripcion.Text" xml:space="preserve">
     <value>DESCRIPCION</value>
   </data>
-  <data name="xrTableCell6.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+  <data name="LCellDescripcion.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
   </data>
-  <data name="xrTableCell6.Weight" type="System.Double, mscorlib">
+  <data name="LCellDescripcion.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
-  <data name="xrTableCell7.Text" xml:space="preserve">
+  <data name="LCellITBIS.Text" xml:space="preserve">
     <value>ITBIS</value>
   </data>
-  <data name="xrTableCell7.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+  <data name="LCellITBIS.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
   </data>
-  <data name="xrTableCell7.Weight" type="System.Double, mscorlib">
+  <data name="LCellITBIS.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
-  <data name="xrTableCell8.Text" xml:space="preserve">
+  <data name="LCellValor.Text" xml:space="preserve">
     <value>VALOR</value>
   </data>
-  <data name="xrTableCell8.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+  <data name="LCellValor.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
   </data>
-  <data name="xrTableCell8.Weight" type="System.Double, mscorlib">
+  <data name="LCellValor.Weight" type="System.Double, mscorlib">
     <value>1</value>
+  </data>
+  <data name="xrTableRow2.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <data name="xrTableRow2.Weight" type="System.Double, mscorlib">
     <value>1</value>
@@ -179,6 +182,9 @@
   </data>
   <data name="xrTable2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
+  </data>
+  <data name="Detail.HeightF" type="System.Single, mscorlib">
+    <value>37.166687</value>
   </data>
   <data name="Detail.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>TopLeft</value>
@@ -264,34 +270,34 @@
   <data name="xrLine4.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>779.999939, 11.6667938</value>
   </data>
-  <data name="xrLabel15.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbRazonSocial.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel15.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbRazonSocial.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel15.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbRazonSocial.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>0, 287.814941</value>
   </data>
-  <data name="xrLabel15.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbRazonSocial.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>159.479156, 17.444458</value>
   </data>
-  <data name="xrLabel15.Text" xml:space="preserve">
+  <data name="LbRazonSocial.Text" xml:space="preserve">
     <value>INDUSTRIAS MOLINO</value>
   </data>
-  <data name="xrLabel12.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbRncCliente.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel12.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbRncCliente.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel12.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbRncCliente.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>85.9837952, 252.926025</value>
   </data>
-  <data name="xrLabel12.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbRncCliente.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>73.49536, 17.444458</value>
   </data>
-  <data name="xrLabel12.Text" xml:space="preserve">
+  <data name="LbRncCliente.Text" xml:space="preserve">
     <value>401506254</value>
   </data>
   <data name="xrLabel13.Font" type="System.Drawing.Font, System.Drawing">
@@ -339,34 +345,34 @@
   <data name="xrLabel9.Text" xml:space="preserve">
     <value>Fecha:</value>
   </data>
-  <data name="xrLabel11.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbFechaCreacion.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel11.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbFechaCreacion.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel11.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbFechaCreacion.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>43.93525, 183.055634</value>
   </data>
-  <data name="xrLabel11.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbFechaCreacion.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>133.009247, 17.4444885</value>
   </data>
-  <data name="xrLabel11.Text" xml:space="preserve">
+  <data name="LbFechaCreacion.Text" xml:space="preserve">
     <value>22/10/2021</value>
   </data>
-  <data name="xrLabel7.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbSucursal.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel7.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbSucursal.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel7.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbSucursal.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>0, 148.166672</value>
   </data>
-  <data name="xrLabel7.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbSucursal.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>201.666718, 17.4444733</value>
   </data>
-  <data name="xrLabel7.Text" xml:space="preserve">
+  <data name="LbSucursal.Text" xml:space="preserve">
     <value>Sucursal Gascue</value>
   </data>
   <data name="xrLabel8.Font" type="System.Drawing.Font, System.Drawing">
@@ -384,19 +390,19 @@
   <data name="xrLabel8.Text" xml:space="preserve">
     <value>RNC:</value>
   </data>
-  <data name="xrLabel10.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbRncEmpresa.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel10.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbRncEmpresa.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel10.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbRncEmpresa.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>35.46301, 165.611145</value>
   </data>
-  <data name="xrLabel10.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbRncEmpresa.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>141.481476, 17.4444733</value>
   </data>
-  <data name="xrLabel10.Text" xml:space="preserve">
+  <data name="LbRncEmpresa.Text" xml:space="preserve">
     <value>401506254</value>
   </data>
   <data name="xrLine3.ForeColor" type="System.Drawing.Color, System.Drawing">
@@ -408,34 +414,34 @@
   <data name="xrLine3.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>779.999939, 11.6667938</value>
   </data>
-  <data name="xrLabel6.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbFechaVencimiento.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel6.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbFechaVencimiento.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbFechaVencimiento.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>571.6668, 198.11116</value>
   </data>
-  <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbFechaVencimiento.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>141.481476, 17.4444733</value>
   </data>
-  <data name="xrLabel6.Text" xml:space="preserve">
+  <data name="LbFechaVencimiento.Text" xml:space="preserve">
     <value>31/12/2021</value>
   </data>
-  <data name="xrLabel5.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbNCF.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel5.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbNCF.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel5.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbNCF.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>496.203766, 180.666687</value>
   </data>
-  <data name="xrLabel5.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbNCF.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>144.72226, 17.4444733</value>
   </data>
-  <data name="xrLabel5.Text" xml:space="preserve">
+  <data name="LbNCF.Text" xml:space="preserve">
     <value>B0200000001</value>
   </data>
   <data name="xrLabel4.Font" type="System.Drawing.Font, System.Drawing">
@@ -468,16 +474,16 @@
   <data name="xrLabel3.Text" xml:space="preserve">
     <value>NCF:</value>
   </data>
-  <data name="xrLabel2.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbTipoFactura.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Black, 22pt</value>
   </data>
-  <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbTipoFactura.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>465.833344, 91.83334</value>
   </data>
-  <data name="xrLabel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbTipoFactura.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>314.166656, 88.83334</value>
   </data>
-  <data name="xrLabel2.Text" xml:space="preserve">
+  <data name="LbTipoFactura.Text" xml:space="preserve">
     <value>Factura de Credito Fiscal</value>
   </data>
   <data name="xrLine2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
@@ -489,19 +495,19 @@
   <data name="xrLine2.Visible" type="System.Boolean, mscorlib">
     <value>False</value>
   </data>
-  <data name="xrLabel1.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbNombreEmpresa.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 11.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel1.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbNombreEmpresa.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbNombreEmpresa.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>0, 91.83334</value>
   </data>
-  <data name="xrLabel1.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbNombreEmpresa.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>255.833328, 56.3333435</value>
   </data>
-  <data name="xrLabel1.Text" xml:space="preserve">
+  <data name="LbNombreEmpresa.Text" xml:space="preserve">
     <value>GRUPO FLORIDA IMPORTADORA JASMIN</value>
   </data>
   <data name="xrLine1.BorderColor" type="System.Drawing.Color, System.Drawing">
@@ -518,6 +524,180 @@
   </data>
   <data name="ReportHeader.HeightF" type="System.Single, mscorlib">
     <value>370.729279</value>
+  </data>
+  <metadata name="sqlDataSource1.TrayLocation" type="System.Drawing.Point, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+    <value>17, 17</value>
+  </metadata>
+  <data name="sqlDataSource1.ResultSchemaSerializable" xml:space="preserve">
+    <value>PERhdGFTZXQgTmFtZT0ic3FsRGF0YVNvdXJjZTEiPjxWaWV3IE5hbWU9IlR2ZW5GYWN0dXJhcyI+PEZpZWxkIE5hbWU9IlR2ZW5GYWN0dXJhc1R2ZW5GYWN0dXJhc0RldGFsbGVzIiBUeXBlPSJVbmtub3duIiAvPjxGaWVsZCBOYW1lPSJGYWN0dXJhSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJDbGllbnRlSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJSTkMiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iQ2xhc2VOQ0YiIFR5cGU9IlN0cmluZyIgLz48RmllbGQgTmFtZT0iTkNGIiBUeXBlPSJTdHJpbmciIC8+PEZpZWxkIE5hbWU9Ik5vbWJyZSIgVHlwZT0iU3RyaW5nIiAvPjxGaWVsZCBOYW1lPSJEZXNjdWVudG8iIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iU3ViVG90YWwiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iSVRCSVMiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG90YWwiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVXN1YXJpb0lEIiBUeXBlPSJJbnQzMiIgLz48RmllbGQgTmFtZT0iRXN0YWRvIiBUeXBlPSJTdHJpbmciIC8+PC9WaWV3PjxWaWV3IE5hbWU9IlR2ZW5GYWN0dXJhc0RldGFsbGVzIj48RmllbGQgTmFtZT0iVHZlbkZhY3R1cmFzRGV0YWxsZXNUdmVuRmFjdHVyYXMiIFR5cGU9IlVua25vd24iIC8+PEZpZWxkIE5hbWU9IkZhY3R1cmFJRCIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IkFydGljdWxvSUQiIFR5cGU9IkludDMyIiAvPjxGaWVsZCBOYW1lPSJDYW50aWRhZCIgVHlwZT0iSW50MzIiIC8+PEZpZWxkIE5hbWU9IlByZWNpbyIgVHlwZT0iRG91YmxlIiAvPjxGaWVsZCBOYW1lPSJEZXNjdWVudG8iIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iU3ViVG90YWwiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iSVRCSVMiIFR5cGU9IkRvdWJsZSIgLz48RmllbGQgTmFtZT0iVG90YWwiIFR5cGU9IkRvdWJsZSIgLz48L1ZpZXc+PFJlbGF0aW9uIE1hc3Rlcj0iVHZlbkZhY3R1cmFzIiBEZXRhaWw9IlR2ZW5GYWN0dXJhc0RldGFsbGVzIj48S2V5Q29sdW1uIE1hc3Rlcj0iRmFjdHVyYUlEIiBEZXRhaWw9IkZhY3R1cmFJRCIgLz48L1JlbGF0aW9uPjxSZWxhdGlvbiBNYXN0ZXI9IlR2ZW5GYWN0dXJhc0RldGFsbGVzIiBEZXRhaWw9IlR2ZW5GYWN0dXJhcyI+PEtleUNvbHVtbiBNYXN0ZXI9IkZhY3R1cmFJRCIgRGV0YWlsPSJGYWN0dXJhSUQiIC8+PC9SZWxhdGlvbj48L0RhdGFTZXQ+</value>
+  </data>
+  <data name="LbTotal.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 10.8pt</value>
+  </data>
+  <data name="LbTotal.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="LbTotal.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>621.082642, 82.000145</value>
+  </data>
+  <data name="LbTotal.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>158.9173, 17.4444771</value>
+  </data>
+  <data name="LbTotal.Text" xml:space="preserve">
+    <value>517.51</value>
+  </data>
+  <data name="LbTotal.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleRight</value>
+  </data>
+  <data name="LbTotal.TextFormatString" xml:space="preserve">
+    <value>{0:$0.00}</value>
+  </data>
+  <data name="LbITBIS.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 10.8pt</value>
+  </data>
+  <data name="LbITBIS.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="LbITBIS.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>621.082642, 61.5556946</value>
+  </data>
+  <data name="LbITBIS.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>158.9173, 17.4444771</value>
+  </data>
+  <data name="LbITBIS.Text" xml:space="preserve">
+    <value>37.61</value>
+  </data>
+  <data name="LbITBIS.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleRight</value>
+  </data>
+  <data name="LbITBIS.TextFormatString" xml:space="preserve">
+    <value>{0:$0.00}</value>
+  </data>
+  <data name="LbDescuento.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 10.8pt</value>
+  </data>
+  <data name="LbDescuento.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="LbDescuento.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>621.082642, 41.111248</value>
+  </data>
+  <data name="LbDescuento.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>158.9173, 17.4444771</value>
+  </data>
+  <data name="LbDescuento.Text" xml:space="preserve">
+    <value>0</value>
+  </data>
+  <data name="LbDescuento.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleRight</value>
+  </data>
+  <data name="LbDescuento.TextFormatString" xml:space="preserve">
+    <value>{0:$0.00}</value>
+  </data>
+  <data name="xrLabel20.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Black, 10.8pt, style=Bold</value>
+  </data>
+  <data name="xrLabel20.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel20.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>499.016449, 82.00015</value>
+  </data>
+  <data name="xrLabel20.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>85.9837952, 17.444458</value>
+  </data>
+  <data name="xrLabel20.Text" xml:space="preserve">
+    <value>TOTAL</value>
+  </data>
+  <data name="xrLabel20.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleRight</value>
+  </data>
+  <data name="xrLabel19.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 11pt, style=Bold</value>
+  </data>
+  <data name="xrLabel19.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel19.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>499.016449, 61.5556946</value>
+  </data>
+  <data name="xrLabel19.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>85.9837952, 17.444458</value>
+  </data>
+  <data name="xrLabel19.Text" xml:space="preserve">
+    <value>ITBIS</value>
+  </data>
+  <data name="xrLabel19.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleRight</value>
+  </data>
+  <data name="xrLabel16.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 11pt, style=Bold</value>
+  </data>
+  <data name="xrLabel16.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel16.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>499.016449, 41.1112366</value>
+  </data>
+  <data name="xrLabel16.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>85.9837952, 17.444458</value>
+  </data>
+  <data name="xrLabel16.Text" xml:space="preserve">
+    <value>DESC.</value>
+  </data>
+  <data name="xrLabel16.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleRight</value>
+  </data>
+  <data name="LbSubTotal.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial, 10.8pt</value>
+  </data>
+  <data name="LbSubTotal.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="LbSubTotal.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>621.082764, 20.6667747</value>
+  </data>
+  <data name="LbSubTotal.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>158.9173, 17.4444771</value>
+  </data>
+  <data name="LbSubTotal.Text" xml:space="preserve">
+    <value>479.9</value>
+  </data>
+  <data name="LbSubTotal.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleRight</value>
+  </data>
+  <data name="LbSubTotal.TextFormatString" xml:space="preserve">
+    <value>{0:$0.00}</value>
+  </data>
+  <data name="xrLabel17.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 11pt, style=Bold</value>
+  </data>
+  <data name="xrLabel17.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel17.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>499.016418, 20.6667767</value>
+  </data>
+  <data name="xrLabel17.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>85.9837952, 17.444458</value>
+  </data>
+  <data name="xrLabel17.Text" xml:space="preserve">
+    <value>SUBTOTAL</value>
+  </data>
+  <data name="xrLabel17.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleRight</value>
+  </data>
+  <data name="xrLine5.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLine5.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>0, 4</value>
+  </data>
+  <data name="xrLine5.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>779.999939, 11.6667938</value>
+  </data>
+  <data name="PageFooter.HeightF" type="System.Single, mscorlib">
+    <value>107.608414</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

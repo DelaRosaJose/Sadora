@@ -117,9 +117,6 @@
     <Compile Include="Contabilidad\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Custom Controls\CTextBox.xaml.cs">
-      <DependentUpon>CTextBox.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Inventario\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
@@ -260,10 +257,6 @@
     <Page Include="Contabilidad\FrmMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
-    </Page>
-    <Page Include="Custom Controls\CTextBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Inventario\FrmMenu.xaml">
       <Generator>MSBuild:Compile</Generator>

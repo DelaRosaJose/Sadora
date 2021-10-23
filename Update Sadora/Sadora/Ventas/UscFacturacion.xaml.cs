@@ -36,6 +36,7 @@ namespace Sadora.Ventas
         public bool Inicializador = false;
         DataTable reader;
         DataTable tabla;
+        DataTable TableGrid;
         string Estado;
         string Lista;
         int FacturaID;
@@ -225,11 +226,7 @@ namespace Sadora.Ventas
 
         private void BtnImprimir_Click(object sender, RoutedEventArgs e)
         {
-            DevExpress.Xpf.Printing.PrintHelper.ShowPrintPreview(this, new Reportes.RpFacturacion()).WindowState = WindowState.Maximized;
-
-            //Reportes.RpFacturacion.CreatePrintingSystem();
-
-            //new Reportes.RpFacturacion().pr;
+            DevExpress.Xpf.Printing.PrintHelper.ShowPrintPreview(this, new Reportes.RpFacturacion(tabla, TableGrid)).WindowState = WindowState.Maximized;
         }
 
         private void BtnAgregar_Click(object sender, RoutedEventArgs e)
@@ -705,7 +702,7 @@ namespace Sadora.Ventas
                 new SqlParameter("@UsuarioID", ClassVariables.UsuarioID)
             };
 
-            DataTable TablaGrid = Clases.ClassData.runDataTable("sp_venFacturasDetalles", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+            TableGrid = Clases.ClassData.runDataTable("sp_venFacturasDetalles", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
             if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
             {
@@ -714,9 +711,9 @@ namespace Sadora.Ventas
                 ClassVariables.GetSetError = null;
             }
 
-            if (TablaGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
+            if (TableGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
             {
-                AgregarModoGrid(TablaGrid);
+                AgregarModoGrid(TableGrid);
                 //GridMain.ItemsSource = TablaGrid;
                 //GridMain.Columns["FormularioID"].Visible = false;
             }
@@ -1380,6 +1377,7 @@ namespace Sadora.Ventas
                             setDatos(1, null);
                         }
                         SetEnabledButton("Modo Consulta");
+                        DevExpress.Xpf.Printing.PrintHelper.ShowPrintPreview(this, new Reportes.RpFacturacion(tabla, TableGrid)).WindowState = WindowState.Maximized;
                     }
 
                 }

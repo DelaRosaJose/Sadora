@@ -220,41 +220,7 @@ C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Custom Controls\CTextBox.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Custom Controls\CTextBox.baml
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmControlFormaPago.g.cs
 C:\Users\Usuario\Desktop\Sadora\Sadora\obj\Debug\Ventas\FrmControlFormaPago.baml
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscArticulos.baml
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.baml
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.baml
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmControlAccesos.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmValidarAccion.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmCompletarCamposHost.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmLogin.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmMain.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmMenu.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmSplash.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscGruposUsuarios.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscUsuarios.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Clientes\FrmMenu.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Clientes\UscClientes.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Custom Controls\CTextBox.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\FrmMenu.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscArticulos.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscClaseArticulos.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\FrmMenu.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\UscProveedores.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Recursos Humanos\FrmMenu.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Recursos Humanos\UscEmpleados.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\FrmControlFormaPago.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\FrmControlComprobantes.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\FrmMenu.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\UscFacturacion.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\UscCajas.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\App.g.cs
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.cache
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.lref
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.csprojAssemblyReference.cache
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\Sadora.exe.config
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\Sadora.exe
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\Sadora.pdb
@@ -389,6 +355,40 @@ E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\de\DevExpress.DataAccess.
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\es\DevExpress.DataAccess.v19.1.resources.dll
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\ja\DevExpress.DataAccess.v19.1.resources.dll
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\ru\DevExpress.DataAccess.v19.1.resources.dll
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscArticulos.baml
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.baml
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.baml
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmControlAccesos.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmValidarAccion.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmCompletarCamposHost.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmLogin.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmMain.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmMenu.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmMostrarDatosHost.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmSplash.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscMantenimientoGeneral.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscGruposUsuarios.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscUsuarios.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Clientes\FrmMenu.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Clientes\UscClientes.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\FrmMenu.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscArticulos.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscClaseArticulos.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\FrmMenu.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\UscTransacciones.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\UscProveedores.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Recursos Humanos\FrmMenu.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Recursos Humanos\UscEmpleados.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\FrmControlFormaPago.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\FrmControlComprobantes.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\FrmMenu.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Contabilidad\UscComprobantes.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\UscFacturacion.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Ventas\UscCajas.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\App.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.cache
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora_MarkupCompile.lref
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\App.baml
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmControlAccesos.baml
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\FrmValidarAccion.baml
@@ -404,7 +404,6 @@ E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscUsuario
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Clientes\FrmMenu.baml
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Clientes\UscClientes.baml
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Contabilidad\FrmMenu.baml
-E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Custom Controls\CTextBox.baml
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\FrmMenu.baml
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscClaseArticulos.baml
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Proveedores\FrmMenu.baml
