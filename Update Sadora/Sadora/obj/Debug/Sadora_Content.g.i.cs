@@ -8,7 +8,6 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("datasets/database1.mdf")]
-[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("datasets/database1_log.ldf")]
+[assembly: System.Windows.Resources.AssemblyAssociatedContentFileAttribute("sadora.ico")]
 
 
