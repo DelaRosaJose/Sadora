@@ -201,6 +201,66 @@
   <data name="BottomMargin.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>TopLeft</value>
   </data>
+  <data name="xrLabel5.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 9.5pt, style=Bold</value>
+  </data>
+  <data name="xrLabel5.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel5.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>0.000214158412, 200.500076</value>
+  </data>
+  <data name="xrLabel5.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>60.18503, 17.4444733</value>
+  </data>
+  <data name="xrLabel5.Text" xml:space="preserve">
+    <value>Direccion:</value>
+  </data>
+  <data name="xrLabel6.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 9.5pt, style=Bold</value>
+  </data>
+  <data name="xrLabel6.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>60.1852341, 200.500076</value>
+  </data>
+  <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>195.648071, 17.4444733</value>
+  </data>
+  <data name="xrLabel6.Text" xml:space="preserve">
+    <value>C:/ Venus, esq.Luna, #18, Sol de luz</value>
+  </data>
+  <data name="xrLabel1.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 9.5pt, style=Bold</value>
+  </data>
+  <data name="xrLabel1.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>0, 183.055618</value>
+  </data>
+  <data name="xrLabel1.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>54.32266, 17.4444733</value>
+  </data>
+  <data name="xrLabel1.Text" xml:space="preserve">
+    <value>Telefono:</value>
+  </data>
+  <data name="xrLabel2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 9.5pt, style=Bold</value>
+  </data>
+  <data name="xrLabel2.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>54.32266, 183.055618</value>
+  </data>
+  <data name="xrLabel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>141.481476, 17.4444733</value>
+  </data>
+  <data name="xrLabel2.Text" xml:space="preserve">
+    <value>(809)-239-8255</value>
+  </data>
   <data name="xrTable1.BackColor" type="System.Drawing.Color, System.Drawing">
     <value>0, 70, 95</value>
   </data>
@@ -214,7 +274,7 @@
     <value>White</value>
   </data>
   <data name="xrTable1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>0.0002141585, 333.5626</value>
+    <value>0.000228881836, 346.808228</value>
   </data>
   <data name="xrTableCell4.Text" xml:space="preserve">
     <value>CANT.</value>
@@ -223,7 +283,7 @@
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell4.Weight" type="System.Double, mscorlib">
-    <value>1</value>
+    <value>0.99999992609099764</value>
   </data>
   <data name="xrTableCell1.Text" xml:space="preserve">
     <value>DESCRIPCION</value>
@@ -256,7 +316,7 @@
     <value>1</value>
   </data>
   <data name="xrTable1.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>779.999939, 37.166687</value>
+    <value>779.9999, 37.166687</value>
   </data>
   <data name="xrTable1.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
@@ -265,7 +325,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="xrLine4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>0.000127156585, 311.895752</value>
+    <value>0.000127156585, 325.1414</value>
   </data>
   <data name="xrLine4.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>779.999939, 11.6667938</value>
@@ -277,7 +337,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="LbRazonSocial.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>0, 287.814941</value>
+    <value>0, 301.060577</value>
   </data>
   <data name="LbRazonSocial.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>159.479156, 17.444458</value>
@@ -292,7 +352,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="LbRncCliente.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>85.9837952, 252.926025</value>
+    <value>85.9837952, 266.171661</value>
   </data>
   <data name="LbRncCliente.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>73.49536, 17.444458</value>
@@ -307,7 +367,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="xrLabel13.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>0, 252.926086</value>
+    <value>0, 266.171722</value>
   </data>
   <data name="xrLabel13.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>85.9837952, 17.444458</value>
@@ -322,7 +382,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="xrLabel14.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>0, 270.370483</value>
+    <value>0, 283.616119</value>
   </data>
   <data name="xrLabel14.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>159.479156, 17.444458</value>
@@ -337,7 +397,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="xrLabel9.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>0, 183.055634</value>
+    <value>0, 217.944565</value>
   </data>
   <data name="xrLabel9.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>43.93524, 17.444458</value>
@@ -352,7 +412,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="LbFechaCreacion.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>43.93525, 183.055634</value>
+    <value>43.93525, 217.944565</value>
   </data>
   <data name="LbFechaCreacion.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>133.009247, 17.4444885</value>
@@ -412,7 +472,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="xrLine3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>0, 234.259247</value>
+    <value>0, 247.504883</value>
   </data>
   <data name="xrLine3.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>779.999939, 11.6667938</value>
@@ -513,6 +573,9 @@
   <data name="LbNombreEmpresa.Text" xml:space="preserve">
     <value>GRUPO FLORIDA IMPORTADORA JASMIN</value>
   </data>
+  <data name="LbNombreEmpresa.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>BottomLeft</value>
+  </data>
   <data name="xrLine1.BorderColor" type="System.Drawing.Color, System.Drawing">
     <value>Transparent</value>
   </data>
@@ -526,7 +589,22 @@
     <value>779.999939, 40</value>
   </data>
   <data name="ReportHeader.HeightF" type="System.Single, mscorlib">
-    <value>370.729279</value>
+    <value>383.9749</value>
+  </data>
+  <data name="xrLabel7.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 9.5pt, style=Bold</value>
+  </data>
+  <data name="xrLabel7.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel7.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>9.999993, 20.666769</value>
+  </data>
+  <data name="xrLabel7.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>195.648056, 37.88896</value>
+  </data>
+  <data name="xrLabel7.Text" xml:space="preserve">
+    <value>Nota: Esta factura es valida hasta 10 dias despues de ser emitida.</value>
   </data>
   <data name="LbTotal.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial, 10.8pt</value>

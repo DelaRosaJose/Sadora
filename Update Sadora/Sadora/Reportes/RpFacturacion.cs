@@ -17,9 +17,9 @@ namespace Sadora.Reportes
             if (HeadTable.Rows.Count == 1)
             {
                 #region Variables Empresa
-                LbNombreEmpresa.Text = HeadTable.Columns.Contains("NombreEmpresa") ? HeadTable.Rows[0]["NombreEmpresa"].ToString() : "MULTI SERVICIOS HERMANOS DE LA ROSA PAYANO SRL";
-                LbRncEmpresa.Text = HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "101846399";
-                LbSucursal.Text = HeadTable.Columns.Contains("Sucursal") ? HeadTable.Rows[0]["Sucursal"].ToString() : "sucursal Villa Mella"; 
+                LbNombreEmpresa.Text = HeadTable.Columns.Contains("NombreEmpresa") ? HeadTable.Rows[0]["NombreEmpresa"].ToString() : "CAVERNA DESIGN SRL";
+                LbRncEmpresa.Text = HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "132255186";
+                LbSucursal.Text = HeadTable.Columns.Contains("Sucursal") ? HeadTable.Rows[0]["Sucursal"].ToString() : "Sucursal Villa Mella"; 
                 #endregion
 
                 #region Variables Factura

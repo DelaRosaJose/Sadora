@@ -653,7 +653,7 @@ namespace Sadora.Inventario
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
             {
-                txtArticuloID,txtTarjeta,txtNombre,txtModelo,txtMarcaID,tbxMarcaID,txtDepartamentoID,tbxDepartamentoID,txtCosto,txtPrecio,txtDescripcion
+                txtArticuloID,txtTarjeta,txtNombre,txtModelo,txtMarcaID,tbxMarcaID,txtDepartamentoID,tbxDepartamentoID,txtCosto,txtPrecio
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador
