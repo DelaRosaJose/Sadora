@@ -142,11 +142,12 @@
 
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
 
-                <Grid Grid.Row="1" Margin="50 10 50 0">
+                <Grid Grid.Row="1" Margin="50 10 10 0">
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="0.15*"/>
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0">
@@ -234,6 +235,17 @@
 
 
                     </Grid>
+
+                    <materialDesign:PopupBox x:Name="BtnOpciones" Grid.Column="3" VerticalAlignment="Top" Margin="0 40 0 0" PlacementMode="LeftAndAlignTopEdges" ToolTip="Pulsar para ver opciones avanzadas"  Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" >
+                        <StackPanel Width="auto">
+                            <Border HorizontalAlignment="Right" ToolTip="Activar para poder guardar un comprobante sin secuencia DGII" Padding="5" TextElement.FontSize="15" Margin="15 34 15 15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2" CornerRadius="5">
+                                <StackPanel x:Name="CheckActivar" Orientation="Horizontal">
+                                    <CheckBox x:Name="SinComprobantes" materialDesign:CheckBoxAssist.CheckBoxSize="25" KeyUp="SinComprobantes_KeyUp" TabIndex="3" Checked="SinComprobantes_Checked"/>
+                                    <TextBlock VerticalAlignment="Center" Text="Sin Comprobantes" FontWeight="Bold"></TextBlock>
+                                </StackPanel>
+                            </Border>
+                        </StackPanel>
+                    </materialDesign:PopupBox>
 
                 </Grid>
             </ScrollViewer>

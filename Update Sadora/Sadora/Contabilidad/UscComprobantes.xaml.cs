@@ -157,7 +157,7 @@ namespace Sadora.Contabilidad
             {
                 List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
                 {
-                    cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
+                    cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles,SinComprobantes
                 };
                 Clases.ClassControl.ActivadorControlesReadonly(null, true, false, false, listaControles);
 
@@ -340,7 +340,7 @@ namespace Sadora.Contabilidad
                                     resultado += "0";
                                     Total--;
                                 }
-                                txtNextNCF.Text = (txtNomenclatura.Text+ resultado.ToString()+ txtDesde.Text).ToString();
+                                txtNextNCF.Text = (txtNomenclatura.Text + resultado.ToString() + txtDesde.Text).ToString();
                             }
                             else if (txtDesde.Text.Length == 8)
                             {
@@ -407,15 +407,11 @@ namespace Sadora.Contabilidad
             ClassControl.ValidadorNumeros(e);
         }
 
-        private void cActivar_KeyUp(object sender, KeyEventArgs e)
+        private void SinComprobantes_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta")
-            {
                 if (e.Key == Key.Enter)
-                {
                     ((CheckBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-            }
         }
 
         private void cbxTipoTransaccion_KeyUp(object sender, KeyEventArgs e)
@@ -487,7 +483,8 @@ namespace Sadora.Contabilidad
                 new SqlParameter("@Hasta",txtHasta.Text),
                 new SqlParameter("@NextNCF",txtNextNCF.Text),
                 new SqlParameter("@Disponibles",txtDisponibles.Text),
-                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
+                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID),
+                new SqlParameter("@SinComprobantes",SinComprobantes.IsChecked)
             };
 
             tabla = Clases.ClassData.runDataTable("sp_conComprobantes", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
@@ -509,6 +506,7 @@ namespace Sadora.Contabilidad
                 txtHasta.Text = tabla.Rows[0]["Hasta"].ToString();
                 txtNextNCF.Text = tabla.Rows[0]["NextNCF"].ToString();
                 txtDisponibles.Text = tabla.Rows[0]["Disponibles"].ToString();
+                SinComprobantes.IsChecked = Convert.ToBoolean(tabla.Rows[0]["SinComprobantes"].ToString());
 
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
@@ -538,18 +536,16 @@ namespace Sadora.Contabilidad
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtComprobanteID,txtNombre,cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
+                txtComprobanteID,txtNombre,cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles,SinComprobantes
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
+                cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles,SinComprobantes
             };
 
-            List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
-            {
-                txtComprobanteID,txtNombre,cbxAuxiliar,txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
-            };
+
+
 
             if (Modo == null) //si no trae ningun modo entra el validador
             {
@@ -568,11 +564,24 @@ namespace Sadora.Contabilidad
             }
             else if (Modo == "Validador") //si el parametro modo es igual a validador ingresa.
             {
+                List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
+                {
+                    txtComprobanteID,txtNombre,cbxAuxiliar
+                };
+
+                List<Control> listaControlesValidarV2 = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
+                {
+                    txtNomenclatura,txtDesde,txtHasta,txtNextNCF,txtDisponibles
+                };
+
+                if (!ValidateSaveSinComprobante())
+                    listaControlesValidar.AddRange(listaControlesValidarV2);
+
                 Lista = Clases.ClassControl.ValidadorControles(listaControlesValidar); //Este metodo se encarga de validar que cada unos de los controles que se les indica en la lista no se dejen vacios.
+                listaControlesValidar.Clear();
             }
             listaControl.Clear(); //limpiamos ambas listas
             listaControles.Clear();
-            listaControlesValidar.Clear();
         }
 
         void SetEnabledButton(String status) //Este metodo se encarga de crear la interacion de los botones de la ventana segun el estado en el que se encuentra
@@ -649,6 +658,34 @@ namespace Sadora.Contabilidad
             {
                 BtnEditar.IsEnabled = Modifica;
             }
+        }
+        private bool ValidateSaveSinComprobante()
+        {
+            if (Estado == "Modo Agregar" || Estado == "Modo Editar")
+            {
+                SqlDataReader MetodoCaja = Clases.ClassData.runSqlDataReader("select * from TconComprobantes where SinComprobantes = 1 and comprobanteid <> " + txtComprobanteID.Text, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+                if (MetodoCaja.HasRows && MetodoCaja.Read())
+                {
+                    if (SnackbarThree.MessageQueue is { } messageQueue)
+                        Task.Factory.StartNew(() => messageQueue.Enqueue("Ya existe un comprobante con esta opcion habilitada"));
+                    SinComprobantes.IsChecked = false;
+                    MetodoCaja.Close();
+                    return false;
+                }
+                else 
+                {
+                    MetodoCaja.Close();
+                    return SinComprobantes.IsChecked == true ? true : false;
+                }
+            }
+            return false;
+
+        }
+
+        private void SinComprobantes_Checked(object sender, RoutedEventArgs e)
+        {
+            ValidateSaveSinComprobante();
         }
     }
 }
