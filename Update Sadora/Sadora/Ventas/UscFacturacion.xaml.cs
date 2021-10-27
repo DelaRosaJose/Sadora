@@ -445,19 +445,19 @@ namespace Sadora.Ventas
                         frm.ShowDialog();
                         string Tarjeta = null;
                         string Nombre = null;
-                        int Precio = 0;
-                        int ITBIS = 0;
-                        int Total = 0;
+                        double Precio = 0;
+                        double ITBIS = 0;
+                        double Total = 0;
 
                         if (frm.GridMuestra.SelectedItem != null)
                         {
                             DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
                             Tarjeta = item.Row.ItemArray[1].ToString();
                             Nombre = item.Row.ItemArray[2].ToString();
-                            Precio = Convert.ToInt32(item.Row.ItemArray[4].ToString());
-                            ITBIS = Convert.ToInt32(item.Row.ItemArray[6].ToString());
+                            Precio = Convert.ToDouble(item.Row.ItemArray[4].ToString());
+                            ITBIS = Convert.ToDouble(item.Row.ItemArray[6].ToString());
                             GenITBIS = Convert.ToDouble(item.Row.ItemArray[6].ToString());
-                            Total = Convert.ToInt32(item.Row.ItemArray[7].ToString());
+                            Total = Convert.ToDouble(item.Row.ItemArray[7].ToString());
                             frm.Close();
 
                             if (ValidaArticulosGrid(Tarjeta) == false)

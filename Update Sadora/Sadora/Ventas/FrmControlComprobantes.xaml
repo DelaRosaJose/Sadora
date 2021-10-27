@@ -82,7 +82,7 @@
                     <!--<Border Grid.Row="1" BorderBrush="Black" CornerRadius="10" BorderThickness="0" Margin="15 0 15 10">-->
                     <materialDesign:Card Grid.Row="1" Margin="15 0 15 10" materialDesign:ShadowAssist.ShadowDepth="Depth4">
                         <ScrollViewer Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Auto">
-                            <StackPanel Orientation="Vertical">
+                            <StackPanel Orientation="Vertical" x:Name="PanelWrap">
 
                                 <!--<Border Padding="0" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="10 7 10 2">
                                     <Button x:Name="btnCancelar" Padding="0" Margin="10 7 10 2" FontSize="40" Height="59" Style="{DynamicResource MaterialDesignFlatButton}" Click="btnCancelar_Click">
@@ -93,8 +93,8 @@
                                 </Button>
                                 </Border>-->
 
-                                <Border Padding="0" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="20 20 20 2">
-                                    <!--Click="BtnImprimir_Click"-->
+                                <!--<Border Padding="0" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="20 20 20 2">
+                                    --><!--Click="BtnImprimir_Click"--><!--
                                     <Button x:Name="BtnValorFiscal" Padding="0" Click="BtnValorFiscal_Click" Height="59" ToolTip="Pulsar para elegir tipo de comprobante valor fiscal" Style="{DynamicResource MaterialDesignFlatButton}">
                                         <StackPanel Orientation="Horizontal">
                                             <materialDesign:PackIcon Kind="FileChartOutline" Foreground="#FFF93636" Margin="0 0 20 0" Width="auto" Height="45" HorizontalAlignment="Center"></materialDesign:PackIcon>
@@ -128,7 +128,7 @@
                                             <TextBlock Text="Regimen Especial" HorizontalAlignment="Center" FontSize="40"/>
                                         </StackPanel>
                                     </Button>
-                                </Border>
+                                </Border>-->
 
                                 <!--<Border Padding="0" Grid.Column="10" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5"  CornerRadius="5" HorizontalAlignment="Stretch" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="10 7 10 8">
                                     <Button x:Name="BtnImprimir" Padding="0" Height="59" ToolTip="Pulsar para imprimir el registro" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{StaticResource MaterialDesignFlatButton}">
