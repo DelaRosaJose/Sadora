@@ -756,5 +756,14 @@ namespace Sadora.Inventario
             }
         }
 
+        private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
+        {
+
+        }
+
+        private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
+        {
+
+        }
     }
 }

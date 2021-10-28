@@ -146,7 +146,6 @@ namespace Sadora.Ventas
             }
         }
 
-
         void FindRazonSocial(int TipoComprobante = 0)
         {
             DataTable reader = Clases.ClassData.runDataTable("select RNC, RazonSocial from getCliente('" + txtRNC.Text + "'," + ClienteID + ")", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
@@ -267,15 +266,6 @@ namespace Sadora.Ventas
 
         private void ControlEvent()
         {
-            //var CajaConfigurada = (int)Settings.Default["Caja"];
-
-            //if (CajaConfigurada <= 0)
-            //{
-            //    if (SnackbarThree.MessageQueue is { } messageQueue)
-            //        Task.Factory.StartNew(() => messageQueue.Enqueue("No hay caja configurada"));
-            //}
-            //else
-            //{
             string CreateNameButton = "";
 
             DataTable MetodoCaja = Clases.ClassData.runDataTable("select * from TconComprobantes", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
@@ -296,7 +286,7 @@ namespace Sadora.Ventas
                                 CornerRadius = new CornerRadius(5),
                                 HorizontalAlignment = HorizontalAlignment.Stretch,
                                 VerticalAlignment = VerticalAlignment.Stretch,
-                                Margin = new Thickness(20,20,20,2)
+                                Margin = new Thickness(20, 20, 20, 2)
                             };
                             #endregion
                             #region Create Button
@@ -314,7 +304,7 @@ namespace Sadora.Ventas
                             #region Asing event, Create Stack and Icon with text
                             MyButtonCompFiscal.Click += new RoutedEventHandler(handlerCompFiscal_Click);
 
-                            StackPanel MyStackCompFiscal = new StackPanel() {Orientation = Orientation.Horizontal };
+                            StackPanel MyStackCompFiscal = new StackPanel() { Orientation = Orientation.Horizontal };
 
                             CompFiscal = CreateNameButton;
 
@@ -372,7 +362,7 @@ namespace Sadora.Ventas
                             #region Asing event, Create Stack and Icon with text
                             MyButtonCompConsumo.Click += new RoutedEventHandler(handlerCompConsumo_Click);
 
-                            StackPanel MyStackCompConsumo = new StackPanel(){ Orientation = Orientation.Horizontal };
+                            StackPanel MyStackCompConsumo = new StackPanel() { Orientation = Orientation.Horizontal };
 
                             CompConsumo = CreateNameButton;
 
@@ -518,7 +508,7 @@ namespace Sadora.Ventas
                             PanelWrap.Children.Add(myBorderCompRegimenEspecial);
                             #endregion
                             break;
-                        case string a when a.ToUpper().Contains("SIN") && (MetodoCaja.Columns.Contains("SinComprobantes") ? (MetodoCaja.Rows[i]["SinComprobantes"].ToString() == "True" ? true : false) : false) :
+                        case string a when a.ToUpper().Contains("SIN") && (MetodoCaja.Columns.Contains("SinComprobantes") ? (MetodoCaja.Rows[i]["SinComprobantes"].ToString() == "True" ? true : false) : false):
                             #region Create Border
                             Border myBorderSinComp = new Border()
                             {
@@ -544,7 +534,7 @@ namespace Sadora.Ventas
                             };
                             #endregion
                             #region Asing event, Create Stack and Icon with text
-                            MyButtonSinComp.Click += new RoutedEventHandler(handlerCompRegimenEspecial_Click);
+                            MyButtonSinComp.Click += new RoutedEventHandler(handlerSinComp_Click);
 
                             StackPanel MyStackSinComp = new StackPanel() { Orientation = Orientation.Horizontal };
 
@@ -585,24 +575,46 @@ namespace Sadora.Ventas
 
         private void handlerCompFiscal_Click(object sender, RoutedEventArgs e)
         {
-            //ValidatorActionEvent(Efect);
+            FindRazonSocial(1);
+            PutTextbox(1);
         }
-        
+
         private void handlerCompRegimenEspecial_Click(object sender, RoutedEventArgs e)
         {
-            //ValidatorActionEvent(Efect);
+            FindRazonSocial(3);
+            PutTextbox(3);
         }
 
         private void handlerCompConsumo_Click(object sender, RoutedEventArgs e)
         {
-            //ValidatorActionEvent(Efect);
-        }
-        
-        private void handlerCompGubernamental_Click(object sender, RoutedEventArgs e)
-        {
-            //ValidatorActionEvent(Efect);
+            FindRazonSocial(2);
+            PutTextbox(2);
         }
 
-        
+        private void handlerCompGubernamental_Click(object sender, RoutedEventArgs e)
+        {
+            FindRazonSocial(4);
+            PutTextbox(4);
+        }
+
+        private void handlerSinComp_Click(object sender, RoutedEventArgs e)
+        {
+            new Administracion.FrmValidarAccion("Esta seguro que desea registrar esta factura sin comprobantes?").ShowDialog();
+            if (ClassVariables.ValidarAccion)
+            {
+                this.Close();
+                new FrmControlFormaPago(FormaPago, MontoPagar).ShowDialog();
+
+
+                //new Administracion.FrmCompletarCamposHost("Devuelta: " + txtMontoRestante.Text.Replace("-", "")).ShowDialog();
+                //ClassVariables.IsFullFormaPago = true;
+                //this.Close();
+            }
+
+            //FindRazonSocial(0);
+            //PutTextbox(0);
+        }
+
+
     }
 }

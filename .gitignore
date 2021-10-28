@@ -341,3 +341,11 @@ healthchecksdb
 Update Sadora/.vs/Sadora/v16/.suo
 Update Sadora/.vs/Sadora/v16/.suo
 *.zip
+Update Sadora/.vs/Sadora/v16/.suo
+*.exe
+*.pdb
+*.cache
+*.exe
+*.resources
+*.pdb
+*.baml
