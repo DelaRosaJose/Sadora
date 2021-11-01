@@ -158,7 +158,7 @@ namespace Sadora.Inventario
             {
                 List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
                 {
-                    txtModelo,txtDepartamentoID,tbxDepartamentoID,txtMarcaID,tbxMarcaID,txtCosto,txtPrecio,txtDescripcion
+                    txtModelo,txtDepartamentoID,tbxDepartamentoID,txtMarcaID,tbxMarcaID,txtCosto,txtPrecio,txtDescripcion,txtCantidad
                 };
                 Clases.ClassControl.ActivadorControlesReadonly(null, true, false, false, listaControles);
 
@@ -595,7 +595,8 @@ namespace Sadora.Inventario
                 new SqlParameter("@Tarjeta",txtTarjeta.Text),
                 new SqlParameter("@Costo",txtCosto.Text),
                 new SqlParameter("@Precio",txtPrecio.Text),
-                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
+                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID),
+                new SqlParameter("@Cantidad",txtCantidad.Text)
             };
 
             tabla = Clases.ClassData.runDataTable("sp_invArticulos", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la Articulo digase, consulta, agregar,editar,eliminar en una tabla.
@@ -619,6 +620,7 @@ namespace Sadora.Inventario
                 txtTarjeta.Text = tabla.Rows[0]["Tarjeta"].ToString();
                 txtCosto.Text = tabla.Rows[0]["Costo"].ToString();
                 txtPrecio.Text = tabla.Rows[0]["Precio"].ToString();
+                txtCantidad.Text = tabla.Rows[0]["Cantidad"].ToString();
 
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
@@ -643,17 +645,17 @@ namespace Sadora.Inventario
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtArticuloID,txtTarjeta,txtNombre,txtModelo,txtMarcaID,txtDepartamentoID,txtCosto,txtPrecio,txtDescripcion
+                txtArticuloID,txtTarjeta,txtNombre,txtModelo,txtMarcaID,txtDepartamentoID,txtCosto,txtPrecio,txtDescripcion,txtCantidad
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                txtModelo,txtMarcaID,tbxMarcaID,txtDepartamentoID,tbxDepartamentoID,txtCosto,txtPrecio,txtDescripcion
+                txtModelo,txtMarcaID,tbxMarcaID,txtDepartamentoID,tbxDepartamentoID,txtCosto,txtPrecio,txtDescripcion,txtCantidad
             };
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
             {
-                txtArticuloID,txtTarjeta,txtNombre,txtModelo,txtMarcaID,tbxMarcaID,txtDepartamentoID,tbxDepartamentoID,txtCosto,txtPrecio
+                txtArticuloID,txtTarjeta,txtNombre,txtModelo,txtMarcaID,tbxMarcaID,txtDepartamentoID,tbxDepartamentoID,txtCosto,txtPrecio,txtCantidad
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador

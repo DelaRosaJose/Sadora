@@ -444,6 +444,7 @@ namespace Sadora.Ventas
                         Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, reader, ColumCaption);
                         frm.ShowDialog();
                         string Tarjeta = null;
+                        string ArticuloID = null;
                         string Nombre = null;
                         double Precio = 0;
                         double ITBIS = 0;
@@ -452,6 +453,7 @@ namespace Sadora.Ventas
                         if (frm.GridMuestra.SelectedItem != null)
                         {
                             DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                            ArticuloID = item.Row.ItemArray[0].ToString();
                             Tarjeta = item.Row.ItemArray[1].ToString();
                             Nombre = item.Row.ItemArray[2].ToString();
                             Precio = Convert.ToDouble(item.Row.ItemArray[4].ToString());
@@ -466,6 +468,7 @@ namespace Sadora.Ventas
 
                                 int newRowHandle = DevExpress.Xpf.Grid.DataControlBase.NewItemRowHandle;
 
+                                GridMain.SetCellValue(newRowHandle, "ArticuloID", ArticuloID);
                                 GridMain.SetCellValue(newRowHandle, "Tarjeta", Tarjeta);
                                 GridMain.SetCellValue(newRowHandle, "Nombre", Nombre);
                                 //GridMain.SetCellValue(newRowHandle, "Modelo", reader.Rows[0]["Modelo"]);
@@ -1002,7 +1005,7 @@ namespace Sadora.Ventas
                 switch (Col.HeaderCaption)
                 {
                     case "Articulo ID":
-                        Col.Visible = false;
+                        //Col.Visible = false;
                         Col.ReadOnly = true;
                         break;
 
