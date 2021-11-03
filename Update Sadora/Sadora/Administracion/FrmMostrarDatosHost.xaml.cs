@@ -101,5 +101,19 @@ namespace Sadora.Administracion
                 //clientes.txtClaseID.Text = GridMuestra.
             }
         }
+
+        private void TablaGrid_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (GridMuestra.SelectedItem == null)
+                {
+                    FrmCompletarCamposHost frm = new FrmCompletarCamposHost("Debe Seleccionar un registro.");
+                    frm.ShowDialog();
+                }
+                else
+                    this.Hide();
+            }
+        }
     }
 }

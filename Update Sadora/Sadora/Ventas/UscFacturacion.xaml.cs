@@ -411,9 +411,23 @@ namespace Sadora.Ventas
 
                     if (reader.Rows.Count == 1)
                     {
+
+                        DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad from TinvArticulos where ArticuloID = " + reader.Rows[0]["ArticuloID"].ToString(), null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+                        if (ReadTable.Rows.Count == 1 && ReadTable.Columns.Contains("Cantidad"))
+                        {
+                            if ((double)ReadTable.Rows[0]["Cantidad"] <= 0 && SnackbarThree.MessageQueue is { } messageQueue)
+                            {
+                                Task.Factory.StartNew(() => messageQueue.Enqueue("No hay cantidad disponible para este articulo"));
+                                return;
+                            }
+                            else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
+                                Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
+                        }
+
                         GenITBIS = Convert.ToDouble(reader.Rows[0]["ITBIS"].ToString());
 
-                        if (ValidaArticulosGrid() == false)
+                        if (ValidaArticulosGrid(null, (double)ReadTable.Rows[0]["Cantidad"]) == false)
                         {
                             TablaGrid.AddNewRow();
 
@@ -462,7 +476,21 @@ namespace Sadora.Ventas
                             Total = Convert.ToDouble(item.Row.ItemArray[7].ToString());
                             frm.Close();
 
-                            if (ValidaArticulosGrid(Tarjeta) == false)
+                            DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad from TinvArticulos where ArticuloID = " + ArticuloID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+                            if (ReadTable.Rows.Count == 1 && ReadTable.Columns.Contains("Cantidad"))
+                            {
+                                if ((double)ReadTable.Rows[0]["Cantidad"] <= 0 && SnackbarThree.MessageQueue is { } messageQueue)
+                                {
+                                    Task.Factory.StartNew(() => messageQueue.Enqueue("No hay cantidad disponible para este articulo"));
+                                    return;
+                                }
+                                else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
+                                    Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
+                            }
+
+
+                            if (ValidaArticulosGrid(Tarjeta, (double)ReadTable.Rows[0]["Cantidad"]) == false)
                             {
                                 TablaGrid.AddNewRow();
 
@@ -645,11 +673,11 @@ namespace Sadora.Ventas
                         {
                             new SqlParameter("@flag", Flag),
                             new SqlParameter("@MetodoPagoID", MetodoID),
-                            new SqlParameter("@TransaccionID", txtFacturaID.Text),                            
+                            new SqlParameter("@TransaccionID", txtFacturaID.Text),
                             new SqlParameter("@Monto", Forma.CantidadFormaPago)
                         };
 
-                       DataTable Setter = Clases.ClassData.runDataTable("sp_venDesglosePago", listSqlParamet, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+                        DataTable Setter = Clases.ClassData.runDataTable("sp_venDesglosePago", listSqlParamet, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
                         listSqlParamet.Clear();
 
@@ -874,7 +902,7 @@ namespace Sadora.Ventas
             }
         }
 
-        private bool ValidaArticulosGrid(string ReaderValue = null)
+        private bool ValidaArticulosGrid(string ReaderValue = null, double Cantidad = 0)
         {
             bool resultado = false;
 
@@ -890,7 +918,12 @@ namespace Sadora.Ventas
                 {
                     resultado = true;
 
-                    int cantidad = Convert.ToInt32(GridMain.GetCellValue(rowHandle, "Cantidad").ToString());
+                    int cantidad = (Int32)GridMain.GetCellValue(rowHandle, "Cantidad");//Convert.ToInt32(GridMain.GetCellValue(rowHandle, "Cantidad").ToString());
+                    if (Cantidad < (cantidad + 1) && SnackbarThree.MessageQueue is { } messageQueue)
+                    {
+                        Task.Factory.StartNew(() => messageQueue.Enqueue("No existe la cantidad requerida del articulo: " + Cantidad + " Dispobile"));
+                        return true;
+                    }
 
                     GridMain.SetCellValue(rowHandle, "Cantidad", cantidad + 1);
                     TablaGrid.FocusedRowHandle = rowHandle;
@@ -961,6 +994,35 @@ namespace Sadora.Ventas
             {
                 if (TablaGrid.FocusedColumn.HeaderCaption.ToString() == "Cantidad")
                 {
+
+                    double Cantidad = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "Cantidad").ToString());
+                    double ArticuloID = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "ArticuloID").ToString());
+
+                    DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad from TinvArticulos where ArticuloID = " + ArticuloID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+                    if (ReadTable.Rows.Count == 1 && ReadTable.Columns.Contains("Cantidad"))
+                    {
+                        if ((double)ReadTable.Rows[0]["Cantidad"] <= 0 && SnackbarThree.MessageQueue is { } messageQueue)
+                        {
+                            Task.Factory.StartNew(() => messageQueue.Enqueue("No hay cantidad disponible para este articulo"));
+                            return;
+                        }
+                        else if ((double)ReadTable.Rows[0]["Cantidad"] < (Cantidad + 1) && SnackbarThree.MessageQueue is { } messageQueue2)
+                        {
+                            Task.Factory.StartNew(() => messageQueue2.Enqueue("No existe la cantidad requerida del articulo: "+(double)ReadTable.Rows[0]["Cantidad"]+" Dispobile"));
+                            GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "Cantidad", LastCantidad);
+                            return;
+                        }
+                        else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
+                            Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
+                        
+
+                    }
+
+
+
+
+
                     if (NewCantidad >= LastCantidad)
                     {
                         setValorgrid();
@@ -972,9 +1034,8 @@ namespace Sadora.Ventas
                         FrmControlAccesos frm = new FrmControlAccesos();
                         frm.ShowDialog();
                         if (frm.Resultado == false)
-                        {
                             GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "Cantidad", LastCantidad);
-                        }
+
                         frm.Close();
                         //new FrmControlAccesos().ShowDialog();
                         //MessageBox.Show("No puede disminuir el valor de la cantidad");
@@ -1005,7 +1066,7 @@ namespace Sadora.Ventas
                 switch (Col.HeaderCaption)
                 {
                     case "Articulo ID":
-                        //Col.Visible = false;
+                        Col.Visible = false;
                         Col.ReadOnly = true;
                         break;
 
