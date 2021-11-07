@@ -25,13 +25,18 @@ namespace Sadora.Reportes
                 #region Variables Factura
                 LbFechaCreacion.Text = HeadTable.Columns.Contains("FechaCreacion") ? HeadTable.Rows[0]["FechaCreacion"].ToString() : "10/23/2021";
                 LbNCF.Text = HeadTable.Columns.Contains("NCF") ? HeadTable.Rows[0]["NCF"].ToString() : "B0200000006";
-                LbTipoFactura.Text = LbNCF.Text.Contains("B02") ? "Factura de Consumo" : "Factura de Credito Fiscal";
+                LbTipoFactura.Text = LbNCF.Text.Contains("B01") ? "Factura de Credito Fiscal" : "Factura de Consumo";
                 LbFechaVencimiento.Text = HeadTable.Columns.Contains("VenceComprobante") ? HeadTable.Rows[0]["VenceComprobante"].ToString() : "12/31/2021";
                 
                 LbSubTotal.Text = HeadTable.Columns.Contains("SubTotal") ? HeadTable.Rows[0]["SubTotal"].ToString() : "0";
                 LbDescuento.Text = HeadTable.Columns.Contains("Descuento") ? HeadTable.Rows[0]["Descuento"].ToString() : "0";
                 LbITBIS.Text = HeadTable.Columns.Contains("ITBIS") ? HeadTable.Rows[0]["ITBIS"].ToString() : "0";
                 LbTotal.Text = HeadTable.Columns.Contains("Total") ? HeadTable.Rows[0]["Total"].ToString() : "0";
+                #endregion
+
+                #region VisibleControl
+                if (!HeadTable.Rows[0]["NCF"].ToString().Contains("B0"))
+                    xrLabel3.Visible = xrLabel4.Visible = LbRncCliente.Visible = LbFechaVencimiento.Visible = xrLabel13.Visible = LbNCF.Visible = false;
                 #endregion
 
                 #region Variables Clientes
