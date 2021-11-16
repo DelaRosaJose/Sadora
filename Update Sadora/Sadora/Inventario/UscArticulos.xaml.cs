@@ -36,11 +36,14 @@ namespace Sadora.Inventario
         bool Inicializador = false;
         DataTable tabla;
         SqlDataReader reader;
+        DataTable TableGrid;
         string Estado;
         string Lista;
         int ArticuloID;
         int LastArticuloID;
         string last;
+
+        List<ClassVariables> ListVariables = new List<ClassVariables>();
 
         private void UserControl_Initialized(object sender, EventArgs e)
         {
@@ -639,6 +642,94 @@ namespace Sadora.Inventario
 
             }
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
+
+
+            if (Estado == "Modo Consulta")
+            {
+                GridMain.ItemsSource = null;
+                setDatosGrid(0);
+
+                GridMain.Columns["RowID"].Visible = false;
+                GridMain.Columns["ArticuloID"].Visible = false;
+                GridMain.Columns["UsuarioID"].Visible = false;
+
+                TablaGrid.AutoWidth = true;
+            }
+            else if (Estado == "Modo Agregar" || Estado == "Modo Editar")
+            {
+                GridMain.View.MoveFirstRow();
+                for (int i = 0; i < GridMain.VisibleRowCount; i++)
+                {
+                    setDatosGrid(1);
+                    GridMain.View.MoveNextRow();
+                }
+
+            }
+
+            if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+            {
+                new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError).ShowDialog();
+                ClassVariables.GetSetError = null;
+            }
+        }
+
+        void setDatosGrid(int Flag) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
+        {
+
+            string NombreServicio = "";
+            double Precio = 0;
+            bool Alta = false;
+
+            if (Estado == "Modo Agregar" || Estado == "Modo Editar")
+            {
+                NombreServicio = GridMain.GetFocusedRowCellValue("NombreServicio").ToString();
+                Precio = (double)GridMain.GetFocusedRowCellValue("Precio");
+                Alta = (bool)GridMain.GetFocusedRowCellValue("Alta");
+            }
+
+            List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el NCF en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
+            {
+                new SqlParameter("Flag",Flag),
+                new SqlParameter("@ArticuloID", txtArticuloID.Text),
+                new SqlParameter("@NombreServicio", NombreServicio),
+                new SqlParameter("@Precio", Precio),
+                new SqlParameter("@Alta", Alta),
+                new SqlParameter("@UsuarioID", ClassVariables.UsuarioID)
+            };
+
+            TableGrid = Clases.ClassData.runDataTable("sp_invServicioArticulos", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+
+            if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+            {
+                Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
+                frm.ShowDialog();
+                ClassVariables.GetSetError = null;
+            }
+
+            if (TableGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
+                AgregarModoGrid(TableGrid);
+            
+            
+            //else
+            //{
+            //    GridMain.ItemsSource = null;
+            //}
+
+            List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
+            {
+                //"Visualiza","Agrega","Modifica","Imprime","Anula"
+            };
+
+            if (Estado == "Modo Agregar" && Estado == "Modo Editar")
+            {
+                //Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
+            }
+            else
+            {
+                ClassControl.SetGridReadOnly(GridMain);
+            }
+
+            listSqlParameter.Clear(); listaColumnas.Clear(); //Limpiamos la lista de parametros.
         }
 
         void SetControls(bool Habilitador, string Modo, bool Editando) //Este metodo se encarga de controlar cada unos de los controles del cuerpo de la ventana como los textbox
@@ -760,12 +851,123 @@ namespace Sadora.Inventario
 
         private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
         {
-
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter)
+                {
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                }
+            }
         }
 
         private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
         {
+            ClassControl.ValidadorNumeros(e);
+        }
 
+        private void BtnConfiguracionServicios_Click(object sender, RoutedEventArgs e)
+        {
+            if (Estado != "Modo Consulta" && Estado != "Modo Busqueda")
+            {
+                MiniDialogo.IsOpen = true;
+                AgregarModoGrid();
+            }
+            else if(Estado == "Modo Consulta")
+            {
+                MiniDialogo.IsOpen = true;
+                TablaGrid.AllowEditing = false;
+            }
+        }
+
+        private void ButtonCerrar_Click(object sender, RoutedEventArgs e)
+        {
+            MiniDialogo.IsOpen = false;
+            TablaGrid.AllowEditing = true;
+        }
+
+        private void AgregarModoGrid(DataTable table = null)
+        {
+            if (table == null)
+            {
+                DataTable reader = Clases.ClassData.runDataTable("SELECT [NombreServicio], [Precio], [Alta] FROM[Sadora].[dbo].[TinvServicioArticulos] where ArticuloID = " + txtArticuloID.Text, null, "CommandText");
+
+                GridMain.ItemsSource = reader;
+                TablaGrid.AutoWidth = true;
+                TablaGrid.AddNewRow();
+            }
+            else
+            {
+                GridMain.ItemsSource = table;
+            }
+
+            foreach (DevExpress.Xpf.Grid.GridColumn Col in GridMain.Columns)
+            {
+                switch (Col.HeaderCaption)
+                {
+                    case "Precio":
+                        Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(50, DevExpress.Xpf.Grid.GridColumnUnitType.Pixel);
+                        break;
+
+                    case "Alta":
+                        Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(20, DevExpress.Xpf.Grid.GridColumnUnitType.Pixel);
+                        break;
+                }
+            }
+        }
+
+        private void TablaGrid_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                if (e.Key == Key.Enter && TablaGrid.FocusedColumn.HeaderCaption.ToString() == "Alta")
+                {
+                    if (!ValCampoIncompleto())
+                        TablaGrid.AddNewRow();
+                }
+                else if (e.Key == Key.F5 && TablaGrid.SelectedRows.Count == 1)
+                {
+                    new Administracion.FrmValidarAccion("Esta seguro que desea eliminar esta fila?").ShowDialog(); ;
+                    if (ClassVariables.ValidarAccion == true)
+                        TablaGrid.DeleteRow(TablaGrid.FocusedRowHandle);
+                }
+            }
+        }
+
+        bool ValCampoIncompleto()
+        {
+            string Result = "";
+
+            List<int> rowHandles = new List<int>();
+            for (int i = 0; i < GridMain.VisibleRowCount; i++)
+            {
+                foreach (var column in GridMain.Columns)
+                    Result += string.IsNullOrWhiteSpace(GridMain.GetCellValue(GridMain.GetRowHandleByVisibleIndex(i), column).ToString()).ToString() + " ,";
+         
+                if (Result.Contains("True"))
+                    break;
+            }
+
+            if (Result.Contains("True"))
+            {
+                if (SnackbarThreeDialog.MessageQueue is { } messageQueue)
+                    Task.Factory.StartNew(() => messageQueue.Enqueue("Debe llenar todos los campos"));
+                return true;
+            }
+            else
+                return false;
+
+        }
+
+        private void btnAceptar_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ValCampoIncompleto() && Estado != "Modo Consulta")
+            {
+                //for (int i = 0; i < GridMain.VisibleRowCount; i++)
+                //{
+                //    ListVariables.Add(new ClassVariables() { NombreServicio = (string)GridMain.GetCellValue(i, GridMain.Columns.Where(x => x.FieldName == "NombreServicio").FirstOrDefault()), PrecioServicio = (double)GridMain.GetCellValue(i, GridMain.Columns.Where(x => x.FieldName == "Precio").FirstOrDefault()), AltaServicio = (bool)GridMain.GetCellValue(i, GridMain.Columns.Where(x => x.FieldName == "Alta").FirstOrDefault()) });
+                //}
+                MiniDialogo.IsOpen = false;
+            }
         }
     }
 }

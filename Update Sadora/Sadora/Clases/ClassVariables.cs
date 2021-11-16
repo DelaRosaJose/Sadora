@@ -63,5 +63,12 @@ namespace Sadora.Clases
         public string UserID { get; set; }
         public int CountIntent { get; set; }
 
+        #region PropVenArticulos
+
+        public string NombreServicio { get; set; }
+        public double PrecioServicio { get; set; }
+        public bool AltaServicio { get; set; }
+
+        #endregion
     }
 }

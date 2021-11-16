@@ -9,6 +9,9 @@
 *.user
 *.userosscache
 *.sln.docstates
+.suo
+.exe
+
 
 # User-specific files (MonoDevelop/Xamarin Studio)
 *.userprefs
@@ -355,3 +358,4 @@ Update Sadora/Sadora/bin/Debug/Sadora.pdb
 Update Sadora/Sadora/obj/Debug/DesignTimeResolveAssemblyReferences.cache
 Update Sadora/Sadora/obj/Debug/Sadora.exe
 Update Sadora/Sadora/obj/Debug/Sadora.pdb
+Update Sadora/.vs/Sadora/v16/.suo

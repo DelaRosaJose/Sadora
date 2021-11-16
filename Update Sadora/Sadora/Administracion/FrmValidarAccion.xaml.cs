@@ -24,7 +24,7 @@ namespace Sadora.Administracion
         public FrmValidarAccion()
         { }
 
-            public FrmValidarAccion(string Lista)
+        public FrmValidarAccion(string Lista)
         {
             InitializeComponent();
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
