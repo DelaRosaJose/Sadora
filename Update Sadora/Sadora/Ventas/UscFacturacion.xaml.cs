@@ -400,19 +400,21 @@ namespace Sadora.Ventas
                 if (e.Key == Key.Enter)
                 {
                     reader = Clases.ClassData.runDataTable("Select a.ArticuloID ,a.Tarjeta, a.Nombre, 1 as Cantidad, a.Precio, a.Precio as SubTotal, ((a.Precio * b.Porcentaje) / 100) as ITBIS " +
-                            ", ((a.Precio * b.Porcentaje) / 100)+a.Precio as Total from TinvArticulos a inner join TinvClaseArticulos b on a.ClaseArticuloID = b.ClaseID " +
+                            ", ((a.Precio * b.Porcentaje) / 100)+a.Precio as Total, b.Porcentaje from TinvArticulos a inner join TinvClaseArticulos b on a.ClaseArticuloID = b.ClaseID " +
                             "where a.Tarjeta = '" + txtArticuloID.Text + "' or a.Nombre like '%" + txtArticuloID.Text + "%' order by a.ArticuloID", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
 
 
                     List<String> ColumCaption = new List<String>() //Estos son los campos que saldran en la ventana de busqueda, solo si se le pasa esta lista de no ser asi, se mostrarian todos
                     {
-                        "Tarjeta", "Nombre", "Precio", "ITBIS", "Total"
+                        "Tarjeta", "Nombre", "Precio", "ITBIS", "Total", "Porcentaje"
                     };
 
                     if (reader.Rows.Count == 1)
                     {
 
-                        DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad from TinvArticulos where ArticuloID = " + reader.Rows[0]["ArticuloID"].ToString(), null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+                        DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad, HaveServices from TinvArticulos where ArticuloID = " + reader.Rows[0]["ArticuloID"].ToString(), null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+                        string LostTarjeta = reader.Rows[0]["Tarjeta"].ToString();
 
                         if (ReadTable.Rows.Count == 1 && ReadTable.Columns.Contains("Cantidad"))
                         {
@@ -423,11 +425,34 @@ namespace Sadora.Ventas
                             }
                             else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
                                 Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
+
+                            if ((bool)ReadTable.Rows[0]["HaveServices"])
+                            {
+                                DataTable ValServices = Clases.ClassData.runDataTable("select NombreServicio, Precio from TinvServicioArticulos where Alta = 1 and ArticuloID = " + reader.Rows[0]["ArticuloID"].ToString(), null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+                                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, ValServices, null);
+                                frm.ShowDialog();
+
+                                if (frm.GridMuestra.SelectedItem != null)
+                                {
+                                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                                    reader.Rows[0]["Tarjeta"] += " (" + item.Row.ItemArray[0].ToString() + ")";
+                                    reader.Rows[0]["Nombre"] += " ("+ item.Row.ItemArray[0].ToString() + ")";
+                                    reader.Rows[0]["Precio"] = item.Row.ItemArray[1].ToString();
+                                    reader.Rows[0]["SubTotal"] = item.Row.ItemArray[1].ToString();
+                                    reader.Rows[0]["ITBIS"] = (((double)reader.Rows[0]["Precio"] * (double)reader.Rows[0]["Porcentaje"]) / (double)100);
+                                    reader.Rows[0]["Total"] = ((((double)reader.Rows[0]["Precio"] * (double)reader.Rows[0]["Porcentaje"]) / 100) + (double)reader.Rows[0]["Precio"]);
+
+                                    frm.Close();
+                                }
+                            }
                         }
+                        else
+                            return;
 
                         GenITBIS = Convert.ToDouble(reader.Rows[0]["ITBIS"].ToString());
 
-                        if (ValidaArticulosGrid(null, (double)ReadTable.Rows[0]["Cantidad"]) == false)
+                        if (ValidaArticulosGrid(LostTarjeta, (double)ReadTable.Rows[0]["Cantidad"]) == false)
                         {
                             TablaGrid.AddNewRow();
 
@@ -457,11 +482,13 @@ namespace Sadora.Ventas
 
                         Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, reader, ColumCaption);
                         frm.ShowDialog();
+                        string LostTarjeta = null;
                         string Tarjeta = null;
                         string ArticuloID = null;
                         string Nombre = null;
                         double Precio = 0;
                         double ITBIS = 0;
+                        double Porcentaje = 0;
                         double Total = 0;
 
                         if (frm.GridMuestra.SelectedItem != null)
@@ -474,9 +501,10 @@ namespace Sadora.Ventas
                             ITBIS = Convert.ToDouble(item.Row.ItemArray[6].ToString());
                             GenITBIS = Convert.ToDouble(item.Row.ItemArray[6].ToString());
                             Total = Convert.ToDouble(item.Row.ItemArray[7].ToString());
+                            Porcentaje = Convert.ToDouble(item.Row.ItemArray[8].ToString());
                             frm.Close();
 
-                            DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad from TinvArticulos where ArticuloID = " + ArticuloID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+                            DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad, HaveServices  from TinvArticulos where ArticuloID = " + ArticuloID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
 
                             if (ReadTable.Rows.Count == 1 && ReadTable.Columns.Contains("Cantidad"))
                             {
@@ -487,10 +515,33 @@ namespace Sadora.Ventas
                                 }
                                 else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
                                     Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
+                                
+                                if ((bool)ReadTable.Rows[0]["HaveServices"])
+                                {
+                                    DataTable ValServices = Clases.ClassData.runDataTable("select NombreServicio, Precio from TinvServicioArticulos where Alta = 1 and ArticuloID = " + ArticuloID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+                                    Administracion.FrmMostrarDatosHost frmServices = new Administracion.FrmMostrarDatosHost(null, ValServices, null);
+                                    frmServices.ShowDialog();
+
+                                    if (frmServices.GridMuestra.SelectedItem != null)
+                                    {
+                                        DataRowView itemService = (frmServices.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                                        LostTarjeta = Tarjeta;
+                                        Tarjeta += " (" + itemService.Row.ItemArray[0].ToString() + ")";
+                                        Nombre += " (" + itemService.Row.ItemArray[0].ToString() + ")";
+                                        Precio = (double)itemService.Row.ItemArray[1];
+                                        //reader.Rows[0]["SubTotal"] = itemService.Row.ItemArray[1].ToString();
+                                        ITBIS = ((ITBIS * Porcentaje) / (double)100);
+                                        Total = (((Precio * Porcentaje) / 100) + Precio);
+
+                                        frmServices.Close();
+                                    }
+                                }
                             }
+                            else
+                                return;
 
-
-                            if (ValidaArticulosGrid(Tarjeta, (double)ReadTable.Rows[0]["Cantidad"]) == false)
+                            if (ValidaArticulosGrid(LostTarjeta, (double)ReadTable.Rows[0]["Cantidad"]) == false)
                             {
                                 TablaGrid.AddNewRow();
 
@@ -651,7 +702,6 @@ namespace Sadora.Ventas
                     {
                         for (int i = 0; i < AllMetodos.Rows.Count; i++)
                             ListMetodos.Add(new ClassVariables() { IdFormaPago = AllMetodos.Rows[i]["MetodoID"].ToString(), FormaPago = AllMetodos.Rows[i]["Nombre"].ToString() });
-
                     }
                 }
 
@@ -704,6 +754,7 @@ namespace Sadora.Ventas
 
             string ArticuloID = "";
             string Tarjeta = "";
+            string NombreArticulo = "";
             int Cantidad = 0;
             double Precio = 0;
             double Descuento = 0.00;
@@ -714,6 +765,7 @@ namespace Sadora.Ventas
             if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {
                 ArticuloID = GridMain.GetFocusedRowCellValue("ArticuloID").ToString();
+                NombreArticulo = GridMain.GetFocusedRowCellValue("Nombre").ToString();
                 Tarjeta = GridMain.GetFocusedRowCellValue("Tarjeta").ToString();
                 Cantidad = Convert.ToInt32(GridMain.GetFocusedRowCellValue("Cantidad").ToString());
                 Precio = Convert.ToDouble(GridMain.GetFocusedRowCellValue("Precio").ToString());
@@ -727,7 +779,7 @@ namespace Sadora.Ventas
                 new SqlParameter("Flag",Flag),
                 new SqlParameter("@FacturaID", txtFacturaID.Text),
                 new SqlParameter("@ArticuloID", ArticuloID),
-                //new SqlParameter("@NCF", Tarjeta),
+                new SqlParameter("@NombreArticulo", NombreArticulo),
                 new SqlParameter("@Cantidad", Cantidad),
                 new SqlParameter("@Precio", Precio),
                 new SqlParameter("@Descuento", Descuento),
@@ -914,7 +966,7 @@ namespace Sadora.Ventas
                 if (ReaderValue != null)
                     rowTarjeta = ReaderValue;
 
-                if (cellValue == rowTarjeta)
+                if (cellValue == rowTarjeta || cellValue.Contains(rowTarjeta))
                 {
                     resultado = true;
 
@@ -1009,19 +1061,13 @@ namespace Sadora.Ventas
                         }
                         else if ((double)ReadTable.Rows[0]["Cantidad"] < (Cantidad + 1) && SnackbarThree.MessageQueue is { } messageQueue2)
                         {
-                            Task.Factory.StartNew(() => messageQueue2.Enqueue("No existe la cantidad requerida del articulo: "+(double)ReadTable.Rows[0]["Cantidad"]+" Dispobile"));
+                            Task.Factory.StartNew(() => messageQueue2.Enqueue("No existe la cantidad requerida del articulo: " + (double)ReadTable.Rows[0]["Cantidad"] + " Dispobile"));
                             GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "Cantidad", LastCantidad);
                             return;
                         }
                         else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
                             Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
-                        
-
                     }
-
-
-
-
 
                     if (NewCantidad >= LastCantidad)
                     {
