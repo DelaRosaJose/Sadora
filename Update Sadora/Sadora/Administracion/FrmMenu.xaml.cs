@@ -256,5 +256,10 @@ namespace Sadora.Administracion
         {
             lNombreUsuario.Text = ClassVariables.UsuarioNombre;
         }
+
+        private void btnMenuRegistroEmpresa_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OpenUsercontrol(new UscEmpresa(), iconMenuRegistroEmpresa.Kind);
+        }
     }
 }

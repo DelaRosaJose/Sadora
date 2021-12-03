@@ -52,8 +52,9 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <materialDesign:PackIcon Kind="AccountCircle"  HorizontalAlignment="Center"  VerticalAlignment="Top" Width="100" Height="100"  Foreground="#FF13293D"/>
-                <TextBlock Text="Nombre de Empresa" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"/>
+                <Image Width="110" Margin="15 0" Height="70" x:Name="ImagePickture" Stretch="Fill"></Image>
+                <!--<materialDesign:PackIcon Kind="AccountCircle"  HorizontalAlignment="Center"  VerticalAlignment="Top" Width="100" Height="100"  Foreground="#FF13293D"/>-->
+                <TextBlock Text="Nombre de Empresa" x:Name="lblNombrEmpresa" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
@@ -220,16 +221,6 @@
 
                 </Border>
 
-                <!--<StackPanel Margin="50" Grid.Row="1" Orientation="Vertical">
-                    <Label HorizontalAlignment="Right" Name="lblTime" FontSize="48" VerticalAlignment="Center" />
-                    <Label HorizontalAlignment="Right" Name="lblDate" FontSize="38" VerticalAlignment="Center" />
-                    -->
-                <!--<TextBlock Text="{Binding Source={x:Static sys:DateTime.Now}, StringFormat=\{0:dd/MM/yyyy\}}" />-->
-                <!--<Label x:Name="LblDate" ContentStringFormat="dd/MM/yyyy" Content="{Binding Source={x:Static sys:DateTime.Now}}"/>-->
-                <!--
-                </StackPanel>-->
-
-
                 <Border Grid.Row="2" Margin="100 20 0 0" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="2 2 0 0" CornerRadius="5">
                     <DockPanel>
                         <materialDesign:PackIcon Kind="AccountCircle" DockPanel.Dock="Left"   VerticalAlignment="Center" Width="100" Height="100"  Foreground="#FF13293D"/>
@@ -249,25 +240,13 @@
                             </BulletDecorator.Bullet>
                             <TextBlock Margin="5 0 0 0" FontSize="20" Text="(809)416-9705" TextWrapping="Wrap"></TextBlock>
                         </BulletDecorator>
-
-
-
-                        <!--<TextBlock  Margin="40 0 10 0" DockPanel.Dock="Bottom" FontSize="20" Text="ing.josealbertodelarosa@gmail.com" TextWrapping="Wrap"></TextBlock>-->
                     </DockPanel>
-                    <!--<Grid>
-                        <materialDesign:PackIcon Kind="AccountCircle" DockPanel.Dock="Bottom" HorizontalAlignment="Center"  VerticalAlignment="Top" Width="100" Height="100"  Foreground="#FF13293D"/>
-
-                        <TextBlock  DockPanel.Dock="Top" FontSize="30"  Text="Sadora Inc."></TextBlock>
-                    </Grid>-->
                 </Border>
 
 
             </Grid>
 
         </Grid>
-
-
-        <!--<materialDesign:Snackbar MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarThree" />-->
 
         
         <materialDesign:DialogHost x:Name="MiniDialogo" BorderBrush="{DynamicResource MaterialDesignDarkBackground}" Grid.RowSpan="2">

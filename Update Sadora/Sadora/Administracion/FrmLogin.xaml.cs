@@ -87,7 +87,28 @@ namespace Sadora.Administracion
                 if (tabla.Rows[0]["Resultado"].ToString() == "Acceso Permitido")
                 {
                     Clases.ClassVariables.UsuarioID = Convert.ToInt32(txtUsuarioID.Text);
-                    new FrmMain().Show();
+
+                    DataTable reader = Clases.ClassData.runDataTable("select top 1 Nombre, Logo from TsysEmpresa", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
+                    if (reader.Rows.Count == 1 && reader.Columns.Contains("Nombre") && reader.Columns.Contains("Logo"))
+                    {
+
+                        ClassVariables.NombreEmpresa = reader.Rows[0]["Nombre"].ToString();
+                        ClassVariables.LogoEmpresa = new System.IO.MemoryStream((byte[])reader.Rows[0]["Logo"]); //(byte[])reader.Rows[0]["Nombre"];
+                    }
+
+                    FrmMain frmMain = new FrmMain();
+                    frmMain.lblNombrEmpresa.Text = ClassVariables.NombreEmpresa;
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = ClassVariables.LogoEmpresa;
+                    bitmap.EndInit();
+                    frmMain.ImagePickture.Source = bitmap;
+                    frmMain.Show();
+
+                    //reader.Dispose();
+                    //reader.cl
+                    //new FrmMain().Show();
                     this.Close();
                 }
 

@@ -648,12 +648,15 @@ namespace Sadora.Inventario
             {
                 GridMain.ItemsSource = null;
                 setDatosGrid(0);
+                if (GridMain.ItemsSource != null && ((DataTable)GridMain.ItemsSource).Rows.Count > 0)
+                {
+                    GridMain.Columns["RowID"].Visible = false;
+                    GridMain.Columns["ArticuloID"].Visible = false;
+                    GridMain.Columns["UsuarioID"].Visible = false;
 
-                GridMain.Columns["RowID"].Visible = false;
-                GridMain.Columns["ArticuloID"].Visible = false;
-                GridMain.Columns["UsuarioID"].Visible = false;
-
-                TablaGrid.AutoWidth = true;
+                    TablaGrid.AutoWidth = true;
+                }
+                
             }
             else if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {

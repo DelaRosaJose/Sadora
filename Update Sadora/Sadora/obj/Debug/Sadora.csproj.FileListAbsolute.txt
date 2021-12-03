@@ -426,3 +426,5 @@ E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\es-DO\Sadora.resources.dl
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.csproj.CopyComplete
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.exe
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.pdb
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscEmpresa.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscEmpresa.baml

@@ -117,6 +117,9 @@
     <Compile Include="Administracion\UscGruposUsuarios.xaml.cs">
       <DependentUpon>UscGruposUsuarios.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administracion\UscEmpresa.xaml.cs">
+      <DependentUpon>UscEmpresa.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Contabilidad\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Administracion\UscGruposUsuarios.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Administracion\UscEmpresa.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -68,6 +69,12 @@ namespace Sadora.Clases
         public string NombreServicio { get; set; }
         public double PrecioServicio { get; set; }
         public bool AltaServicio { get; set; }
+
+        #endregion
+
+        #region Datos Empresa
+            public static string NombreEmpresa;
+            public static MemoryStream LogoEmpresa;
 
         #endregion
     }

@@ -51,11 +51,6 @@ namespace Sadora.Administracion
             UpdateSobreModulo(listOfUsers);
             listOfUsers.Clear();
 
-            //this.btnModuloClientes.(new MouseEventArgs(Button.MouseEnterEvent));
-            //string mes2 = fecha.ToString("MMMM", System.Globalization.CultureInfo.CreateSpecificCulture("en-US")); //en ingles
-
-
-            //lblDate.Content = /*"Fecha " +*/dia +", "+ fecha.Day + " de " + mes + " de " + fecha.Year;
             ClassControl.UpdateNameUser();
             lNombreUsuario.Text = ClassVariables.UsuarioNombre; //Asignamos el resultado de la columna "Nombre" del datareader en el label que muestra el nombre del usuario.
 
