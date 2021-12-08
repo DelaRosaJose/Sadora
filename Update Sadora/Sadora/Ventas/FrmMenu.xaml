@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Sadora.Ventas"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
         Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
-        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Ventas" Loaded="Window_Loaded" MouseMove="Window_MouseMove">
+        xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl" Tag="Menu Ventas">
 
     <Window.Resources>
         <Storyboard x:Key="CloseMenu">
@@ -43,7 +43,7 @@
                         <DropShadowEffect BlurRadius="1" ShadowDepth="1" Color="#FFACACAC"/>
                     </Grid.Effect>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                        <TextBlock Text="Abel Dutra" x:Name="lNombreUsuario" VerticalAlignment="Center" FontSize="16"/>
+                        <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" x:Name="lNombreUsuario" VerticalAlignment="Center" FontSize="16"/>
                         <!--<materialDesign:PopupBox PlacementMode="BottomAndAlignRightEdges" Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" Margin="10">
                             <StackPanel Width="150">
                                 <Button Content="Settings"/>
@@ -60,7 +60,7 @@
                             <materialDesign:PackIcon Kind="WindowClose"  Width="25" Height="25"/>
                         </Button>
                     </StackPanel>
-                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22">Design com WPF</TextBlock>
+                    <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="22" Text="{Binding NombreEmpresa, UpdateSourceTrigger=PropertyChanged}"/>
 
                 </Grid>
 
@@ -261,7 +261,7 @@
 
                         </ScrollViewer>
 
-                        <TextBlock Grid.Row="1" Name="TextBlock1" Margin="5" FontSize="20" TextAlignment="Center" Text="VENTAS" Foreground="{StaticResource MaterialDesignDarkForeground}" FontWeight="Bold"/>
+                        <TextBlock Grid.Row="1" Name="TblModulo" Margin="5" FontSize="20" TextAlignment="Center" Text="VENTAS" Foreground="{StaticResource MaterialDesignDarkForeground}" FontWeight="Bold"/>
 
                     </Grid>
 

@@ -248,8 +248,8 @@ namespace Sadora.Administracion
                 }
                 SetEnabledButton("Modo Consulta");
                 setDatos(0, txtEmpresaID.Text);
-                ClassControl.UpdateNameUser();
-                //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
+                ClassVariables.ClasesVariables.NombreEmpresa = txtNombre.Text;
+                ClassVariables.LogoEmpresa = pic;
             }
         }
 
@@ -328,11 +328,16 @@ namespace Sadora.Administracion
                 txtRazonSocial.Text = tabla.Rows[0]["Razon_Social"].ToString();
                 txtDireccion.Text = tabla.Rows[0]["Direccion"].ToString();
                 txtTelefono.Text = tabla.Rows[0]["Telefono"].ToString();
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.StreamSource = new MemoryStream((byte[])tabla.Rows[0]["Logo"]);
-                bitmap.EndInit();
-                ImagePickture.Source = bitmap;
+                try
+                {
+                    pic = (byte[])tabla.Rows[0]["Logo"];
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new MemoryStream((byte[])tabla.Rows[0]["Logo"]);
+                    bitmap.EndInit();
+                    ImagePickture.Source = bitmap;
+                }
+                catch (Exception) { }
 
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
@@ -496,25 +501,28 @@ namespace Sadora.Administracion
 
         private void BtnCargarFotos_Click(object sender, RoutedEventArgs e)
         {
-            System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
-            dlg.InitialDirectory = "c:\\";
-            dlg.Filter = "Image files (*.jpg;*.png)|*.jpg;*.png|All Files (*.*)|*.*";
-            dlg.RestoreDirectory = true;
-
-            if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
+            if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {
-                string selectedFileName = dlg.FileName;
-                BitmapImage bitmap = new BitmapImage();
-                bitmap.BeginInit();
-                bitmap.UriSource = new Uri(selectedFileName);
-                bitmap.EndInit();
-                ImagePickture.Source = bitmap;
+                System.Windows.Forms.OpenFileDialog dlg = new System.Windows.Forms.OpenFileDialog();
+                dlg.InitialDirectory = "c:\\";
+                dlg.Filter = "Image files (*.jpg;*.png)|*.jpg;*.png|All Files (*.*)|*.*";
+                dlg.RestoreDirectory = true;
 
-                Stream myStream = dlg.OpenFile();
-                using (MemoryStream ms = new MemoryStream())
+                if (dlg.ShowDialog() == System.Windows.Forms.DialogResult.OK)
                 {
-                    myStream.CopyTo(ms);
-                    pic = ms.ToArray();
+                    string selectedFileName = dlg.FileName;
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.UriSource = new Uri(selectedFileName);
+                    bitmap.EndInit();
+                    ImagePickture.Source = bitmap;
+
+                    Stream myStream = dlg.OpenFile();
+                    using (MemoryStream ms = new MemoryStream())
+                    {
+                        myStream.CopyTo(ms);
+                        pic = ms.ToArray();
+                    }
                 }
             }
         }

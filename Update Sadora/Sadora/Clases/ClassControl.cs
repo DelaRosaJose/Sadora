@@ -393,7 +393,7 @@ namespace Sadora.Clases
             {
                 if (reader.Read()) //Si puede leer la informacion
                 {
-                    ClassVariables.UsuarioNombre = reader["Nombre"].ToString();
+                    ClassVariables.ClasesVariables.UserName = reader["Nombre"].ToString();
                     reader.NextResult();
                 }
                 reader.Close(); //Cerramos el datareader

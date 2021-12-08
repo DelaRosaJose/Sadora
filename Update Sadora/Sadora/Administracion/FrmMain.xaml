@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Sadora.Administracion"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" 
-        Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Background="#FFD8D9DE"
+        Title="MainWindow" WindowStyle="None" WindowStartupLocation="CenterScreen" WindowState="Maximized" Loaded="Window_Loaded" Background="#FFD8D9DE"
         xmlns:r="clr-namespace:Wpf.Controls;assembly=Wpf.TabControl">
 
     <Grid>
@@ -52,13 +52,13 @@
             </Grid.RowDefinitions>
 
             <StackPanel Grid.Column="0" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Left">
-                <Image Width="110" Margin="15 0" Height="70" x:Name="ImagePickture" Stretch="Fill"></Image>
+                <Image Width="110" Margin="15 0" Height="70" x:Name="ImagePickture" Stretch="Fill" Source="Logo.png"></Image>
                 <!--<materialDesign:PackIcon Kind="AccountCircle"  HorizontalAlignment="Center"  VerticalAlignment="Top" Width="100" Height="100"  Foreground="#FF13293D"/>-->
-                <TextBlock Text="Nombre de Empresa" x:Name="lblNombrEmpresa" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"/>
+                <TextBlock Text="{Binding NombreEmpresa, UpdateSourceTrigger=PropertyChanged}" x:Name="lblNombreEmpresa" VerticalAlignment="Center" FontSize="25" FontWeight="Bold"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="Abel Dutra" x:Name="lNombreUsuario" VerticalAlignment="Center" FontSize="20"/>
+                <TextBlock Text="{Binding UserName, UpdateSourceTrigger=PropertyChanged}" x:Name="lNombreUsuario" VerticalAlignment="Center" FontSize="20"/>
                 <materialDesign:PackIcon Kind="AccountCircle"  HorizontalAlignment="Center"  VerticalAlignment="Top" Width="100" Height="100"  Foreground="#FF13293D"/>
             </StackPanel>
 
@@ -223,7 +223,11 @@
 
                 <Border Grid.Row="2" Margin="100 20 0 0" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="2 2 0 0" CornerRadius="5">
                     <DockPanel>
-                        <materialDesign:PackIcon Kind="AccountCircle" DockPanel.Dock="Left"   VerticalAlignment="Center" Width="100" Height="100"  Foreground="#FF13293D"/>
+
+                        <Image Width="90" Margin="10 0  0 0" Height="100" DockPanel.Dock="Left" VerticalAlignment="Center" Stretch="Fill" Source="LogoSadora.png"></Image>
+
+
+                        <!--<materialDesign:PackIcon Kind="AccountCircle" DockPanel.Dock="Left"   VerticalAlignment="Center" Width="100" Height="100"  Foreground="#FF13293D"/>-->
                         <TextBlock  Margin="10 0 0 0" DockPanel.Dock="Top" FontSize="30"  Text="Sadora Inc."></TextBlock>
                         <TextBlock  Margin="30 0 0 0" DockPanel.Dock="top" FontSize="23.5" Text="Contactos: "></TextBlock>
 

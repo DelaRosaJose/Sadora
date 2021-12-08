@@ -9,19 +9,20 @@ using System.Threading.Tasks;
 
 namespace Sadora.Clases
 {
+
+
     public class ClassVariables : INotifyPropertyChanged
     {
+    
+        public static ClassVariables ClasesVariables = new ClassVariables();
+
         public static string GetSetError;
 
         public static bool ValidarAccion;
-        //public static int IntentoEntrada;
-        //public static string EmpleadoID;
         public static int UsuarioID;
         public static string UsuarioNombre;
         private static bool existclient = false;
 
-        //public static string UsuarioNombre;
-        //public static string TipoCuenta;
         public static bool Imprime;
         public static bool Agrega;
         public static bool Modifica;
@@ -61,6 +62,12 @@ namespace Sadora.Clases
 
         public static List<Clases.ClassVariables> ListFormasPagos = new List<Clases.ClassVariables>();
 
+
+        #region UserName
+        private string username;
+        public string UserName { get { return username; } set { username = value; OnPropertyChanged(); } }
+
+        #endregion
         public string UserID { get; set; }
         public int CountIntent { get; set; }
 
@@ -73,8 +80,10 @@ namespace Sadora.Clases
         #endregion
 
         #region Datos Empresa
-            public static string NombreEmpresa;
-            public static MemoryStream LogoEmpresa;
+            private string nombreempresa;
+            public string NombreEmpresa { get { return !string.IsNullOrWhiteSpace(nombreempresa) ? nombreempresa : "Sadora Inc."; } set { nombreempresa = value; OnPropertyChanged(); } }
+            //public static string NombreEmpresa;
+            public static byte[] LogoEmpresa;
 
         #endregion
     }

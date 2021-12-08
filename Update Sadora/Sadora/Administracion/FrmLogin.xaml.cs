@@ -92,23 +92,11 @@ namespace Sadora.Administracion
 
                     if (reader.Rows.Count == 1 && reader.Columns.Contains("Nombre") && reader.Columns.Contains("Logo"))
                     {
-
-                        ClassVariables.NombreEmpresa = reader.Rows[0]["Nombre"].ToString();
-                        ClassVariables.LogoEmpresa = new System.IO.MemoryStream((byte[])reader.Rows[0]["Logo"]); //(byte[])reader.Rows[0]["Nombre"];
+                        ClassVariables.ClasesVariables.NombreEmpresa = reader.Rows[0]["Nombre"].ToString();
+                        ClassVariables.LogoEmpresa = (byte[])reader.Rows[0]["Logo"]; //(byte[])reader.Rows[0]["Nombre"];
                     }
 
-                    FrmMain frmMain = new FrmMain();
-                    frmMain.lblNombrEmpresa.Text = ClassVariables.NombreEmpresa;
-                    BitmapImage bitmap = new BitmapImage();
-                    bitmap.BeginInit();
-                    bitmap.StreamSource = ClassVariables.LogoEmpresa;
-                    bitmap.EndInit();
-                    frmMain.ImagePickture.Source = bitmap;
-                    frmMain.Show();
-
-                    //reader.Dispose();
-                    //reader.cl
-                    //new FrmMain().Show();
+                    new FrmMain().Show();
                     this.Close();
                 }
 

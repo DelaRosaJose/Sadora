@@ -25,6 +25,7 @@ namespace Sadora.Administracion
         public FrmMain()
         {
             InitializeComponent();
+            this.DataContext = ClassVariables.ClasesVariables;
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
             System.Windows.Threading.DispatcherTimer timer = new System.Windows.Threading.DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
@@ -52,7 +53,6 @@ namespace Sadora.Administracion
             listOfUsers.Clear();
 
             ClassControl.UpdateNameUser();
-            lNombreUsuario.Text = ClassVariables.UsuarioNombre; //Asignamos el resultado de la columna "Nombre" del datareader en el label que muestra el nombre del usuario.
 
         }
 
@@ -72,7 +72,7 @@ namespace Sadora.Administracion
                     MiForm Win = new MiForm();
                     Win.Show();
                     this.Close();
-                } 
+                }
             }
             else
             {
@@ -257,5 +257,20 @@ namespace Sadora.Administracion
             this.WindowState = WindowState.Minimized;
         }
 
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            try
+            {
+                if (ClassVariables.LogoEmpresa != null)
+                {
+                    BitmapImage bitmap = new BitmapImage();
+                    bitmap.BeginInit();
+                    bitmap.StreamSource = new System.IO.MemoryStream(ClassVariables.LogoEmpresa);//new System.IO.MemoryStream(ClassVariables.LogoEmpresa);
+                    bitmap.EndInit();
+                    ImagePickture.Source = bitmap;
+                }
+            }
+            catch (Exception) { }
+        }
     }
 }

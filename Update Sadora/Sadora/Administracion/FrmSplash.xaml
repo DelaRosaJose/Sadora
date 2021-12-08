@@ -41,7 +41,7 @@
 
 
             <ProgressBar  Minimum="0" Maximum="100" x:Name="pbStatus"  Margin="0,357,0,80.8" Foreground="{DynamicResource PrimaryHueDarkBrush}" Background="{x:Null}" BorderBrush="{x:Null}" Height="2.5" />
-            <Image HorizontalAlignment="Left" Height="62" Margin="158,153,0,0" VerticalAlignment="Top" Width="94" Source="Logo.png" Stretch="Fill"/>
+            <Image HorizontalAlignment="Left" Height="94" Margin="158,153,0,0" VerticalAlignment="Top" Width="94" Source="LogoSadora.png" Stretch="Fill"/>
             <TextBlock Text="V. 1.0" TextElement.Foreground="#FFD8D9DE" FontSize="22"  Margin="612,49,27,367" />
 
             <dxg:GridControl Visibility="Hidden" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="334,385,0,-0.2" VerticalAlignment="Top">

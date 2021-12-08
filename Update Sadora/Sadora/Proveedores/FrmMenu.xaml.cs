@@ -31,28 +31,23 @@ namespace Sadora.Proveedores
         public FrmMenu()
         {
             InitializeComponent();
-
-            Modulo = TextBlock1.Text;
+            this.DataContext = ClassVariables.ClasesVariables;
+            Modulo = TblModulo.Text;
             TextService();
 
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            lNombreUsuario.Text = ClassVariables.UsuarioNombre;
         }
 
         void TextService(bool cerrado = true)
         {
             if (cerrado == true)
             {
-                TextBlock1.Text = String.Join(Environment.NewLine, TextBlock1.Text.Select(c => new String(c, 1)).ToArray());
-                TextBlock1.FontSize = 25;
+                TblModulo.Text = String.Join(Environment.NewLine, TblModulo.Text.Select(c => new String(c, 1)).ToArray());
+                TblModulo.FontSize = 25;
             }
             else
             {
-                TextBlock1.Text = Modulo;
+                TblModulo.Text = Modulo;
             }
         }
 
@@ -261,10 +256,5 @@ namespace Sadora.Proveedores
         {
             OpenUsercontrol(null);
         }
-        private void Window_MouseMove(object sender, MouseEventArgs e)
-        {
-            lNombreUsuario.Text = ClassVariables.UsuarioNombre;
-        }
-
     }
 }
