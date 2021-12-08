@@ -201,10 +201,10 @@
   <data name="BottomMargin.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>TopLeft</value>
   </data>
-  <data name="xrPictureBox1.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="PicLogo.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>307.333557, 40.0000038</value>
   </data>
-  <data name="xrPictureBox1.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="PicLogo.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>166.313782, 94.83339</value>
   </data>
   <data name="xrLabel5.Font" type="System.Drawing.Font, System.Drawing">

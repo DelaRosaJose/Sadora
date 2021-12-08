@@ -4,6 +4,7 @@ using System.Collections;
 using System.ComponentModel;
 using DevExpress.XtraReports.UI;
 using System.Data;
+using Sadora.Administracion;
 
 namespace Sadora.Reportes
 {
@@ -16,6 +17,13 @@ namespace Sadora.Reportes
 
             if (HeadTable.Rows.Count == 1)
             {
+                #region Variables Sistema
+                Bitmap bmp = new Bitmap(new System.IO.MemoryStream(Clases.ClassVariables.LogoEmpresa));
+                Image img = bmp;
+
+                PicLogo.ImageSource = new DevExpress.XtraPrinting.Drawing.ImageSource(img);
+                #endregion
+
                 #region Variables Empresa
                 LbNombreEmpresa.Text = HeadTable.Columns.Contains("NombreEmpresa") ? HeadTable.Rows[0]["NombreEmpresa"].ToString() : "CAVERNA DESIGN SRL";
                 LbRncEmpresa.Text = HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "132255186";

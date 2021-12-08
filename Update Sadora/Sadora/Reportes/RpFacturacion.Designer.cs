@@ -39,6 +39,7 @@
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
+            this.PicLogo = new DevExpress.XtraReports.UI.XRPictureBox();
             this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
@@ -79,7 +80,6 @@
             this.LbSubTotal = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel17 = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLine5 = new DevExpress.XtraReports.UI.XRLine();
-            this.xrPictureBox1 = new DevExpress.XtraReports.UI.XRPictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable2)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.xrTable1)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this)).BeginInit();
@@ -168,7 +168,7 @@
             // ReportHeader
             // 
             this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
-            this.xrPictureBox1,
+            this.PicLogo,
             this.xrLabel5,
             this.xrLabel6,
             this.xrLabel1,
@@ -195,6 +195,13 @@
             this.xrLine1});
             resources.ApplyResources(this.ReportHeader, "ReportHeader");
             this.ReportHeader.Name = "ReportHeader";
+            // 
+            // PicLogo
+            // 
+            this.PicLogo.ImageUrl = "C:\\Users\\Usuario\\Downloads\\descarga.png";
+            resources.ApplyResources(this.PicLogo, "PicLogo");
+            this.PicLogo.Name = "PicLogo";
+            this.PicLogo.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage;
             // 
             // xrLabel5
             // 
@@ -591,13 +598,6 @@
             this.xrLine5.Name = "xrLine5";
             this.xrLine5.StylePriority.UseForeColor = false;
             // 
-            // xrPictureBox1
-            // 
-            this.xrPictureBox1.ImageUrl = "C:\\Users\\Usuario\\Downloads\\descarga.png";
-            resources.ApplyResources(this.xrPictureBox1, "xrPictureBox1");
-            this.xrPictureBox1.Name = "xrPictureBox1";
-            this.xrPictureBox1.Sizing = DevExpress.XtraPrinting.ImageSizeMode.StretchImage;
-            // 
             // RpFacturacion
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
@@ -668,6 +668,6 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel1;
         private DevExpress.XtraReports.UI.XRLabel xrLabel2;
         private DevExpress.XtraReports.UI.XRLabel xrLabel7;
-        private DevExpress.XtraReports.UI.XRPictureBox xrPictureBox1;
+        private DevExpress.XtraReports.UI.XRPictureBox PicLogo;
     }
 }
