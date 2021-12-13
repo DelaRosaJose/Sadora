@@ -656,7 +656,7 @@ namespace Sadora.Inventario
 
                     TablaGrid.AutoWidth = true;
                 }
-                
+
             }
             else if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {
@@ -664,6 +664,20 @@ namespace Sadora.Inventario
                 for (int i = 0; i < GridMain.VisibleRowCount; i++)
                 {
                     setDatosGrid(1);
+                    GridMainMasivo.View.MoveFirstRow();
+                    for (int j = 0; j < GridMainMasivo.VisibleRowCount; j++)
+                    {
+                        if (!(bool)GridMainMasivo.GetFocusedRowCellValue("Alta"))
+                        {
+                            GridMainMasivo.View.MoveNextRow();
+                            continue;
+                        }
+
+                        string ArticuloMasivo = GridMainMasivo.GetFocusedRowCellValue("ArticuloID").ToString();
+                        setDatosGrid(1, ArticuloMasivo);
+                        GridMainMasivo.View.MoveNextRow();
+                    }
+
                     GridMain.View.MoveNextRow();
                 }
 
@@ -676,9 +690,8 @@ namespace Sadora.Inventario
             }
         }
 
-        void setDatosGrid(int Flag) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
+        void setDatosGrid(int Flag, string ArticuloID = null) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
         {
-
             string NombreServicio = "";
             double Precio = 0;
             bool Alta = false;
@@ -693,7 +706,7 @@ namespace Sadora.Inventario
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el NCF en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
                 new SqlParameter("Flag",Flag),
-                new SqlParameter("@ArticuloID", txtArticuloID.Text),
+                new SqlParameter("@ArticuloID", ArticuloID == null ? txtArticuloID.Text : ArticuloID),
                 new SqlParameter("@NombreServicio", NombreServicio),
                 new SqlParameter("@Precio", Precio),
                 new SqlParameter("@Alta", Alta),
@@ -710,9 +723,9 @@ namespace Sadora.Inventario
             }
 
             if (TableGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-                AgregarModoGrid(TableGrid);
-            
-            
+                AgregarModoGrid(GridMain, TablaGrid, TableGrid);
+
+
             //else
             //{
             //    GridMain.ItemsSource = null;
@@ -873,9 +886,9 @@ namespace Sadora.Inventario
             if (Estado != "Modo Consulta" && Estado != "Modo Busqueda")
             {
                 MiniDialogo.IsOpen = true;
-                AgregarModoGrid();
+                AgregarModoGrid(GridMain, TablaGrid);
             }
-            else if(Estado == "Modo Consulta")
+            else if (Estado == "Modo Consulta")
             {
                 MiniDialogo.IsOpen = true;
                 TablaGrid.AllowEditing = false;
@@ -884,37 +897,49 @@ namespace Sadora.Inventario
 
         private void ButtonCerrar_Click(object sender, RoutedEventArgs e)
         {
+            GridMain.ItemsSource = null;
             MiniDialogo.IsOpen = false;
             TablaGrid.AllowEditing = true;
         }
 
-        private void AgregarModoGrid(DataTable table = null)
+        private void AgregarModoGrid(DevExpress.Xpf.Grid.GridControl Grid, DevExpress.Xpf.Grid.TableView tableView, DataTable table = null, bool IsServiciosMasivos = false)
         {
             if (table == null)
             {
-                DataTable reader = Clases.ClassData.runDataTable("SELECT [NombreServicio], [Precio], [Alta] FROM[Sadora].[dbo].[TinvServicioArticulos] where ArticuloID = " + txtArticuloID.Text, null, "CommandText");
+                DataTable reader;
 
-                GridMain.ItemsSource = reader;
-                TablaGrid.AutoWidth = true;
-                TablaGrid.AddNewRow();
+                if (!IsServiciosMasivos)
+                    reader = Clases.ClassData.runDataTable("SELECT [NombreServicio], [Precio], [Alta] FROM[Sadora].[dbo].[TinvServicioArticulos] where ArticuloID = " + txtArticuloID.Text, null, "CommandText");
+                else
+                    reader = Clases.ClassData.runDataTable("declare @Alta bit = 0; select ArticuloID, Tarjeta, Nombre, Descripcion, precio, @Alta as Alta from TinvArticulos where ArticuloID <> " + txtArticuloID.Text /*+ " and HaveServices <> 1"*/, null, "CommandText");
+
+
+
+                Grid.ItemsSource = reader;
+                tableView.AutoWidth = true;
+                if (!IsServiciosMasivos)
+                    tableView.AddNewRow();
             }
             else
-            {
-                GridMain.ItemsSource = table;
-            }
+                Grid.ItemsSource = table;
 
-            foreach (DevExpress.Xpf.Grid.GridColumn Col in GridMain.Columns)
-            {
-                switch (Col.HeaderCaption)
+            if (!IsServiciosMasivos)
+                foreach (DevExpress.Xpf.Grid.GridColumn Col in Grid.Columns)
                 {
-                    case "Precio":
-                        Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(50, DevExpress.Xpf.Grid.GridColumnUnitType.Pixel);
-                        break;
+                    switch (Col.HeaderCaption)
+                    {
+                        case "Precio":
+                            Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(50, DevExpress.Xpf.Grid.GridColumnUnitType.Pixel);
+                            break;
 
-                    case "Alta":
-                        Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(20, DevExpress.Xpf.Grid.GridColumnUnitType.Pixel);
-                        break;
+                        case "Alta":
+                            Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(20, DevExpress.Xpf.Grid.GridColumnUnitType.Pixel);
+                            break;
+                    }
                 }
+            else
+            {
+
             }
         }
 
@@ -945,7 +970,7 @@ namespace Sadora.Inventario
             {
                 foreach (var column in GridMain.Columns)
                     Result += string.IsNullOrWhiteSpace(GridMain.GetCellValue(GridMain.GetRowHandleByVisibleIndex(i), column).ToString()).ToString() + " ,";
-         
+
                 if (Result.Contains("True"))
                     break;
             }
@@ -965,12 +990,36 @@ namespace Sadora.Inventario
         {
             if (!ValCampoIncompleto() && Estado != "Modo Consulta")
             {
-                //for (int i = 0; i < GridMain.VisibleRowCount; i++)
-                //{
-                //    ListVariables.Add(new ClassVariables() { NombreServicio = (string)GridMain.GetCellValue(i, GridMain.Columns.Where(x => x.FieldName == "NombreServicio").FirstOrDefault()), PrecioServicio = (double)GridMain.GetCellValue(i, GridMain.Columns.Where(x => x.FieldName == "Precio").FirstOrDefault()), AltaServicio = (bool)GridMain.GetCellValue(i, GridMain.Columns.Where(x => x.FieldName == "Alta").FirstOrDefault()) });
-                //}
+                GridMainMasivo.ItemsSource = null;
                 MiniDialogo.IsOpen = false;
             }
         }
+
+        private void btnAsignacionMasiva_Click(object sender, RoutedEventArgs e)
+        {
+            if (!ValCampoIncompleto() && Estado != "Modo Consulta")
+            {
+                ServiciosMasivosDialogo.IsOpen = true;
+                MiniDialogo.IsOpen = false;
+                AgregarModoGrid(GridMainMasivo, TablaGridMasivo, null, true);
+            }
+            else if (Estado == "Modo Consulta")
+            {
+                ServiciosMasivosDialogo.IsOpen = true;
+                TablaGridMasivo.AllowEditing = false;
+            }
+        }
+
+        private void ButtonCerrarMasivo_Click(object sender, RoutedEventArgs e)
+        {
+            ServiciosMasivosDialogo.IsOpen = false;
+            TablaGridMasivo.AllowEditing = true;
+        }
+
+        private void btnAceptarMasivo_Click(object sender, RoutedEventArgs e)
+        {
+            ServiciosMasivosDialogo.IsOpen = false;
+        }
+
     }
 }

@@ -338,21 +338,67 @@
                             </Border>
 
                         </StackPanel>
-                        
+
                     </Grid>
 
                     <materialDesign:PopupBox x:Name="BtnOpciones" Grid.Column="3" VerticalAlignment="Top" Margin="0 40 0 0" PlacementMode="LeftAndAlignTopEdges" ToolTip="Pulsar para ver opciones avanzadas"  Background="{DynamicResource PrimaryHueDarkBrush}" StaysOpen="False" >
                         <StackPanel Width="auto">
 
                             <Button x:Name="BtnConfiguracionServicios" Content="Configurar servicios al articulo" Click="BtnConfiguracionServicios_Click" ToolTip="Pulsar para configurar los servicios que se facturaran en base al articulo"/>
-                            
+
                         </StackPanel>
                     </materialDesign:PopupBox>
 
                 </Grid>
             </ScrollViewer>
         </Grid>
-        
+
+        <materialDesign:DialogHost IsOpen="False" x:Name="ServiciosMasivosDialogo"  >
+            <materialDesign:DialogHost.DialogContent>
+
+                <Grid Width="750" Height="590" Margin="0" Background="#19C8C8C8" HorizontalAlignment="Center">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+
+                    <Button x:Name="ButtonCerrarMasivo" Grid.Row="0" TextElement.Foreground="{StaticResource MaterialDesignBody}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonCerrarMasivo_Click" >
+                        <materialDesign:PackIcon Kind="WindowClose"  Width="25" Height="25"/>
+                    </Button>
+
+                    <materialDesign:Card Grid.Row="1" Margin="15 0 15 10" materialDesign:ShadowAssist.ShadowDepth="Depth4">
+                        <ScrollViewer Grid.Row="1"  ScrollViewer.VerticalScrollBarVisibility="Auto">
+
+                            <DockPanel>
+                                <materialDesign:Snackbar DockPanel.Dock="Top" MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarThreeDialogMasivo" Background="{StaticResource PrimaryHueDarkBrush}"/>
+
+                                <Border Padding="0" DockPanel.Dock="Bottom" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5" HorizontalAlignment="Right" CornerRadius="5" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="10 10 10 10">
+                                    <Button x:Name="btnAceptarMasivo" FontSize="35" Height="auto" Click="btnAceptarMasivo_Click" TabIndex="2" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0">
+                                        <StackPanel Orientation="Horizontal"  Margin="15 7">
+                                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="CheckBold"  Foreground="Green" Height="35" Width="35"></materialDesign:PackIcon>
+                                            <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" >ACEPTAR</TextBlock>
+                                        </StackPanel>
+                                    </Button>
+                                </Border>
+
+                                <dxg:GridControl x:Name="GridMainMasivo"  Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" Height="458" TabIndex="3">
+                                    <dxg:GridControl.View>
+                                        <dxg:TableView x:Name="TablaGridMasivo" ShowAutoFilterRow="False" ShowGroupPanel="False" TabIndex="3" ShowHorizontalLines="False" ShowVerticalLines="False" />
+                                    </dxg:GridControl.View>
+                                </dxg:GridControl>
+
+                            </DockPanel>
+
+                        </ScrollViewer>
+
+                    </materialDesign:Card>
+
+                </Grid>
+
+            </materialDesign:DialogHost.DialogContent>
+        </materialDesign:DialogHost>
+
         <materialDesign:DialogHost IsOpen="False" x:Name="MiniDialogo"  >
             <materialDesign:DialogHost.DialogContent>
 
@@ -362,7 +408,7 @@
                         <RowDefinition Height="*"/>
                     </Grid.RowDefinitions>
 
-                    
+
                     <Button x:Name="ButtonCerrar" Grid.Row="0" TextElement.Foreground="{StaticResource MaterialDesignBody}" HorizontalAlignment="Right" VerticalAlignment="Top" Margin="5" Style="{StaticResource MaterialDesignFlatButton}" Click="ButtonCerrar_Click" >
                         <materialDesign:PackIcon Kind="WindowClose"  Width="25" Height="25"/>
                     </Button>
@@ -372,17 +418,27 @@
 
                             <DockPanel>
                                 <materialDesign:Snackbar DockPanel.Dock="Top" MessageQueue="{materialDesign:MessageQueue}" x:Name="SnackbarThreeDialog" Background="{StaticResource PrimaryHueDarkBrush}"/>
-                                
-                                <!--<Button DockPanel.Dock="Bottom" Content="Valor"></Button>-->
-                                <Border Padding="0" DockPanel.Dock="Bottom" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5" HorizontalAlignment="Right" CornerRadius="5" Width="auto" Height="auto" VerticalAlignment="Stretch" Margin="10 10 10 10">
-                                    <Button x:Name="btnAceptar" FontSize="35" Height="auto" Click="btnAceptar_Click" TabIndex="2" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0">
-                                        <StackPanel Orientation="Horizontal"  Margin="15 7">
-                                            <materialDesign:PackIcon VerticalAlignment="Center" Kind="CheckBold"  Foreground="Green" Height="35" Width="35"></materialDesign:PackIcon>
-                                            <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" >ACEPTAR</TextBlock>
-                                        </StackPanel>
-                                    </Button>
-                                </Border>
 
+                                <DockPanel  DockPanel.Dock="Bottom" >
+                                    <Border Padding="0" DockPanel.Dock="Right"  BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5" CornerRadius="5" Width="auto" Height="auto" Margin="10">
+                                        <Button x:Name="btnAceptar" FontSize="35" Height="auto" Click="btnAceptar_Click" TabIndex="2" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}" Style="{DynamicResource MaterialDesignFlatButton}" Padding="0">
+                                            <StackPanel Orientation="Horizontal"  Margin="15 7">
+                                                <materialDesign:PackIcon VerticalAlignment="Center" Kind="CheckBold"  Foreground="Green" Height="35" Width="35"></materialDesign:PackIcon>
+                                                <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" >ACEPTAR</TextBlock>
+                                            </StackPanel>
+                                        </Button>
+                                    </Border>
+
+                                    <Border Padding="0" DockPanel.Dock="Right" BorderBrush="{StaticResource PrimaryHueDarkBrush}" BorderThickness="1.5" CornerRadius="5" Margin="290 10 0 10">
+                                        <Button x:Name="btnAsignacionMasiva" FontSize="24" Height="auto" Click="btnAsignacionMasiva_Click" TabIndex="3"  Style="{DynamicResource MaterialDesignFlatButton}" Padding="0">
+                                            <StackPanel Orientation="Horizontal"  Margin="5 0">
+                                                <materialDesign:PackIcon VerticalAlignment="Center" Kind="OrderBoolAscendingVariant"  Foreground="#FFCE3B3B" Height="28" Width="28"/>
+                                                <TextBlock Margin="5 0 0 0" VerticalAlignment="Center" Text="Asig. masiva"/>
+                                            </StackPanel>
+                                        </Button>
+                                    </Border>
+                                    
+                                </DockPanel>
 
                                 <dxg:GridControl x:Name="GridMain"  Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" Height="458" TabIndex="3">
                                     <dxg:GridControl.View>
@@ -391,7 +447,7 @@
                                 </dxg:GridControl>
 
                             </DockPanel>
-                            
+
                         </ScrollViewer>
 
                     </materialDesign:Card>
