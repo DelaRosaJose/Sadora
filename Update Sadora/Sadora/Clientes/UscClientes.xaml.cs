@@ -239,7 +239,7 @@ namespace Sadora.Clientes
             }
             else
             {
-                if (Estado == "Modo Editar") 
+                if (Estado == "Modo Editar")
                 {
                     setDatos(2, null);
                     SetEnabledButton("Modo Consulta");
@@ -667,7 +667,6 @@ namespace Sadora.Clientes
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtClienteID.IsReadOnly = true;
                     txtClienteID.Text = (LastClienteID + 1).ToString();
                     txtRNC.Focus();
                 }
@@ -676,6 +675,7 @@ namespace Sadora.Clientes
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtClienteID.IsReadOnly = true;
             }
             if (Imprime == false)
             {

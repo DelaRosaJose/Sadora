@@ -30,10 +30,10 @@ namespace Sadora.Administracion
             Table = Tabla;
             try
             {
-                Tag = "Clases de " + Table.Substring(4).Replace("Clase","").Replace("clase","");
+                Tag = "Clases de " + Table.Substring(4).Replace("Clase", "").Replace("clase", "");
             }
-            catch 
-            {}
+            catch
+            { }
         }
 
         bool Imprime;
@@ -410,7 +410,7 @@ namespace Sadora.Administracion
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                
+
             };
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
@@ -495,7 +495,6 @@ namespace Sadora.Administracion
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtTransaccionID.IsReadOnly = true;
                     txtTransaccionID.Text = (LastTransaccionID + 1).ToString();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
@@ -503,6 +502,7 @@ namespace Sadora.Administracion
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtTransaccionID.IsReadOnly = true;
             }
             if (Imprime == false)
             {
@@ -544,8 +544,8 @@ namespace Sadora.Administracion
 
         void FinId()
         {
-            SqlDataReader reader = Clases.ClassData.runSqlDataReader("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '"+Table+"' and ORDINAL_POSITION = 2", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
-            
+            SqlDataReader reader = Clases.ClassData.runSqlDataReader("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS where TABLE_NAME = '" + Table + "' and ORDINAL_POSITION = 2", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+
             if (reader.HasRows) //Validamos si el datareader trajo data.
             {
                 if (reader.Read()) //Si puede leer la informacion

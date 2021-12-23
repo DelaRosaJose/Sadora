@@ -555,7 +555,6 @@ namespace Sadora.Recursos_Humanos
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtEmpleadoID.IsReadOnly = true;
                     txtEmpleadoID.Text = (LastEmpleadoID + 1).ToString();
                     txtCedula.Focus();
                 }
@@ -564,6 +563,7 @@ namespace Sadora.Recursos_Humanos
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                    txtEmpleadoID.IsReadOnly = true;
             }
             if (Imprime == false)
             {

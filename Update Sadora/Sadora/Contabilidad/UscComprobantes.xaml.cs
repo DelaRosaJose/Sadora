@@ -637,7 +637,6 @@ namespace Sadora.Contabilidad
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtComprobanteID.IsReadOnly = true;
                     txtComprobanteID.Text = (LastTransaccionID + 1).ToString();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
@@ -645,6 +644,7 @@ namespace Sadora.Contabilidad
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtComprobanteID.IsReadOnly = true;
             }
             if (Imprime == false)
             {
@@ -673,7 +673,7 @@ namespace Sadora.Contabilidad
                     MetodoCaja.Close();
                     return false;
                 }
-                else 
+                else
                 {
                     MetodoCaja.Close();
                     return SinComprobantes.IsChecked == true ? true : false;

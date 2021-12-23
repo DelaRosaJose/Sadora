@@ -517,7 +517,6 @@ namespace Sadora.Ventas
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtCajaID.IsReadOnly = true;
                     //txtCajaID.Text = (LastCajaID + 1).ToString();
                     new FrmValidarAccion("Desea crear un Caja igual a esta?").ShowDialog();
                     if (ClassVariables.ValidarAccion)
@@ -539,6 +538,7 @@ namespace Sadora.Ventas
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtCajaID.IsReadOnly = true;
                 List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
                 {
                     "Alta"

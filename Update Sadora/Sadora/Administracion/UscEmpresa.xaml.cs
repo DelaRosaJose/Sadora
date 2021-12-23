@@ -280,12 +280,12 @@ namespace Sadora.Administracion
                     EmpresaID = 0;
                 else
                 {
-                    try 
-                    { 
-                        EmpresaID = Convert.ToInt32(txtEmpresaID.Text); 
+                    try
+                    {
+                        EmpresaID = Convert.ToInt32(txtEmpresaID.Text);
                     }
-                    catch (Exception exception) 
-                    { 
+                    catch (Exception exception)
+                    {
                         ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //Enviamos la excepcion que nos brinda el sistema en caso de que no pueda convertir el id del Usuario 
                     }
                 }
@@ -350,7 +350,7 @@ namespace Sadora.Administracion
                         ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error ald intentar convertirlo lo enviamos
                     }
                 }
-                
+
             }
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
 
@@ -450,7 +450,6 @@ namespace Sadora.Administracion
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtEmpresaID.IsReadOnly = true;
                     txtEmpresaID.Text = (LastEmpresaID + 1).ToString();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
@@ -458,6 +457,7 @@ namespace Sadora.Administracion
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtEmpresaID.IsReadOnly = true;
                 List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
                 {
                     "Visualiza","Agrega","Modifica","Imprime","Anula"

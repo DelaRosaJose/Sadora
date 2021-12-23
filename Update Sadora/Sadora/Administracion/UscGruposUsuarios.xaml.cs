@@ -175,7 +175,7 @@ namespace Sadora.Administracion
                     frm.ShowDialog();
 
                     if (frm.GridMuestra.SelectedItem != null)
-                    { 
+                    {
                         DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
                         txtGrupoID.Text = item.Row.ItemArray[0].ToString();
                         setDatos(0, txtGrupoID.Text);
@@ -587,7 +587,6 @@ namespace Sadora.Administracion
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtGrupoID.IsReadOnly = true;
                     new FrmValidarAccion("Desea crear un usuario igual a este?").ShowDialog();
                     if (ClassVariables.ValidarAccion)
                     {
@@ -601,13 +600,14 @@ namespace Sadora.Administracion
                         txtGrupoID.Text = (LastGrupoID + 1).ToString();
                         setDatosGrid(0);
                     }
-                    
+
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
                 {
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtGrupoID.IsReadOnly = true;
                 List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
                 {
                     "Visualiza","Agrega","Modifica","Imprime","Anula"
@@ -651,16 +651,16 @@ namespace Sadora.Administracion
 
             new FrmValidarAccion("Puede Imprimir masivamente?").ShowDialog();
             ClassControl.GridCheckEdit(GridMain, "Imprime", ClassVariables.ValidarAccion);
-            
+
             new FrmValidarAccion("Puede Agregar masivamente?").ShowDialog();
             ClassControl.GridCheckEdit(GridMain, "Agrega", ClassVariables.ValidarAccion);
-            
+
             new FrmValidarAccion("Puede Modificar masivamente?").ShowDialog();
             ClassControl.GridCheckEdit(GridMain, "Modifica", ClassVariables.ValidarAccion);
-            
+
             new FrmValidarAccion("Puede Anular masivamente?").ShowDialog();
             ClassControl.GridCheckEdit(GridMain, "Anula", ClassVariables.ValidarAccion);
-            
+
         }
 
     }

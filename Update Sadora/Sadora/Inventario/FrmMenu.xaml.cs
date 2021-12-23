@@ -257,5 +257,10 @@ namespace Sadora.Inventario
         {
             OpenUsercontrol(new Inventario.UscClaseArticulos(), iconMenuClaseArticulos.Kind);
         }
+
+        private void btnMenuMovimientoInventario_MouseUp(object sender, MouseButtonEventArgs e)
+        {
+            OpenUsercontrol(new Inventario.UscMovimientoInventario(), iconMenuMovimientoInventario.Kind);
+        }
     }
 }

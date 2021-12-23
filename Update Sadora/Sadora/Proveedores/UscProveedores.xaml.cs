@@ -148,7 +148,7 @@ namespace Sadora.Proveedores
 
         private void BtnBuscar_Click(object sender, RoutedEventArgs e)
         {
-            
+
             if (Estado == "Modo Consulta")
             {
                 last = txtProveedoresID.Text;
@@ -204,7 +204,7 @@ namespace Sadora.Proveedores
                     //ClassControl.ClearControl(listaControl);
                     //setDatos(0, last);
                 }
-                
+
             }
         }
 
@@ -258,7 +258,7 @@ namespace Sadora.Proveedores
                     //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
 
                 }
-                
+
             }
 
         }
@@ -475,7 +475,7 @@ namespace Sadora.Proveedores
                 new SqlParameter("@Telefono",txtTelefono.Text),
                 new SqlParameter("@Celular",txtCelular.Text),
                 new SqlParameter("@Activo",cActivar.IsChecked),
-                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID) 
+                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
             };
 
             tabla = Clases.ClassData.runDataTable("sp_supProveedores", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
@@ -618,7 +618,6 @@ namespace Sadora.Proveedores
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtProveedoresID.IsReadOnly = true;
                     txtProveedoresID.Text = (LastProveedorID + 1).ToString();
                     txtRNC.Focus();
                 }
@@ -627,6 +626,7 @@ namespace Sadora.Proveedores
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtProveedoresID.IsReadOnly = true;
             }
             if (Imprime == false)
             {
@@ -642,6 +642,6 @@ namespace Sadora.Proveedores
             }
         }
 
-        
+
     }
 }

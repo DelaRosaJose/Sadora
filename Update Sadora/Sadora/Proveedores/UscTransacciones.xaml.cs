@@ -652,7 +652,6 @@ namespace Sadora.Proveedores
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtTransaccionID.IsReadOnly = true;
                     txtTransaccionID.Text = (LastTransaccionID + 1).ToString();
                     //txtMontoGravado.Focus();
                 }
@@ -661,6 +660,7 @@ namespace Sadora.Proveedores
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtTransaccionID.IsReadOnly = true;
             }
             if (Imprime == false)
             {

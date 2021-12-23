@@ -457,7 +457,6 @@ namespace Sadora.Inventario
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtClaseID.IsReadOnly = true;
                     txtClaseID.Text = (LastClaseID + 1).ToString();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
@@ -465,6 +464,7 @@ namespace Sadora.Inventario
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                txtClaseID.IsReadOnly = true;
             }
             if (Imprime == false)
             {

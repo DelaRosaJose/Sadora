@@ -132,6 +132,9 @@
     <Compile Include="Inventario\UscClaseArticulos.xaml.cs">
       <DependentUpon>UscClaseArticulos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Inventario\UscMovimientoInventario.xaml.cs">
+      <DependentUpon>UscMovimientoInventario.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Proveedores\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
@@ -277,6 +280,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Inventario\UscClaseArticulos.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Inventario\UscMovimientoInventario.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

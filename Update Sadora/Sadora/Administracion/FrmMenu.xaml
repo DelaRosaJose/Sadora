@@ -100,6 +100,155 @@
                             <materialDesign:PackIcon Margin="7 0 0 0" Width="24" Height="24" Kind="Home" ></materialDesign:PackIcon>
                         </r:TabItem.Icon>
 
+                        <Grid>
+                            <Grid Margin="40">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="150"/>
+                                    <RowDefinition Height="150"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+
+                                <Border Margin="5" Grid.Column="0" TextElement.Foreground="WhiteSmoke" Background="#FF17A2B8" VerticalAlignment="Stretch" CornerRadius="12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Margin="15 20 0 0">
+                                            <TextBlock Text="150" FontSize="45" FontWeight="Bold" FontFamily="Arial"></TextBlock>
+                                            <TextBlock Text="Nuevas Ventas" Margin="0 10 0 0" FontFamily="Arial" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                            <materialDesign:PackIcon Kind="shoppingbasketoutline" Foreground="#7FAFB4BD" Margin=" 0 0 5 0" Padding="0" Width="70" Height="70"></materialDesign:PackIcon>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                                            <Button Background="Transparent" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" BorderBrush="Transparent">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Nuevas Ventas" VerticalAlignment="Center" FontFamily="Arial" FontSize="13"></TextBlock>
+                                                    <materialDesign:PackIcon Kind="arrowforwardcircle" Margin="5 0 0 0" Width="20" Height="20"></materialDesign:PackIcon>
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <Border Margin="5" Grid.Column="1" TextElement.Foreground="WhiteSmoke" Background="#FF7C54A0" VerticalAlignment="Stretch" CornerRadius="12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Margin="15 20 0 0">
+                                            <TextBlock Text="150" FontSize="45" FontWeight="Bold" FontFamily="Arial"></TextBlock>
+                                            <TextBlock Text="Nuevas Ventas" Margin="0 10 0 0" FontFamily="Arial" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                            <materialDesign:PackIcon Kind="barchart" Foreground="#7FAFB4BD" Margin=" 0 0 5 0" Padding="0" Width="70" Height="70"></materialDesign:PackIcon>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                                            <Button Background="Transparent" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" BorderBrush="Transparent">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Nuevas Ventas" VerticalAlignment="Center" FontFamily="Arial" FontSize="13"></TextBlock>
+                                                    <materialDesign:PackIcon Kind="arrowforwardcircle" Margin="5 0 0 0" Width="20" Height="20"></materialDesign:PackIcon>
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <Border Margin="5" Grid.Column="2" TextElement.Foreground="WhiteSmoke" Background="#FF83CD80" VerticalAlignment="Stretch" CornerRadius="12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Margin="15 20 0 0">
+                                            <TextBlock Text="150" FontSize="45" FontWeight="Bold" FontFamily="Arial"></TextBlock>
+                                            <TextBlock Text="Nuevas Ventas" Margin="0 10 0 0" FontFamily="Arial" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                            <materialDesign:PackIcon Kind="userplus" Foreground="Gray" Margin=" 0 0 5 0" Padding="0" Width="70" Height="70"></materialDesign:PackIcon>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                                            <Button Background="Transparent" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" BorderBrush="Transparent">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Nuevas Ventas" VerticalAlignment="Center" FontFamily="Arial" FontSize="13"></TextBlock>
+                                                    <materialDesign:PackIcon Kind="arrowforwardcircle" Margin="5 0 0 0" Width="20" Height="20"></materialDesign:PackIcon>
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+                                <Border Margin="5" Grid.Column="3" TextElement.Foreground="WhiteSmoke" Background="#FFEE9246" VerticalAlignment="Stretch" CornerRadius="12">
+                                    <Grid>
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="auto"/>
+                                            <ColumnDefinition Width="*"/>
+                                        </Grid.ColumnDefinitions>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="auto"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+
+                                        <StackPanel Margin="15 20 0 0">
+                                            <TextBlock Text="150" FontSize="45" FontWeight="Bold" FontFamily="Arial"></TextBlock>
+                                            <TextBlock Text="Nuevas Ventas" Margin="0 10 0 0" FontFamily="Arial" FontSize="13"></TextBlock>
+                                        </StackPanel>
+                                        <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Bottom">
+                                            <materialDesign:PackIcon Kind="BugReport" Foreground="Gray" Margin=" 0 0 5 0" Padding="0" Width="70" Height="70"></materialDesign:PackIcon>
+                                        </StackPanel>
+                                        <StackPanel Grid.Row="1" Grid.ColumnSpan="2" VerticalAlignment="Bottom">
+                                            <Button Background="Transparent" Style="{DynamicResource MaterialDesignFlatAccentBgButton}" BorderBrush="Transparent">
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="Nuevas Ventas" VerticalAlignment="Center" FontFamily="Arial" FontSize="13"></TextBlock>
+                                                    <materialDesign:PackIcon Kind="arrowforwardcircle" Margin="5 0 0 0" Width="20" Height="20"></materialDesign:PackIcon>
+                                                </StackPanel>
+                                            </Button>
+                                        </StackPanel>
+                                    </Grid>
+                                </Border>
+
+
+                                <Border Margin="5" Grid.Row="1" Grid.Column="0" Background="#FFD4E436" VerticalAlignment="Stretch" CornerRadius="12">
+
+                                </Border>
+                                <Border Margin="5" Grid.Row="1" Grid.Column="1" Background="#FF81F9FF" VerticalAlignment="Stretch" CornerRadius="12">
+
+                                </Border>
+                                <Border Margin="5" Grid.Row="1" Grid.Column="2" Background="#FF144BC3" VerticalAlignment="Stretch" CornerRadius="12">
+
+                                </Border>
+                                <Border Margin="5" Grid.Row="1" Grid.Column="3" Background="#FFD34EBA" VerticalAlignment="Stretch" CornerRadius="12">
+
+                                </Border>
+
+
+
+                            </Grid>
+                        </Grid>
+                        
                     </r:TabItem>
                 </r:TabControl>
 

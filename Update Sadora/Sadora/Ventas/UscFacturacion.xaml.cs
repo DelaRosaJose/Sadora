@@ -927,7 +927,6 @@ namespace Sadora.Ventas
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
-                    txtFacturaID.IsReadOnly = true;
                     txtFacturaID.Text = (LastFacturaID + 1).ToString();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
@@ -935,6 +934,7 @@ namespace Sadora.Ventas
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
+                    txtFacturaID.IsReadOnly = true;
             }
             if (Imprime == false)
             {
