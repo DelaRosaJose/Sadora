@@ -3,18 +3,10 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
 using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Sadora.Inventario
 {
@@ -194,16 +186,7 @@ namespace Sadora.Inventario
                     BtnProximoRegistro.IsEnabled = false;
                     BtnAnteriorRegistro.IsEnabled = false;
                     if (SnackbarThree.MessageQueue is { } messageQueue)
-                    {
-                        var message = "No se encontraron datos";
-                        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
-                    }
-                    //List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
-                    //{
-                    //   txtMontoGravado,txtMontoGravado
-                    //};
-                    //ClassControl.ClearControl(listaControl);
-                    //setDatos(0, last);
+                        Task.Factory.StartNew(() => messageQueue.Enqueue("No se encontraron datos"));
                 }
 
             }
@@ -219,6 +202,8 @@ namespace Sadora.Inventario
             this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             SetEnabledButton("Modo Agregar");
             AgregarModoGrid();
+            cbxTipoMovimiento.Focus();
+            dtpFechaMovimiento.Text = DateTime.Today.ToString();
         }
 
         private void BtnEditar_Click(object sender, RoutedEventArgs e)
@@ -236,71 +221,41 @@ namespace Sadora.Inventario
         {
             SetControls(false, "Validador", false);
             if (Lista != "Debe Completar los Campos: ")
-            {
-                Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(Lista);
-                frm.ShowDialog();
-            }
+                new Administracion.FrmCompletarCamposHost(Lista).ShowDialog();
             else
             {
-                //SqlDataReader tabla = ClassControl.getDatosCedula(txtMontoGravado.Text);
-                //if (tabla != null)
-                //{
-                //    tabla.Close();
-                //    tabla.Dispose();
                 if (Estado == "Modo Editar")
-                {
                     setDatos(2, null);
-                }
                 else
-                {
                     setDatos(1, null);
-                }
+
                 SetEnabledButton("Modo Consulta");
                 setDatos(0, txtMovimientoID.Text);
-                //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
-
-                //}
-
             }
-
         }
 
         private void txtMovimientoID_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
         }
 
         private void cbxTipoMovimiento_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
         }
 
         private void dtpFechaMovimiento_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                    cbxEstado.Focus();                    //((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                cbxEstado.Focus();
         }
 
         private void cbxEstado_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                {
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
         }
 
         void setDatos(int Flag, string Transaccion) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
@@ -308,9 +263,7 @@ namespace Sadora.Inventario
             if (Transaccion == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
             {
                 if (txtMovimientoID.Text == "")
-                {
                     MovimientoID = 0;
-                }
                 else
                 {
                     try
@@ -324,9 +277,7 @@ namespace Sadora.Inventario
                 }
             }
             else //Si pasamos un Proveedor, lo convertimos actualizamos la variable Proveedor principal
-            {
                 MovimientoID = Convert.ToInt32(Transaccion);
-            }
 
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el Nomenclatura en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
@@ -378,12 +329,8 @@ namespace Sadora.Inventario
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
 
 
-
-
             if (Estado == "Modo Consulta")
-            {
                 setDatosGrid(0);
-            }
             else if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {
                 GridMain.View.MoveFirstRow();
@@ -392,62 +339,12 @@ namespace Sadora.Inventario
                     setDatosGrid(1);
                     GridMain.View.MoveNextRow();
                 }
-
-                /******
-                DataTable AllMetodos = Clases.ClassData.runDataTable("SELECT MetodoID, Nombre FROM [Sadora].[dbo].[TvenMetodoPagos]", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
-                List<Clases.ClassVariables> ListMetodos = new List<Clases.ClassVariables>();
-
-                if (AllMetodos.Rows.Count > 0)
-                {
-                    if (AllMetodos.Columns.Contains("Nombre") && AllMetodos.Columns.Contains("MetodoID"))
-                    {
-                        for (int i = 0; i < AllMetodos.Rows.Count; i++)
-                            ListMetodos.Add(new ClassVariables() { IdFormaPago = AllMetodos.Rows[i]["MetodoID"].ToString(), FormaPago = AllMetodos.Rows[i]["Nombre"].ToString() });
-                    }
-                }
-
-
-                var FormasDePago = ClassVariables.ListFormasPagos.ToList();//.Where(x => x.FormaPago == FormaPagoAplicada);//new ClassVariables().FormaPago;
-
-                if (FormasDePago.Any() && ListMetodos.Any())
-                {
-                    foreach (var Forma in FormasDePago)
-                    {
-                        var MetodoID = ListMetodos.Where(x => x.FormaPago == Forma.FormaPago).Select(x => x.IdFormaPago).FirstOrDefault();
-
-                        //MessageBox.Show("MetodoID = " + MetodoID + ", Forma Pago = " + Forma.FormaPago + ", Cantidad Pago = " + Forma.CantidadFormaPago.ToString());
-                        //var cantidad = Forma.CantidadFormaPago;
-                        //var forma = Forma.FormaPago;
-
-
-                        List<SqlParameter> listSqlParamet = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el NCF en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
-                        {
-                            new SqlParameter("@flag", Flag),
-                            new SqlParameter("@MetodoPagoID", MetodoID),
-                            new SqlParameter("@TransaccionID", txtFacturaID.Text),
-                            new SqlParameter("@Monto", Forma.CantidadFormaPago)
-                        };
-
-                        DataTable Setter = Clases.ClassData.runDataTable("sp_venDesglosePago", listSqlParamet, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
-
-                        listSqlParamet.Clear();
-
-                        if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
-                        {
-                            new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError).ShowDialog();
-                            ClassVariables.GetSetError = null;
-                        }
-                    }
-                }
-                */
             }
 
         }
 
         void setDatosGrid(int Flag) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
         {
-
-            string MovimientoID = "";
             string ArticuloID = "";
             string Tarjeta = "";
             int Cantidad = 0;
@@ -456,7 +353,6 @@ namespace Sadora.Inventario
 
             if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {
-                MovimientoID = GridMain.GetFocusedRowCellValue("MovimientoID").ToString();
                 ArticuloID = GridMain.GetFocusedRowCellValue("ArticuloID").ToString();
                 Tarjeta = GridMain.GetFocusedRowCellValue("Tarjeta").ToString();
                 Cantidad = Convert.ToInt32(GridMain.GetFocusedRowCellValue("Cantidad").ToString());
@@ -467,7 +363,7 @@ namespace Sadora.Inventario
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el NCF en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
                 new SqlParameter("Flag",Flag),
-                new SqlParameter("@MovimientoID", MovimientoID),
+                new SqlParameter("@MovimientoID", txtMovimientoID.Text),
                 new SqlParameter("@ArticuloID", ArticuloID),
                 new SqlParameter("@TarjetaID", Tarjeta),//string.IsNullOrEmpty(Tarjeta) || Tarjeta == "" ? "1" : Tarjeta),
                 new SqlParameter("@Cantidad", Cantidad),
@@ -484,15 +380,7 @@ namespace Sadora.Inventario
             }
 
             if (TableGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-            {
                 AgregarModoGrid(TableGrid);
-                //GridMain.ItemsSource = TablaGrid;
-                //GridMain.Columns["FormularioID"].Visible = false;
-            }
-            //else
-            //{
-            //    GridMain.ItemsSource = null;
-            //}
 
             List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
             {
@@ -608,24 +496,19 @@ namespace Sadora.Inventario
                 txtArticuloID.IsReadOnly = false;
             }
             if (Imprime == false)
-            {
                 BtnImprimir.IsEnabled = Imprime;
-            }
             if (Agrega == false)
-            {
                 BtnAgregar.IsEnabled = Agrega;
-            }
             if (Modifica == false)
-            {
                 BtnEditar.IsEnabled = Modifica;
-            }
+
         }
 
         private void AgregarModoGrid(DataTable table = null)
         {
             if (table == null)
             {
-                reader = Clases.ClassData.runDataTable("select ArticuloID, TarjetaID as Tarjeta, CantidadPrevia, Cantidad, CantidadPostMovimiento from TinvMovimientoInventarioDetalle  where MovimientoID = '" + txtMovimientoID.Text + "' ", null, "CommandText");
+                reader = Clases.ClassData.runDataTable("select ArticuloID, TarjetaID as Tarjeta, '' as Nombre, CantidadPrevia, Cantidad, CantidadPostMovimiento from TinvMovimientoInventarioDetalle  where MovimientoID = '" + txtMovimientoID.Text + "' ", null, "CommandText");
                 GridMain.ItemsSource = reader;
             }
             else
@@ -645,6 +528,10 @@ namespace Sadora.Inventario
                         Col.ReadOnly = true;
                         break;
 
+                    case "Nombre":
+                        Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(1, DevExpress.Xpf.Grid.GridColumnUnitType.Star);
+                        Col.ReadOnly = true;
+                        break;
 
                     case "Cantidad":
                         Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(1, DevExpress.Xpf.Grid.GridColumnUnitType.Star);
@@ -671,191 +558,137 @@ namespace Sadora.Inventario
         {
 
         }
+        private bool ValidaArticulosGrid(string ReaderValue = null/*, double Cantidad = 0*/)
+        {
+            bool resultado = true;
+
+            for (int i = 0; i < GridMain.VisibleRowCount; i++)
+            {
+                int rowHandle = GridMain.GetRowHandleByVisibleIndex(i);
+
+                string cellValue = GridMain.GetCellValue(rowHandle, "Tarjeta").ToString();
+
+                string rowTarjeta = reader.Rows[0]["Tarjeta"].ToString();
+
+                if (ReaderValue != null)
+                    rowTarjeta = ReaderValue;
+
+                if (cellValue == rowTarjeta || cellValue.Contains(rowTarjeta))
+                {
+                    TablaGrid.FocusedRowHandle = rowHandle;
+
+                    if (SnackbarThree.MessageQueue is { } messageQueue)
+                        Task.Factory.StartNew(() => messageQueue.Enqueue("Ya se habia agregado este articulo"));
+
+                    resultado = false;
+                    break;
+                }
+            }
+
+            return resultado;
+        }
 
         private void txtArticuloID_KeyUp(object sender, KeyEventArgs e)
         {
-            /*
-            if (Estado == "Modo Agregar")
+            if (Estado == "Modo Agregar" && e.Key == Key.Enter)
             {
-                if (e.Key == Key.Enter)
-                {
-                    reader = Clases.ClassData.runDataTable("Select a.ArticuloID ,a.Tarjeta, a.Nombre, 1 as Cantidad, a.Precio, a.Precio as SubTotal, ((a.Precio * b.Porcentaje) / 100) as ITBIS " +
-                            ", ((a.Precio * b.Porcentaje) / 100)+a.Precio as Total, b.Porcentaje from TinvArticulos a inner join TinvClaseArticulos b on a.ClaseArticuloID = b.ClaseID " +
-                            "where a.Tarjeta = '" + txtArticuloID.Text + "' or a.Nombre like '%" + txtArticuloID.Text + "%' order by a.ArticuloID", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+                reader = Clases.ClassData.runDataTable("Select a.ArticuloID ,a.Tarjeta, a.Nombre,a.Cantidad as CantidadPrevia, 0 as Cantidad, 0 as CantidadPostMovimiento " +
+                            " from TinvArticulos a where a.Tarjeta = '" + txtArticuloID.Text + "' or a.Nombre like '%" + txtArticuloID.Text + "%'" +
+                            " order by a.ArticuloID", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
 
-
-                    List<String> ColumCaption = new List<String>() //Estos son los campos que saldran en la ventana de busqueda, solo si se le pasa esta lista de no ser asi, se mostrarian todos
+                List<String> ColumCaption = new List<String>() //Estos son los campos que saldran en la ventana de busqueda, solo si se le pasa esta lista de no ser asi, se mostrarian todos
                     {
-                        "Tarjeta", "Nombre", "Precio", "ITBIS", "Total", "Porcentaje"
+                        "Tarjeta", "Nombre", "Cantidad Previa"
                     };
 
-                    if (reader.Rows.Count == 1)
+                if (reader.Rows.Count == 1)
+                {
+                    if (ValidaArticulosGrid(reader.Rows[0]["Tarjeta"].ToString()/*, (double)ReadTable.Rows[0]["Cantidad"]) == false*/))
                     {
+                        TablaGrid.AddNewRow();
 
-                        DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad, HaveServices from TinvArticulos where ArticuloID = " + reader.Rows[0]["ArticuloID"].ToString(), null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+                        int newRowHandle = DevExpress.Xpf.Grid.DataControlBase.NewItemRowHandle;
 
-                        string LostTarjeta = reader.Rows[0]["Tarjeta"].ToString();
+                        GridMain.SetCellValue(newRowHandle, "ArticuloID", reader.Rows[0]["ArticuloID"]);
+                        GridMain.SetCellValue(newRowHandle, "Tarjeta", reader.Rows[0]["Tarjeta"]);
+                        GridMain.SetCellValue(newRowHandle, "Nombre", reader.Rows[0]["Nombre"]);
+                        GridMain.SetCellValue(newRowHandle, "CantidadPrevia", reader.Rows[0]["CantidadPrevia"]);
+                        GridMain.SetCellValue(newRowHandle, "Cantidad", reader.Rows[0]["Cantidad"]);
+                        GridMain.SetCellValue(newRowHandle, "CantidadPostMovimiento", reader.Rows[0]["CantidadPostMovimiento"]);
 
-                        if (ReadTable.Rows.Count == 1 && ReadTable.Columns.Contains("Cantidad"))
-                        {
-                            if ((double)ReadTable.Rows[0]["Cantidad"] <= 0 && SnackbarThree.MessageQueue is { } messageQueue)
-                            {
-                                Task.Factory.StartNew(() => messageQueue.Enqueue("No hay cantidad disponible para este articulo"));
-                                return;
-                            }
-                            else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
-                                Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
+                        ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                        GridMain.CurrentColumn = TablaGrid.VisibleColumns[3];
+                        TablaGrid.FocusedRowHandle = newRowHandle;
+                        GridMain.SelectItem(newRowHandle);
+                        TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[3];
+                    }
 
-                        }
-                        else
-                            return;
+                    txtArticuloID.Clear();
+                }
 
-                        GenITBIS = Convert.ToDouble(reader.Rows[0]["ITBIS"].ToString());
 
-                        if (ValidaArticulosGrid(LostTarjeta, (double)ReadTable.Rows[0]["Cantidad"]) == false)
+                else if (reader.Rows.Count > 1)
+                {
+
+                    Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, reader, ColumCaption);
+                    frm.ShowDialog();
+
+                    string ArticuloID = "";
+                    string Tarjeta = "";
+                    string Nombre = null;
+                    int CantidadPrevia = 0;
+                    int CantidadPostMovimiento = 0;
+
+                    if (frm.GridMuestra.SelectedItem != null)
+                    {
+                        DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+                        ArticuloID = item.Row.ItemArray[0].ToString();
+                        Tarjeta = item.Row.ItemArray[1].ToString();
+                        Nombre = item.Row.ItemArray[2].ToString();
+                        CantidadPrevia = Convert.ToInt32(item.Row.ItemArray[3].ToString());
+                        frm.Close();
+
+                        if (ValidaArticulosGrid(Tarjeta))
                         {
                             TablaGrid.AddNewRow();
 
                             int newRowHandle = DevExpress.Xpf.Grid.DataControlBase.NewItemRowHandle;
 
-                            GridMain.SetCellValue(newRowHandle, "ArticuloID", reader.Rows[0]["ArticuloID"]);
-                            GridMain.SetCellValue(newRowHandle, "Tarjeta", reader.Rows[0]["Tarjeta"]);
-                            GridMain.SetCellValue(newRowHandle, "Nombre", reader.Rows[0]["Nombre"]);
-                            //GridMain.SetCellValue(newRowHandle, "Modelo", reader.Rows[0]["Modelo"]);
-                            GridMain.SetCellValue(newRowHandle, "Cantidad", reader.Rows[0]["Cantidad"]);
-                            GridMain.SetCellValue(newRowHandle, "Precio", reader.Rows[0]["Precio"]);
-                            GridMain.SetCellValue(newRowHandle, "SubTotal", reader.Rows[0]["SubTotal"]);
-                            GridMain.SetCellValue(newRowHandle, "ITBIS", reader.Rows[0]["ITBIS"]);
-                            GridMain.SetCellValue(newRowHandle, "Total", reader.Rows[0]["Total"]);
+                            GridMain.SetCellValue(newRowHandle, "ArticuloID", ArticuloID);
+                            GridMain.SetCellValue(newRowHandle, "Tarjeta", Tarjeta);
+                            GridMain.SetCellValue(newRowHandle, "Nombre", Nombre);
+                            GridMain.SetCellValue(newRowHandle, "Cantidad", 0);
+                            GridMain.SetCellValue(newRowHandle, "CantidadPrevia", CantidadPrevia);
+                            GridMain.SetCellValue(newRowHandle, "CantidadPostMovimiento", CantidadPostMovimiento);
 
                             ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                            GridMain.CurrentColumn = TablaGrid.VisibleColumns[2];
+                            GridMain.CurrentColumn = TablaGrid.VisibleColumns[3];
                             TablaGrid.FocusedRowHandle = newRowHandle;
                             GridMain.SelectItem(newRowHandle);
-                            TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[2];
+                            TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[3];
                         }
-
-                        txtArticuloID.Clear();
                     }
-                    else if (reader.Rows.Count > 1)
-                    {
-
-                        Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost(null, reader, ColumCaption);
-                        frm.ShowDialog();
-                        string LostTarjeta = null;
-                        string Tarjeta = null;
-                        string ArticuloID = null;
-                        string Nombre = null;
-                        double Precio = 0;
-                        double ITBIS = 0;
-                        double Porcentaje = 0;
-                        double Total = 0;
-
-                        if (frm.GridMuestra.SelectedItem != null)
-                        {
-                            DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
-                            ArticuloID = item.Row.ItemArray[0].ToString();
-                            Tarjeta = item.Row.ItemArray[1].ToString();
-                            Nombre = item.Row.ItemArray[2].ToString();
-                            Precio = Convert.ToDouble(item.Row.ItemArray[4].ToString());
-                            ITBIS = Convert.ToDouble(item.Row.ItemArray[6].ToString());
-                            GenITBIS = Convert.ToDouble(item.Row.ItemArray[6].ToString());
-                            Total = Convert.ToDouble(item.Row.ItemArray[7].ToString());
-                            Porcentaje = Convert.ToDouble(item.Row.ItemArray[8].ToString());
-                            frm.Close();
-
-                            DataTable ReadTable = Clases.ClassData.runDataTable("select Cantidad, HaveServices  from TinvArticulos where ArticuloID = " + ArticuloID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
-
-                            if (ReadTable.Rows.Count == 1 && ReadTable.Columns.Contains("Cantidad"))
-                            {
-                                if ((double)ReadTable.Rows[0]["Cantidad"] <= 0 && SnackbarThree.MessageQueue is { } messageQueue)
-                                {
-                                    Task.Factory.StartNew(() => messageQueue.Enqueue("No hay cantidad disponible para este articulo"));
-                                    return;
-                                }
-                                else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
-                                    Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
-
-                                if ((bool)ReadTable.Rows[0]["HaveServices"])
-                                {
-                                    DataTable ValServices = Clases.ClassData.runDataTable("select NombreServicio, Precio from TinvServicioArticulos where Alta = 1 and ArticuloID = " + ArticuloID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
-
-                                    Administracion.FrmMostrarDatosHost frmServices = new Administracion.FrmMostrarDatosHost(null, ValServices, null);
-                                    frmServices.ShowDialog();
-
-                                    if (frmServices.GridMuestra.SelectedItem != null)
-                                    {
-                                        DataRowView itemService = (frmServices.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
-                                        LostTarjeta = Tarjeta;
-                                        Tarjeta += " (" + itemService.Row.ItemArray[0].ToString() + ")";
-                                        Nombre += " (" + itemService.Row.ItemArray[0].ToString() + ")";
-                                        Precio = (double)itemService.Row.ItemArray[1];
-                                        //reader.Rows[0]["SubTotal"] = itemService.Row.ItemArray[1].ToString();
-                                        ITBIS = ((ITBIS * Porcentaje) / (double)100);
-                                        Total = (((Precio * Porcentaje) / 100) + Precio);
-
-                                        frmServices.Close();
-                                    }
-                                }
-                            }
-                            else
-                                return;
-
-                            if (ValidaArticulosGrid(LostTarjeta, (double)ReadTable.Rows[0]["Cantidad"]) == false)
-                            {
-                                TablaGrid.AddNewRow();
-
-                                int newRowHandle = DevExpress.Xpf.Grid.DataControlBase.NewItemRowHandle;
-
-                                GridMain.SetCellValue(newRowHandle, "ArticuloID", ArticuloID);
-                                GridMain.SetCellValue(newRowHandle, "Tarjeta", Tarjeta);
-                                GridMain.SetCellValue(newRowHandle, "Nombre", Nombre);
-                                //GridMain.SetCellValue(newRowHandle, "Modelo", reader.Rows[0]["Modelo"]);
-                                GridMain.SetCellValue(newRowHandle, "Cantidad", 1);
-                                GridMain.SetCellValue(newRowHandle, "Precio", Precio);
-                                GridMain.SetCellValue(newRowHandle, "SubTotal", Precio);
-                                GridMain.SetCellValue(newRowHandle, "ITBIS", ITBIS);
-                                GridMain.SetCellValue(newRowHandle, "Total", Total);
-
-                                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                                GridMain.CurrentColumn = TablaGrid.VisibleColumns[2];
-                                TablaGrid.FocusedRowHandle = newRowHandle;
-                                GridMain.SelectItem(newRowHandle);
-                                TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[2];
-                            }
-                        }
-                        else
-                        {
-                            if (SnackbarThree.MessageQueue is { } messageQueue)
-                            {
-                                var message = "No se selecciono ningun articulo";
-                                Task.Factory.StartNew(() => messageQueue.Enqueue(message));
-                            }
-                        }
-                        txtArticuloID.Clear();
-                    }
-                    else if (reader.Rows.Count < 1)
+                    else
                     {
                         if (SnackbarThree.MessageQueue is { } messageQueue)
                         {
-                            var message = "No se encontro el articulo";
+                            var message = "No se selecciono ningun articulo";
                             Task.Factory.StartNew(() => messageQueue.Enqueue(message));
                         }
                     }
+                    txtArticuloID.Clear();
+                }
 
-                    //if (reader.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-                    //{
-                    //    
 
-                    //}
+                else if (reader.Rows.Count < 1)
+                {
+                    if (SnackbarThree.MessageQueue is { } messageQueue)
+                    {
+                        var message = "No se encontro el articulo";
+                        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
+                    }
                 }
             }
-            */
-        }
-
-        private void txtArticuloID_KeyDown(object sender, KeyEventArgs e)
-        {
-            ClassControl.ValidadorNumeros(e);
         }
     }
 }
