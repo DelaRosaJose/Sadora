@@ -26,6 +26,7 @@ namespace Sadora.Administracion
     {
         FrmLogin login = new FrmLogin();
         bool Estado = true;
+        BackgroundWorker worker = new BackgroundWorker();
 
         public FrmSplash()
         {
@@ -34,7 +35,6 @@ namespace Sadora.Administracion
 
         private void Window_ContentRendered(object sender, EventArgs e)
         {
-            BackgroundWorker worker = new BackgroundWorker();
             worker.WorkerReportsProgress = true;
             worker.DoWork += worker_DoWork;
             worker.ProgressChanged += worker_ProgressChanged;
@@ -110,9 +110,20 @@ namespace Sadora.Administracion
 
                         if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
                         {
+                            listBox1.Items.Add(string.Format(" "));
                             Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
                             frm.ShowDialog();
+
                             ClassVariables.GetSetError = null;
+
+                            new FrmValidarAccion("Desea reiniciar la aplicacion").ShowDialog();
+
+                            if (ClassVariables.ValidarAccion == true)
+                                System.Windows.Forms.Application.Restart();
+
+                            System.Windows.Application.Current.Shutdown();
+
+                            return;
                         }
 
                         listSqlParameter.Clear();

@@ -389,21 +389,24 @@ namespace Sadora.Clases
         {
             SqlDataReader reader = Clases.ClassData.runSqlDataReader("select * from TsysUsuarios where UsuarioID = " + ClassVariables.UsuarioID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
 
-            if (reader.HasRows) //Validamos si el datareader trajo data.
+            try
             {
-                if (reader.Read()) //Si puede leer la informacion
+                if (reader.HasRows) //Validamos si el datareader trajo data.
                 {
-                    ClassVariables.ClasesVariables.UserName = reader["Nombre"].ToString();
-                    reader.NextResult();
+                    if (reader.Read()) //Si puede leer la informacion
+                    {
+                        ClassVariables.ClasesVariables.UserName = reader["Nombre"].ToString();
+                        reader.NextResult();
+                    }
+                    reader.Close(); //Cerramos el datareader
+                    reader.Dispose(); //Cortamos la conexion del datareader
                 }
-                reader.Close(); //Cerramos el datareader
-                reader.Dispose(); //Cortamos la conexion del datareader
-            }
-            else //Si no trajo data
-            {
-                reader.Close(); //limpiamos el reader
-                reader.Dispose();
-            }
+                else //Si no trajo data
+                {
+                    reader.Close(); //limpiamos el reader
+                    reader.Dispose();
+                }
+            }catch { }
         }
 
         //public static void GridAllowEdit(DevExpress.Xpf.Grid.GridControl Grid, List<String> ListaColumnas, Boolean AllowEdit, string opcion = "--AllowEdit-- o --Visible--") 

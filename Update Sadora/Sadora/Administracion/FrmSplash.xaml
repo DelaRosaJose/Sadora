@@ -4,8 +4,8 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-        xmlns:local="clr-namespace:Sadora"
-        xmlns:dxg="http://schemas.devexpress.com/winfx/2008/xaml/grid" x:Class="Sadora.Administracion.FrmSplash"
+        xmlns:local="clr-namespace:Sadora" 
+        x:Class="Sadora.Administracion.FrmSplash"
         TextElement.FontWeight="Medium"
         TextElement.FontSize="14"
         FontFamily="pack://application:,,,/MaterialDesignThemes.Wpf;component/Resources/Roboto/#Roboto"
@@ -44,11 +44,11 @@
             <Image HorizontalAlignment="Left" Height="94" Margin="158,153,0,0" VerticalAlignment="Top" Width="94" Source="LogoSadora.png" Stretch="Fill"/>
             <TextBlock Text="V. 1.0" TextElement.Foreground="#FFD8D9DE" FontSize="22"  Margin="612,49,27,367" />
 
-            <dxg:GridControl Visibility="Hidden" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="334,385,0,-0.2" VerticalAlignment="Top">
+            <!--<dxg:GridControl Visibility="Hidden" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" HorizontalAlignment="Left" Margin="334,385,0,-0.2" VerticalAlignment="Top">
                 <dxg:GridControl.View>
                     <dxg:TableView ShowTotalSummary="True"/>
                 </dxg:GridControl.View>
-            </dxg:GridControl>
+            </dxg:GridControl>-->
             <ListBox Name="listBox1" HorizontalAlignment="Left" Height="288" Margin="10,49,0,0" VerticalAlignment="Top" Width="634"/>
 
         </Grid>

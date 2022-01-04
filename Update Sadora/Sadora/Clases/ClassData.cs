@@ -19,44 +19,65 @@ namespace Sadora.Clases
         //}
         #endregion creando la cadena de conexion
 
+        /*
+        #region Abrir y cerrar conexion
+        static void OpenConnection()
+        {
+            try
+            {
+                if (sqlConnection.State != ConnectionState.Open)
+                    sqlConnection.Open();
+            }
+            catch (Exception ex)
+            {
+                //new Administracion.FrmCompletarCamposHost(string.Format("Error de conexion: \n {0}",ex)).ShowDialog();
+            }
+        }
+        #endregion
+        */
 
         // NEXT********************************************
         #region para ejecutar consultas como: insert, update y delete
         public static void runSqlCommand(string stringParameterSqlQuery, List<SqlParameter> listSqlParameter = null, string stringParameterComandType = "CommandText")
         {
-            if (sqlConnection.State != ConnectionState.Open)
+            var SqlCommand = Task.Run(() =>
             {
-                sqlConnection.Open();
-            }
+                SqlCommand sqlcommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
 
-            SqlCommand sqlcommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
-
-            try
-            {
-                sqlcommand.CommandText = stringParameterSqlQuery;
-                sqlcommand.CommandType = stringParameterComandType == "CommandText" ? CommandType.Text : CommandType.StoredProcedure;
-
-                if (stringParameterComandType != "CommandText")
+                try
                 {
-                    if (listSqlParameter.Count > 0)
+                    if (sqlConnection.State != ConnectionState.Open)
                     {
-                        foreach (SqlParameter sqlparameter in listSqlParameter)
+                        sqlConnection.Open();
+                    }
+
+                    sqlcommand.CommandText = stringParameterSqlQuery;
+                    sqlcommand.CommandType = stringParameterComandType == "CommandText" ? CommandType.Text : CommandType.StoredProcedure;
+
+                    if (stringParameterComandType != "CommandText")
+                    {
+                        if (listSqlParameter.Count > 0)
                         {
-                            sqlcommand.Parameters.Add(sqlparameter);
+                            foreach (SqlParameter sqlparameter in listSqlParameter)
+                            {
+                                sqlcommand.Parameters.Add(sqlparameter);
+                            }
                         }
                     }
+                    sqlcommand.ExecuteNonQuery();
                 }
-                sqlcommand.ExecuteNonQuery();
-            }
-            catch (Exception exception)
-            {
-                throw new Exception(exception.Message);
-            }
-            finally
-            {
-                sqlConnection.Close();
-                sqlcommand.Dispose();
-            }
+                catch (Exception exception)
+                {
+                    ClassVariables.GetSetError = string.Format("Ha ocurrido un error: \n {0}", exception.ToString());
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    sqlcommand.Dispose();
+                }
+            });
+            //SqlCommand.Wait();
+
         }
         #endregion para ejecutar consultas como: insert, update y delete
 
@@ -65,37 +86,44 @@ namespace Sadora.Clases
         #region creando datareader
         public static SqlDataReader runSqlDataReader(string stringParameterSqlQuery, List<SqlParameter> listSqlParameter = null, string stringParameterCommandType = "CommandType")
         {
-            if (sqlConnection.State != ConnectionState.Open)
+            var DataReader = Task.Run(() =>
             {
-                sqlConnection.Open();
-            }
+                SqlDataReader sqlDataReader = default;
+                SqlCommand sqlCommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
 
-            SqlCommand sqlCommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
-            sqlCommand.CommandType = stringParameterCommandType == "CommandText" ? CommandType.Text : CommandType.StoredProcedure;
-            SqlDataReader sqlDataReader;
-
-            try
-            {
-                if (listSqlParameter != null)
+                try
                 {
-                    sqlDataReader = null;
-                    foreach (SqlParameter sqlParameter in listSqlParameter)
+                    if (sqlConnection.State != ConnectionState.Open)
                     {
-                        sqlCommand.Parameters.Add(sqlParameter);
+                        sqlConnection.Open();
                     }
+
+                    sqlCommand.CommandType = stringParameterCommandType == "CommandText" ? CommandType.Text : CommandType.StoredProcedure;
+
+                    if (listSqlParameter != null)
+                    {
+                        sqlDataReader = null;
+                        foreach (SqlParameter sqlParameter in listSqlParameter)
+                        {
+                            sqlCommand.Parameters.Add(sqlParameter);
+                        }
+                    }
+                    sqlDataReader = sqlCommand.ExecuteReader();
                 }
-                sqlDataReader = sqlCommand.ExecuteReader();
-            }
-            catch (Exception exception)
-            {
-                //ClassVariables.GetSetError = "error" + exception.ToString();
-                throw new Exception(exception.Message);
-            }
-            finally
-            {
-                sqlCommand.Dispose();
-            }
-            return sqlDataReader;
+                catch (Exception exception)
+                {
+                    //ClassVariables.GetSetError = "error" + exception.ToString();
+                    ClassVariables.GetSetError = string.Format("Ha ocurrido un error: \n {0}", exception.ToString());
+                    //throw new Exception(ClassVariables.GetSetError = string.Format("Ha ocurrido un error: \n {0}", exception.ToString()));
+                }
+                finally
+                {
+                    sqlCommand.Dispose();
+                }
+                return sqlDataReader;
+            });
+            DataReader.Wait();
+            return DataReader.Result;
         }
         #endregion creando data reader
 
@@ -104,40 +132,41 @@ namespace Sadora.Clases
         #region creando data Table
         public static DataTable runDataTable(string stringParameterSqlQuery, List<SqlParameter> listParameter = null, string stringParameterCommandType = "CommandText")
         {
-            if (sqlConnection.State != ConnectionState.Open)
+            var Datatable = Task.Run(() =>
             {
-                sqlConnection.Open();
-            }
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+                DataTable datatable = new DataTable();
 
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
-            DataTable datatable = new DataTable();
-
-            try
-            {
-                sqlDataAdapter.SelectCommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
-                sqlDataAdapter.SelectCommand.CommandType = stringParameterCommandType == "CommandText" ? CommandType.Text : CommandType.StoredProcedure;
-
-                if (listParameter != null)
+                try
                 {
-                    foreach (SqlParameter sqlParameter in listParameter)
-                    {
-                        sqlDataAdapter.SelectCommand.Parameters.Add(sqlParameter);
-                    }
-                }
-                sqlDataAdapter.Fill(datatable);
-            }
-            catch (Exception exception)
-            {
-                ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
-                //throw new Exception(exception.Message);
-            }
-            finally
-            {
-                sqlDataAdapter.Dispose();
-                sqlConnection.Close();
-            }
+                    if (sqlConnection.State != ConnectionState.Open)
+                        sqlConnection.Open();
 
-            return datatable;
+                    sqlDataAdapter.SelectCommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
+                    sqlDataAdapter.SelectCommand.CommandType = stringParameterCommandType == "CommandText" ? CommandType.Text : CommandType.StoredProcedure;
+
+                    if (listParameter != null)
+                    {
+                        foreach (SqlParameter sqlParameter in listParameter)
+                        {
+                            sqlDataAdapter.SelectCommand.Parameters.Add(sqlParameter);
+                        }
+                    }
+                    sqlDataAdapter.Fill(datatable);
+                }
+                catch (Exception exception)
+                {
+                    ClassVariables.GetSetError = string.Format("Ha ocurrido un error: \n {0}", exception.ToString());
+                }
+                finally
+                {
+                    sqlDataAdapter.Dispose();
+                    sqlConnection.Close();
+                }
+                return datatable;
+            });
+            Datatable.Wait();
+            return Datatable.Result;
         }
         #endregion creando data table
 
@@ -146,39 +175,43 @@ namespace Sadora.Clases
         #region creando data set
         public static DataSet runDataSet(string stringParameterSqlQuery, List<SqlParameter> listSqlParameter = null, string stringParameterCommandType = "CommandText")
         {
-            if (sqlConnection.State != ConnectionState.Open)
+            var DataSet = Task.Run(() =>
             {
-                sqlConnection.Open();
-            }
-
-            SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
-            DataSet dataSet = new DataSet();
-
-            try
-            {
-                sqlDataAdapter.SelectCommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
-                sqlDataAdapter.SelectCommand.CommandType = stringParameterCommandType == "CommandText" ? CommandType.Text : CommandType.StoredProcedure;
-
-                if (listSqlParameter != null)
+                if (sqlConnection.State != ConnectionState.Open)
                 {
-                    foreach (SqlParameter sqlParamter in listSqlParameter)
-                    {
-                        sqlDataAdapter.SelectCommand.Parameters.Add(listSqlParameter);
-                    }
+                    sqlConnection.Open();
                 }
-                sqlDataAdapter.Fill(dataSet);
-            }
-            catch (Exception exception)
-            {
-                ClassVariables.GetSetError = "error" + exception.ToString();
-                //throw new Exception(exception.Message);
-            }
-            finally
-            {
-                sqlConnection.Close();
-                sqlDataAdapter.Dispose();
-            }
-            return dataSet;
+
+                SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+                DataSet dataSet = new DataSet();
+
+                try
+                {
+                    sqlDataAdapter.SelectCommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
+                    sqlDataAdapter.SelectCommand.CommandType = stringParameterCommandType == "CommandText" ? CommandType.Text : CommandType.StoredProcedure;
+
+                    if (listSqlParameter != null)
+                    {
+                        foreach (SqlParameter sqlParamter in listSqlParameter)
+                        {
+                            sqlDataAdapter.SelectCommand.Parameters.Add(listSqlParameter);
+                        }
+                    }
+                    sqlDataAdapter.Fill(dataSet);
+                }
+                catch (Exception exception)
+                {
+                    ClassVariables.GetSetError = string.Format("Ha ocurrido un error: \n {0}", exception.ToString());
+                }
+                finally
+                {
+                    sqlConnection.Close();
+                    sqlDataAdapter.Dispose();
+                }
+                return dataSet;
+            });
+            DataSet.Wait();
+            return DataSet.Result;
         }
         #endregion creando data set
 
@@ -186,65 +219,65 @@ namespace Sadora.Clases
         #region ingresar datatable a Sql Server
         public static void runDataTableSql(string stringParameterSqlQuery, List<ClassVariables> list, string Item)
         {
-
-            //SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
-            DataTable datatable = new DataTable();
-
-            try
+            var DataTableSql = Task.Run(() =>
             {
-                datatable = new System.Data.DataTable() { Locale = System.Globalization.CultureInfo.InvariantCulture };
-                datatable.Columns.Add("FormularioID", typeof(int));
-                datatable.Columns.Add("Nombre", typeof(string));
-                datatable.Columns.Add("Modulo", typeof(string));
-                datatable.Columns.Add("Titulo", typeof(string));
+                //SqlDataAdapter sqlDataAdapter = new SqlDataAdapter();
+                DataTable datatable = new DataTable();
 
-
-                int contador = 0;
-                foreach (ClassVariables user in list)
+                try
                 {
-                    datatable.Rows.Add();
-                    var id = datatable.Rows.Count - 1;
-                    datatable.Rows[contador]["FormularioID"] = contador+1;//"BarCode" + i;
-                    datatable.Rows[contador]["Nombre"] = user.Formulario;//"BarCode" + i;
-                    datatable.Rows[contador]["Modulo"] = user.Modulo; //"Name" + i;
-                    datatable.Rows[contador]["Titulo"] = user.Titulo;//"Description" + i;
-                    contador++;
+                    datatable = new System.Data.DataTable() { Locale = System.Globalization.CultureInfo.InvariantCulture };
+                    datatable.Columns.Add("FormularioID", typeof(int));
+                    datatable.Columns.Add("Nombre", typeof(string));
+                    datatable.Columns.Add("Modulo", typeof(string));
+                    datatable.Columns.Add("Titulo", typeof(string));
+
+
+                    int contador = 0;
+                    foreach (ClassVariables user in list)
+                    {
+                        datatable.Rows.Add();
+                        var id = datatable.Rows.Count - 1;
+                        datatable.Rows[contador]["FormularioID"] = contador + 1;//"BarCode" + i;
+                        datatable.Rows[contador]["Nombre"] = user.Formulario;//"BarCode" + i;
+                        datatable.Rows[contador]["Modulo"] = user.Modulo; //"Name" + i;
+                        datatable.Rows[contador]["Titulo"] = user.Titulo;//"Description" + i;
+                        contador++;
+                    }
+
+
+
+                    SqlCommand command = new SqlCommand(stringParameterSqlQuery, sqlConnection);
+                    command.CommandType = CommandType.StoredProcedure;
+
+                    var parameter = new SqlParameter //Esta declaracion es Clave en este Metodo
+                    {
+                        SqlDbType = SqlDbType.Structured, //El tipo Structured es el que se tomara la estructura del Data Table para
+                        ParameterName = Item, //Hacer match con el Tipo Table en SQL, respetando el nombre declarado en el StoreProcedure   //DTItemns
+                        Value = datatable
+                    };
+                    command.Parameters.Add(parameter);
+
+                    if (sqlConnection.State != ConnectionState.Open)
+                    {
+                        sqlConnection.Open();
+                    }
+                    command.ExecuteNonQuery();
+                    command.Dispose();
                 }
-
-
-
-                SqlCommand command = new SqlCommand(stringParameterSqlQuery, sqlConnection);
-                command.CommandType = CommandType.StoredProcedure;
-
-                var parameter = new SqlParameter //Esta declaracion es Clave en este Metodo
+                catch (Exception exception)
                 {
-                    SqlDbType = SqlDbType.Structured, //El tipo Structured es el que se tomara la estructura del Data Table para
-                    ParameterName = Item, //Hacer match con el Tipo Table en SQL, respetando el nombre declarado en el StoreProcedure   //DTItemns
-                    Value = datatable
-                };
-                command.Parameters.Add(parameter);
-
-                if (sqlConnection.State != ConnectionState.Open)
-                {
-                    sqlConnection.Open();
+                    ClassVariables.GetSetError = string.Format("Ha ocurrido un error: \n {0}", exception.ToString());
                 }
-                command.ExecuteNonQuery();
-                command.Dispose();
-            }
-            catch (Exception exception)
-            {
-                ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
-                //throw new Exception(exception.Message);
-            }
-            finally
-            {
-                //sqlDataAdapter.Dispose();
-                datatable.Clear();
-                datatable.Dispose();
-                sqlConnection.Close();
-                
-            }
-            
+                finally
+                {
+                    //sqlDataAdapter.Dispose();
+                    datatable.Clear();
+                    datatable.Dispose();
+                    sqlConnection.Close();
+
+                }
+            });
 
 
 
