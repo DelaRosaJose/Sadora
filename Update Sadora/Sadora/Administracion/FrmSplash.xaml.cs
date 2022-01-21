@@ -56,6 +56,7 @@ namespace Sadora.Administracion
 
         void worker_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
+            Cursor = Cursors.AppStarting;
             if (Estado == true)
             {
                 pbStatus.Value = e.ProgressPercentage;
@@ -64,38 +65,39 @@ namespace Sadora.Administracion
 
             if (pbStatus.Value == 10)
             {
-
-                System.Reflection.Assembly assembly;
-                assembly = System.Reflection.Assembly.GetExecutingAssembly();
-
-                foreach (Type t in assembly.GetTypes())
+                Dispatcher.BeginInvoke(new ThreadStart(() =>
                 {
+                    System.Reflection.Assembly assembly;
+                    assembly = System.Reflection.Assembly.GetExecutingAssembly();
 
-                    var nombreTipo = t.BaseType.Name;
-                    Control control;
-
-                    if (nombreTipo.ToLower().Contains("usercontrol") || nombreTipo.ToLower().Contains("window"))
+                    foreach (Type t in assembly.GetTypes())
                     {
-                        try
-                        {
-                            control = Activator.CreateInstance(t) as Control;
-                        }
-                        catch
-                        {
-                            control = Activator.CreateInstance(t, "") as Control;
-                        }
 
-                        if (control is Window)
-                        {
-                            Window frm = control as Window;
-                        }
+                        var nombreTipo = t.BaseType.Name;
+                        Control control;
 
-                        else
+                        if (nombreTipo.ToLower().Contains("usercontrol") || nombreTipo.ToLower().Contains("window"))
                         {
-                            UserControl frm = control as UserControl;
-                        }
+                            try
+                            {
+                                control = Activator.CreateInstance(t) as Control;
+                            }
+                            catch
+                            {
+                                control = Activator.CreateInstance(t, "") as Control;
+                            }
 
-                        List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
+                            if (control is Window)
+                            {
+                                Window frm = control as Window;
+                            }
+
+                            else
+                            {
+                                UserControl frm = control as UserControl;
+                            }
+
+                            List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
                         {
                             new SqlParameter("Flag", 1),
                             new SqlParameter("@Nombre", t.Name),
@@ -103,40 +105,44 @@ namespace Sadora.Administracion
                             new SqlParameter("@Titulo", control.Tag)
                         };
 
-                        if (control.Tag != null)
-                        {
-                            DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysFormularios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+                            if (control.Tag != null)
+                            {
+                                DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysFormularios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+                            }
+
+                            if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+                            {
+                                listBox1.Items.Add(string.Format(" "));
+                                Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
+                                frm.ShowDialog();
+
+                                ClassVariables.GetSetError = null;
+
+                                new FrmValidarAccion("Desea reiniciar la aplicacion").ShowDialog();
+
+                                if (ClassVariables.ValidarAccion == true)
+                                    System.Windows.Forms.Application.Restart();
+
+                                System.Windows.Application.Current.Shutdown();
+
+                                return;
+                            }
+
+                            listSqlParameter.Clear();
                         }
 
-                        if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
-                        {
-                            listBox1.Items.Add(string.Format(" "));
-                            Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
-                            frm.ShowDialog();
-
-                            ClassVariables.GetSetError = null;
-
-                            new FrmValidarAccion("Desea reiniciar la aplicacion").ShowDialog();
-
-                            if (ClassVariables.ValidarAccion == true)
-                                System.Windows.Forms.Application.Restart();
-
-                            System.Windows.Application.Current.Shutdown();
-
-                            return;
-                        }
-
-                        listSqlParameter.Clear();
                     }
+                }));
 
-                }
-                List<string> ListVentanas = new List<string>()
+                //List<string> ListVentanas = new List<string>()
+                //{
+                //    "Clases de Marca","Clases de Departamento","Clases de Proveedores","Clases de MetodoPagos"
+                //};
+                Dispatcher.BeginInvoke(new ThreadStart(() =>
                 {
-                    "Clases de Marca","Clases de Departamento","Clases de Proveedores","Clases de MetodoPagos"
-                };
-                foreach (string item in ListVentanas)
-                {
-                    List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
+                    foreach (string item in new List<string>() { "Clases de Marca", "Clases de Departamento", "Clases de Proveedores", "Clases de MetodoPagos" })
+                    {
+                        List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
                     {
                         new SqlParameter("Flag", 1),
                         new SqlParameter("@Nombre", "UscMantenimientoGeneral"),
@@ -144,22 +150,23 @@ namespace Sadora.Administracion
                         new SqlParameter("@Titulo", item)
                     };
 
-                    DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysFormularios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
+                        DataTable TablaGrid = Clases.ClassData.runDataTable("sp_sysFormularios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
-                    if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
-                    {
-                        Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
-                        frm.ShowDialog();
-                        ClassVariables.GetSetError = null;
+                        if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+                        {
+                            Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
+                            frm.ShowDialog();
+                            ClassVariables.GetSetError = null;
+                        }
+
+                        listSqlParameter.Clear();
                     }
-
-                    listSqlParameter.Clear();
-                }
-
+                }));
 
             }
             else if (pbStatus.Value == 100 && listBox1.Items.Count == 0)
             {
+                Cursor = Cursors.Arrow;
                 login.Show();
                 this.Close();
             }

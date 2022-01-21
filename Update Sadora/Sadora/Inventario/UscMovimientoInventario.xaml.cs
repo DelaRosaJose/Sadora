@@ -282,7 +282,7 @@ namespace Sadora.Inventario
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el Nomenclatura en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
                 new SqlParameter("Flag",Flag),
-                new SqlParameter("@MovimientoID",txtMovimientoID.Text),
+                new SqlParameter("@MovimientoID",MovimientoID),
                 new SqlParameter("@TipoMovimiento",cbxTipoMovimiento.Text),
                 new SqlParameter("@FechaMovimiento",dtpFechaMovimiento.Text),
                 new SqlParameter("@Estado",cbxEstado.Text),
@@ -553,11 +553,15 @@ namespace Sadora.Inventario
             }
         }
 
-
         private void TablaGrid_KeyUp(object sender, KeyEventArgs e)
         {
-
+            if ((e.Key == Key.Enter))
+            {
+                if (TablaGrid.FocusedColumn.HeaderCaption.ToString() == "Cantidad")
+                    txtArticuloID.Focus();
+            }
         }
+
         private bool ValidaArticulosGrid(string ReaderValue = null/*, double Cantidad = 0*/)
         {
             bool resultado = true;
@@ -688,6 +692,18 @@ namespace Sadora.Inventario
                         Task.Factory.StartNew(() => messageQueue.Enqueue(message));
                     }
                 }
+            }
+        }
+
+        private void TablaGrid_FocusedColumnChanged(object sender, DevExpress.Xpf.Grid.FocusedColumnChangedEventArgs e)
+        {
+            try
+            {
+                if (TablaGrid.FocusedColumn.FieldName.ToString() == "CantidadPostMovimiento")
+                    TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[3];
+            }
+            catch
+            {
             }
         }
     }

@@ -318,7 +318,7 @@
 
                                 <dxg:GridControl x:Name="GridMain"  Grid.Row="1" AutoGenerateColumns="AddNew" EnableSmartColumnsGeneration="True" MaxHeight="500" TabIndex="3">
                                     <dxg:GridControl.View>
-                                        <dxg:TableView x:Name="TablaGrid"  KeyUp="TablaGrid_KeyUp" ShowAutoFilterRow="False" ShowGroupPanel="False" TabIndex="6" ShowHorizontalLines="False" ShowVerticalLines="False" />
+                                        <dxg:TableView x:Name="TablaGrid" FocusedColumnChanged="TablaGrid_FocusedColumnChanged" KeyUp="TablaGrid_KeyUp" ShowAutoFilterRow="False" ShowGroupPanel="False" TabIndex="6" ShowHorizontalLines="False" ShowVerticalLines="False" />
                                     </dxg:GridControl.View>
                                 </dxg:GridControl>
 

@@ -20,6 +20,7 @@ using Sadora.Properties;
 using System.Linq;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading;
 
 namespace Sadora.Ventas
 {
@@ -160,12 +161,10 @@ namespace Sadora.Ventas
 
         private void BtnUltimoRegistro_Click(object sender, RoutedEventArgs e)
         {
-            List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
-            {
-               txtNCF
-            };
-            ClassControl.ClearControl(listaControl);
+
+            ClassControl.ClearControl(new List<Control>() { txtNCF }); //Estos son los controles limpiados.
             SetEnabledButton("Modo Consulta");
+
             setDatos(-1, "1");
             BtnUltimoRegistro.IsEnabled = false;
             BtnProximoRegistro.IsEnabled = false;
@@ -226,7 +225,9 @@ namespace Sadora.Ventas
 
         private void BtnImprimir_Click(object sender, RoutedEventArgs e)
         {
+            this.Cursor = Cursors.Wait;
             DevExpress.Xpf.Printing.PrintHelper.ShowPrintPreview(this, new Reportes.RpFacturacion(tabla, TableGrid)).WindowState = WindowState.Maximized;
+            Cursor = Cursors.Arrow;
         }
 
         private void BtnAgregar_Click(object sender, RoutedEventArgs e)
@@ -437,7 +438,7 @@ namespace Sadora.Ventas
                                 {
                                     DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
                                     reader.Rows[0]["Tarjeta"] += " (" + item.Row.ItemArray[0].ToString() + ")";
-                                    reader.Rows[0]["Nombre"] += " ("+ item.Row.ItemArray[0].ToString() + ")";
+                                    reader.Rows[0]["Nombre"] += " (" + item.Row.ItemArray[0].ToString() + ")";
                                     reader.Rows[0]["Precio"] = item.Row.ItemArray[1].ToString();
                                     reader.Rows[0]["SubTotal"] = item.Row.ItemArray[1].ToString();
                                     reader.Rows[0]["ITBIS"] = (((double)reader.Rows[0]["Precio"] * (double)reader.Rows[0]["Porcentaje"]) / (double)100);
@@ -515,7 +516,7 @@ namespace Sadora.Ventas
                                 }
                                 else if ((double)ReadTable.Rows[0]["Cantidad"] >= 1 && (double)ReadTable.Rows[0]["Cantidad"] <= 3 && SnackbarThree.MessageQueue is { } messageQueue1)
                                     Task.Factory.StartNew(() => messageQueue1.Enqueue("Quedan pocas unidades de este articulo: " + (double)ReadTable.Rows[0]["Cantidad"]));
-                                
+
                                 if ((bool)ReadTable.Rows[0]["HaveServices"])
                                 {
                                     DataTable ValServices = Clases.ClassData.runDataTable("select NombreServicio, Precio from TinvServicioArticulos where Alta = 1 and ArticuloID = " + ArticuloID, null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
@@ -599,28 +600,32 @@ namespace Sadora.Ventas
 
         void setDatos(int Flag, string Factura) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
         {
-            if (Factura == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
+            Task.Run(() =>
             {
-                if (txtFacturaID.Text == "")
+                if (Factura == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
                 {
-                    FacturaID = 0;
+                    if (txtFacturaID.Text == "")
+                    {
+                        FacturaID = 0;
+                    }
+                    else
+                    {
+                        try
+                        {
+                            FacturaID = Convert.ToInt32(txtFacturaID.Text);
+                        }
+                        catch (Exception exception)
+                        {
+                            ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //Enviamos la excepcion que nos brinda el sistema en caso de que no pueda convertir el id del Usuario
+                        }
+                    }
                 }
-                else
+                else //Si pasamos un Usuario, lo convertimos actualizamos la variable Usuario principal
                 {
-                    try
-                    {
-                        FacturaID = Convert.ToInt32(txtFacturaID.Text);
-                    }
-                    catch (Exception exception)
-                    {
-                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //Enviamos la excepcion que nos brinda el sistema en caso de que no pueda convertir el id del Usuario
-                    }
+                    FacturaID = Convert.ToInt32(Factura);
                 }
-            }
-            else //Si pasamos un Usuario, lo convertimos actualizamos la variable Usuario principal
-            {
-                FacturaID = Convert.ToInt32(Factura);
-            }
+
+            });
 
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el NCF en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
@@ -640,49 +645,57 @@ namespace Sadora.Ventas
                 new SqlParameter("@UsuarioID", ClassVariables.UsuarioID)
             };
 
-            tabla = Clases.ClassData.runDataTable("sp_venFacturas", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
-
-            if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+            Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
-                Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
-                frm.ShowDialog();
-                ClassVariables.GetSetError = null;
-            }
 
-            if (tabla.Rows.Count == 1) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-            {
-                txtFacturaID.Text = tabla.Rows[0]["FacturaID"].ToString();
-                txtClienteID.Text = tabla.Rows[0]["ClienteID"].ToString();
-                ClasesVariables.ClienteDinamic = tabla.Rows[0]["Nombre"].ToString();
-                ClasesVariables.RNCDinamic = tabla.Rows[0]["RNC"].ToString();
-                txtDescuento.Text = tabla.Rows[0]["Descuento"].ToString();
-                ClasesVariables.NCFDinamic = tabla.Rows[0]["NCF"].ToString();
-                txtSubTotal.Text = tabla.Rows[0]["SubTotal"].ToString();
-                txtITBIS.Text = tabla.Rows[0]["ITBIS"].ToString();
-                txtTotal.Text = tabla.Rows[0]["Total"].ToString();
-                cbxEstado.SelectedItem = tabla.Rows[0]["Estado"].ToString();
-                dtpFechaCreacion.Text = tabla.Rows[0]["FechaCreacion"].ToString();
+                tabla = Clases.ClassData.runDataTable("sp_venFacturas", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
-                if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
+                if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
                 {
-                    try
-                    {
-                        LastFacturaID = Convert.ToInt32(txtFacturaID.Text); //intentamos convertir el id del Usuario
-                    }
-                    catch (Exception exception)
-                    {
-                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error ald intentar convertirlo lo enviamos
-                    }
+                    Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
+                    frm.ShowDialog();
+                    ClassVariables.GetSetError = null;
                 }
 
-                //ClasesVariables.ClienteDinamic = ClassControl.setPropBinding("select * from TcliClientes where ClienteID = ", txtClienteID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
+                if (tabla.Rows.Count == 1) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
+                {
+                    txtFacturaID.Text = tabla.Rows[0]["FacturaID"].ToString();
+                    txtClienteID.Text = tabla.Rows[0]["ClienteID"].ToString();
+                    ClasesVariables.ClienteDinamic = tabla.Rows[0]["Nombre"].ToString();
+                    ClasesVariables.RNCDinamic = tabla.Rows[0]["RNC"].ToString();
+                    txtDescuento.Text = tabla.Rows[0]["Descuento"].ToString();
+                    ClasesVariables.NCFDinamic = tabla.Rows[0]["NCF"].ToString();
+                    txtSubTotal.Text = tabla.Rows[0]["SubTotal"].ToString();
+                    txtITBIS.Text = tabla.Rows[0]["ITBIS"].ToString();
+                    txtTotal.Text = tabla.Rows[0]["Total"].ToString();
+                    cbxEstado.SelectedItem = tabla.Rows[0]["Estado"].ToString();
+                    dtpFechaCreacion.Text = tabla.Rows[0]["FechaCreacion"].ToString();
 
-            }
+                    if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
+                    {
+                        try
+                        {
+                            LastFacturaID = Convert.ToInt32(txtFacturaID.Text); //intentamos convertir el id del Usuario
+                        }
+                        catch (Exception exception)
+                        {
+                            ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error ald intentar convertirlo lo enviamos
+                        }
+                    }
+
+                    //ClasesVariables.ClienteDinamic = ClassControl.setPropBinding("select * from TcliClientes where ClienteID = ", txtClienteID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
+
+                }
+            })).Wait();
+
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
 
             if (Estado == "Modo Consulta")
             {
-                setDatosGrid(0);
+                Dispatcher.BeginInvoke(new ThreadStart(() =>
+                {
+                    setDatosGrid(0);
+                })).Wait();
             }
             else if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {
@@ -934,7 +947,7 @@ namespace Sadora.Ventas
                     SetControls(true, null, true);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
-                    txtFacturaID.IsReadOnly = true;
+                txtFacturaID.IsReadOnly = true;
             }
             if (Imprime == false)
             {
