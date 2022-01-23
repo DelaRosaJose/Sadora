@@ -93,24 +93,20 @@ namespace Sadora.Ventas
 
         private void BtnPrimerRegistro_Click(object sender, RoutedEventArgs e)
         {
-            List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
-            {
-               txtNCF
-            };
-            ClassControl.ClearControl(listaControl);
-            SetEnabledButton("Modo Consulta");
+            ClassControl.ClearControl(new List<Control>() { txtNCF }); //Estos son los controles limpiados.
             setDatos(0, "100001");
+            SetEnabledButton("Modo Consulta");
             BtnPrimerRegistro.IsEnabled = false;
             BtnAnteriorRegistro.IsEnabled = false;
         }
 
         private void BtnAnteriorRegistro_Click(object sender, RoutedEventArgs e)
         {
-            List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
+           /* List<Control> listaControl = new List<Control>() //Estos son los controles limpiados.
             {
                 //txtNCF
             };
-            ClassControl.ClearControl(listaControl);
+            ClassControl.ClearControl(listaControl);*/
             SetEnabledButton("Modo Consulta");
             try
             {
@@ -257,21 +253,15 @@ namespace Sadora.Ventas
         {
             SetControls(false, "Validador", false);
             if (Lista != "Debe Completar los Campos: ")
-            {
-                Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(Lista);
-                frm.ShowDialog();
-            }
+                new Administracion.FrmCompletarCamposHost(Lista).ShowDialog();
             else
             {
+                cbxEstado.SelectedIndex = 1;
                 if (Estado == "Modo Editar")
-                {
                     setDatos(2, null);
-                }
-                else
-                {
-                    Estado = "Modo Agregar";
+                else if (Estado == "Modo Agregar")
                     setDatos(1, null);
-                }
+
                 SetEnabledButton("Modo Consulta");
                 setDatos(0, txtFacturaID.Text);
             }
@@ -625,7 +615,7 @@ namespace Sadora.Ventas
                     FacturaID = Convert.ToInt32(Factura);
                 }
 
-            });
+            }).Wait();
 
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el NCF en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
@@ -668,9 +658,10 @@ namespace Sadora.Ventas
                     txtSubTotal.Text = tabla.Rows[0]["SubTotal"].ToString();
                     txtITBIS.Text = tabla.Rows[0]["ITBIS"].ToString();
                     txtTotal.Text = tabla.Rows[0]["Total"].ToString();
-                    cbxEstado.SelectedItem = tabla.Rows[0]["Estado"].ToString();
+                    cbxEstado.Text = tabla.Rows[0]["Estado"].ToString();
                     dtpFechaCreacion.Text = tabla.Rows[0]["FechaCreacion"].ToString();
 
+                    BtnEditar.IsEnabled = cbxEstado.Text == "Abierta";
                     if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                     {
                         try
@@ -939,6 +930,7 @@ namespace Sadora.Ventas
                 if (Estado == "Modo Agregar") //Si el estado es modo Agregar enviamos a ejecutar otro metodo parametizado de forma especial
                 {
                     SetControls(false, null, false);
+                    cbxEstado.SelectedIndex = 0;
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
                     txtFacturaID.Text = (LastFacturaID + 1).ToString();
                 }
@@ -1029,22 +1021,6 @@ namespace Sadora.Ventas
             double Subtotal = (Cantidad * Precio);
             double ActualITBIS = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "ITBIS").ToString());
             double ITBIS = (GenITBIS * Cantidad);
-            //if (Cantidad > 1)
-            //    ITBIS = ((ActualITBIS / (Cantidad - 1)) + ActualITBIS);
-            //else
-            //    ITBIS = ActualITBIS; 
-
-
-
-            //( //Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "ITBIS").ToString()) / (Cantidad - 1))
-            //+ (Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "ITBIS").ToString()))
-
-            //); 
-            /// (Cantidad - 1)) 
-            //+ (Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "ITBIS").ToString())));
-
-
-            //(Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "ITBIS").ToString()) * Cantidad);
             double Total = (ITBIS + Subtotal);
 
             GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "SubTotal", Subtotal);
@@ -1096,8 +1072,6 @@ namespace Sadora.Ventas
                             GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "Cantidad", LastCantidad);
 
                         frm.Close();
-                        //new FrmControlAccesos().ShowDialog();
-                        //MessageBox.Show("No puede disminuir el valor de la cantidad");
                     }
                 }
             }
@@ -1174,14 +1148,9 @@ namespace Sadora.Ventas
 
         private void TablaGrid_FocusedColumnChanged(object sender, DevExpress.Xpf.Grid.FocusedColumnChangedEventArgs e)
         {
-            try
-            {
-                if (TablaGrid.FocusedColumn.HeaderCaption.ToString() == "Precio")
-                    TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[2];
-            }
-            catch
-            {
-            }
+            if (TablaGrid.FocusedColumn != null && TablaGrid.FocusedColumn.HeaderCaption.ToString() == "Precio")
+                TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[2];
+
         }
 
         private void TablaGrid_CellValueChanging(object sender, DevExpress.Xpf.Grid.CellValueChangedEventArgs e)

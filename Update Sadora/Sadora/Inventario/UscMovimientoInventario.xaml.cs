@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -52,7 +53,6 @@ namespace Sadora.Inventario
                 this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
                 Inicializador = false;
             }
-
         }
 
         private void BtnPrimerRegistro_Click(object sender, RoutedEventArgs e)
@@ -209,6 +209,7 @@ namespace Sadora.Inventario
         private void BtnEditar_Click(object sender, RoutedEventArgs e)
         {
             SetEnabledButton("Modo Editar");
+            AgregarModoGrid(null,true);
         }
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
@@ -260,24 +261,29 @@ namespace Sadora.Inventario
 
         void setDatos(int Flag, string Transaccion) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
         {
-            if (Transaccion == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
+            Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
-                if (txtMovimientoID.Text == "")
-                    MovimientoID = 0;
-                else
+                if (Transaccion == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
                 {
-                    try
+                    if (txtMovimientoID.Text == "")
+                        MovimientoID = 0;
+                    else
                     {
-                        MovimientoID = Convert.ToInt32(txtMovimientoID.Text);
-                    }
-                    catch (Exception exception)
-                    {
-                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //Enviamos la excepcion que nos brinda el sistema en caso de que no pueda convertir el id del Proveedor
+                        try
+                        {
+                            MovimientoID = Convert.ToInt32(txtMovimientoID.Text);
+                        }
+                        catch (Exception exception)
+                        {
+                            ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //Enviamos la excepcion que nos brinda el sistema en caso de que no pueda convertir el id del Proveedor
+                        }
                     }
                 }
-            }
-            else //Si pasamos un Proveedor, lo convertimos actualizamos la variable Proveedor principal
-                MovimientoID = Convert.ToInt32(Transaccion);
+                else //Si pasamos un Proveedor, lo convertimos actualizamos la variable Proveedor principal
+                    MovimientoID = Convert.ToInt32(Transaccion);
+
+            })).Wait();
+
 
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el Nomenclatura en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
@@ -289,58 +295,53 @@ namespace Sadora.Inventario
                 new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
             };
 
-            tabla = Clases.ClassData.runDataTable("sp_invMovimientoInventario", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
-            if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+            Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
-                Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
-                frm.ShowDialog();
-                ClassVariables.GetSetError = null;
-            }
+                tabla = Clases.ClassData.runDataTable("sp_invMovimientoInventario", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
-            if (tabla.Rows.Count == 1) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-            {
-                txtMovimientoID.Text = tabla.Rows[0]["MovimientoID"].ToString();
-                cbxTipoMovimiento.Text = tabla.Rows[0]["TipoMovimiento"].ToString();
-                dtpFechaMovimiento.Text = tabla.Rows[0]["FechaMovimiento"].ToString();
-                cbxEstado.Text = tabla.Rows[0]["Estado"].ToString();
-
-                if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
+                if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
                 {
-                    try
+                    Administracion.FrmCompletarCamposHost frm = new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError);
+                    frm.ShowDialog();
+                    ClassVariables.GetSetError = null;
+                }
+
+                if (tabla.Rows.Count == 1) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
+                {
+                    txtMovimientoID.Text = tabla.Rows[0]["MovimientoID"].ToString();
+                    cbxTipoMovimiento.Text = tabla.Rows[0]["TipoMovimiento"].ToString();
+                    dtpFechaMovimiento.Text = tabla.Rows[0]["FechaMovimiento"].ToString();
+                    cbxEstado.Text = tabla.Rows[0]["Estado"].ToString();
+
+                    BtnEditar.IsEnabled = cbxEstado.Text == "Abierta";
+                    if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                     {
-                        LastMovimientoID = Convert.ToInt32(txtMovimientoID.Text); //intentamos convertir el id del Proveedor
-                    }
-                    catch (Exception exception)
-                    {
-                        ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error al intentar convertirlo lo enviamos
+                        try
+                        {
+                            LastMovimientoID = Convert.ToInt32(txtMovimientoID.Text); //intentamos convertir el id del Proveedor
+                        }
+                        catch (Exception exception)
+                        {
+                            ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString(); //si presenta un error al intentar convertirlo lo enviamos
+                        }
                     }
                 }
-                //ClassControl.setValidador("select * from TsupProveedores where ProveedorID =", txtProveedorID, tbxProveedorID); //ejecutamos el metodo validador con el campo seleccionado para que lo busque y muestre una vez se guarde el registro
-            }
-            //else
-            //{
-            //    if (SnackbarThree.MessageQueue is { } messageQueue)
-            //    {
-            //        var message = "No se encontraron datos";
-            //        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
-            //    }
-            //}
+            })).Wait();
+
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
 
-
             if (Estado == "Modo Consulta")
-                setDatosGrid(0);
+                Dispatcher.BeginInvoke(new ThreadStart(() => { setDatosGrid(0); })).Wait();
             else if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {
                 GridMain.View.MoveFirstRow();
                 for (int i = 0; i < GridMain.VisibleRowCount; i++)
                 {
-                    setDatosGrid(1);
+                    setDatosGrid(Flag);
                     GridMain.View.MoveNextRow();
                 }
             }
-
         }
 
         void setDatosGrid(int Flag) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
@@ -373,30 +374,22 @@ namespace Sadora.Inventario
 
             TableGrid = Clases.ClassData.runDataTable("sp_invMovimientoInventarioDetalle", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
 
-            if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+            Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
-                new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError).ShowDialog();
-                ClassVariables.GetSetError = null;
-            }
+                if (ClassVariables.GetSetError != null) //Si el intento anterior presenta algun error aqui aparece el mismo
+                {
+                    new Administracion.FrmCompletarCamposHost(ClassVariables.GetSetError).ShowDialog();
+                    ClassVariables.GetSetError = null;
+                }
 
-            if (TableGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-                AgregarModoGrid(TableGrid);
+                if (TableGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
+                    AgregarModoGrid(TableGrid);
 
-            List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
-            {
-                //"Visualiza","Agrega","Modifica","Imprime","Anula"
-            };
-
-            if (Estado == "Modo Agregar" && Estado == "Modo Editar")
-            {
-                //Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
-            }
-            else
-                ClassControl.SetGridReadOnly(GridMain);
-
-            listSqlParameter.Clear(); listaColumnas.Clear(); //Limpiamos la lista de parametros.
+                if (Estado != "Modo Agregar" && Estado != "Modo Editar")
+                    ClassControl.SetGridReadOnly(GridMain);
+            }));
+            listSqlParameter.Clear();  //Limpiamos la lista de parametros.
         }
-
 
         void SetControls(bool Habilitador, string Modo, bool Editando) //Este metodo se encarga de controlar cada unos de los controles del cuerpo de la ventana como los textbox
         {
@@ -484,6 +477,7 @@ namespace Sadora.Inventario
                 if (Estado == "Modo Agregar") //Si el estado es modo Agregar enviamos a ejecutar otro metodo parametizado de forma especial
                 {
                     SetControls(false, null, false);
+                    cbxEstado.SelectedIndex = 0;
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
                     txtMovimientoID.Text = (LastMovimientoID + 1).ToString();
                 }
@@ -504,15 +498,18 @@ namespace Sadora.Inventario
 
         }
 
-        private void AgregarModoGrid(DataTable table = null)
+        private void AgregarModoGrid(DataTable table = null, bool ModeEditar = false)
         {
-            if (table == null)
+            if (!ModeEditar)
             {
-                reader = Clases.ClassData.runDataTable("select ArticuloID, TarjetaID as Tarjeta, '' as Nombre, CantidadPrevia, Cantidad, CantidadPostMovimiento from TinvMovimientoInventarioDetalle  where MovimientoID = '" + txtMovimientoID.Text + "' ", null, "CommandText");
-                GridMain.ItemsSource = reader;
+                if (table == null)
+                {
+                    reader = Clases.ClassData.runDataTable("select ArticuloID, TarjetaID as Tarjeta, '' as Nombre, CantidadPrevia, Cantidad, CantidadPostMovimiento from TinvMovimientoInventarioDetalle  where MovimientoID = '" + txtMovimientoID.Text + "' ", null, "CommandText");
+                    GridMain.ItemsSource = reader;
+                }
+                else
+                    GridMain.ItemsSource = table;
             }
-            else
-                GridMain.ItemsSource = table;
 
             foreach (DevExpress.Xpf.Grid.GridColumn Col in GridMain.Columns)
             {
@@ -536,6 +533,7 @@ namespace Sadora.Inventario
                     case "Cantidad":
                         Col.Width = new DevExpress.Xpf.Grid.GridColumnWidth(1, DevExpress.Xpf.Grid.GridColumnUnitType.Star);
                         Col.EditSettings.DisplayFormat = "N";
+                        Col.ReadOnly = false;
                         break;
 
                     case "Cantidad Previa":
@@ -555,12 +553,17 @@ namespace Sadora.Inventario
 
         private void TablaGrid_KeyUp(object sender, KeyEventArgs e)
         {
-            if ((e.Key == Key.Enter))
+            if ((e.Key == Key.Enter) && TablaGrid.FocusedColumn.HeaderCaption.ToString() == "Cantidad")
             {
-                if (TablaGrid.FocusedColumn.HeaderCaption.ToString() == "Cantidad")
-                    txtArticuloID.Focus();
+                txtArticuloID.Focus();
+                double Cantidad = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "Cantidad").ToString());
+                double CantidadPrevia = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "CantidadPrevia"));
+
+
+                GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "CantidadPostMovimiento", (Cantidad+ CantidadPrevia));
             }
         }
+
 
         private bool ValidaArticulosGrid(string ReaderValue = null/*, double Cantidad = 0*/)
         {
@@ -672,39 +675,23 @@ namespace Sadora.Inventario
                             TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[3];
                         }
                     }
-                    else
-                    {
-                        if (SnackbarThree.MessageQueue is { } messageQueue)
-                        {
-                            var message = "No se selecciono ningun articulo";
-                            Task.Factory.StartNew(() => messageQueue.Enqueue(message));
-                        }
-                    }
+                    else if (SnackbarThree.MessageQueue is { } messageQueue)
+                        Task.Factory.StartNew(() => messageQueue.Enqueue("No se selecciono ningun articulo"));
+
                     txtArticuloID.Clear();
                 }
 
 
-                else if (reader.Rows.Count < 1)
-                {
-                    if (SnackbarThree.MessageQueue is { } messageQueue)
-                    {
-                        var message = "No se encontro el articulo";
-                        Task.Factory.StartNew(() => messageQueue.Enqueue(message));
-                    }
-                }
+                else if (reader.Rows.Count < 1 && SnackbarThree.MessageQueue is { } messageQueue)
+                    Task.Factory.StartNew(() => messageQueue.Enqueue("No se encontro el articulo"));
+
             }
         }
 
         private void TablaGrid_FocusedColumnChanged(object sender, DevExpress.Xpf.Grid.FocusedColumnChangedEventArgs e)
         {
-            try
-            {
-                if (TablaGrid.FocusedColumn.FieldName.ToString() == "CantidadPostMovimiento")
-                    TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[3];
-            }
-            catch
-            {
-            }
+            if (TablaGrid.FocusedColumn != null && TablaGrid.FocusedColumn.FieldName.ToString() == "CantidadPostMovimiento")
+                TablaGrid.FocusedColumn = TablaGrid.VisibleColumns[3];
         }
     }
 }
