@@ -40,7 +40,7 @@ namespace Sadora.Clases
         #region para ejecutar consultas como: insert, update y delete
         public static void runSqlCommand(string stringParameterSqlQuery, List<SqlParameter> listSqlParameter = null, string stringParameterComandType = "CommandText")
         {
-            var SqlCommand = Task.Run(() =>
+            Task.Run(() =>
             {
                 SqlCommand sqlcommand = new SqlCommand(stringParameterSqlQuery, sqlConnection);
 
@@ -75,7 +75,7 @@ namespace Sadora.Clases
                     sqlConnection.Close();
                     sqlcommand.Dispose();
                 }
-            });
+            }).Wait();
             //SqlCommand.Wait();
 
         }

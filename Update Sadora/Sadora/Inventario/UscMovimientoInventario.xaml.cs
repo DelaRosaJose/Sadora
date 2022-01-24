@@ -202,6 +202,7 @@ namespace Sadora.Inventario
             this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             SetEnabledButton("Modo Agregar");
             AgregarModoGrid();
+            cbxEstado.SelectedIndex = 1;
             cbxTipoMovimiento.Focus();
             dtpFechaMovimiento.Text = DateTime.Today.ToString();
         }
@@ -209,7 +210,7 @@ namespace Sadora.Inventario
         private void BtnEditar_Click(object sender, RoutedEventArgs e)
         {
             SetEnabledButton("Modo Editar");
-            AgregarModoGrid(null,true);
+            AgregarModoGrid(null, true);
         }
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
@@ -223,7 +224,7 @@ namespace Sadora.Inventario
             SetControls(false, "Validador", false);
             if (Lista != "Debe Completar los Campos: ")
                 new Administracion.FrmCompletarCamposHost(Lista).ShowDialog();
-            else
+            else if (ValidaCanSaverArticulo())
             {
                 if (Estado == "Modo Editar")
                     setDatos(2, null);
@@ -387,7 +388,11 @@ namespace Sadora.Inventario
 
                 if (Estado != "Modo Agregar" && Estado != "Modo Editar")
                     ClassControl.SetGridReadOnly(GridMain);
-            }));
+            })).Wait();
+
+            if (cbxEstado.Text == "Cerrada" && (Estado == "Modo Agregar" || Estado == "Modo Editar"))
+                Clases.ClassData.runSqlCommand(string.Format("update TinvArticulos set Cantidad = {0} where ArticuloID = {1}", CantidadPostMovimiento, ArticuloID)); //Aqui actualizamos la cantidad de existencia de los articulos.
+            
             listSqlParameter.Clear();  //Limpiamos la lista de parametros.
         }
 
@@ -395,17 +400,17 @@ namespace Sadora.Inventario
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtMovimientoID,/*txtMontoGravado,txtMontoExcento,txtProveedorID,*/cbxTipoMovimiento,dtpFechaMovimiento,cbxEstado
+                txtMovimientoID,cbxTipoMovimiento,dtpFechaMovimiento,cbxEstado
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                //txtProveedorID,tbxProveedorID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                txtArticuloID, cbxEstado, dtpFechaMovimiento
             };
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
             {
-                txtMovimientoID//,txtMontoGravado,txtProveedorID,tbxProveedorID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
+                txtMovimientoID
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador
@@ -555,15 +560,57 @@ namespace Sadora.Inventario
         {
             if ((e.Key == Key.Enter) && TablaGrid.FocusedColumn.HeaderCaption.ToString() == "Cantidad")
             {
-                txtArticuloID.Focus();
                 double Cantidad = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "Cantidad").ToString());
                 double CantidadPrevia = Convert.ToDouble(GridMain.GetCellValue(TablaGrid.FocusedRowHandle, "CantidadPrevia"));
 
+                if (cbxTipoMovimiento.Text == "Entrada de inventario")
+                    GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "CantidadPostMovimiento", (Cantidad + CantidadPrevia));
+                else if (cbxTipoMovimiento.Text == "Salida de inventario")
+                {
+                    if ((CantidadPrevia - Cantidad) < 0 && SnackbarThree.MessageQueue is { } messageQueue)
+                    {
+                        Task.Factory.StartNew(() => messageQueue.Enqueue("Debe cambiar la cantidad ingresada; La cantidad no puede ser menor a 0"));
+                        GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "CantidadPostMovimiento", CantidadPrevia);
+                        GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "Cantidad", 0);
+                        return;
+                    }
+                    else
+                        GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "CantidadPostMovimiento", (CantidadPrevia - Cantidad));
+                }
 
-                GridMain.SetCellValue(TablaGrid.FocusedRowHandle, "CantidadPostMovimiento", (Cantidad+ CantidadPrevia));
+                txtArticuloID.Focus();
             }
         }
 
+        private bool ValidaCanSaverArticulo()
+        {
+            bool resultado = true;
+
+
+            for (int i = 0; i < GridMain.VisibleRowCount; i++)
+            {
+                int rowHandle = GridMain.GetRowHandleByVisibleIndex(i);
+                double Cantidad = Convert.ToDouble(GridMain.GetCellValue(rowHandle, "Cantidad").ToString());
+                double CantidadPrevia = Convert.ToDouble(GridMain.GetCellValue(rowHandle, "CantidadPrevia"));
+
+                if (cbxTipoMovimiento.Text == "Entrada de inventario")
+                    GridMain.SetCellValue(rowHandle, "CantidadPostMovimiento", (Cantidad + CantidadPrevia));
+                else if (cbxTipoMovimiento.Text == "Salida de inventario")
+                {
+                    if ((CantidadPrevia - Cantidad) < 0 && SnackbarThree.MessageQueue is { } messageQueue)
+                    {
+                        Task.Factory.StartNew(() => messageQueue.Enqueue("Debe cambiar la cantidad ingresada; La cantidad no puede ser menor a 0"));
+                        GridMain.SetCellValue(rowHandle, "CantidadPostMovimiento", CantidadPrevia);
+                        GridMain.SetCellValue(rowHandle, "Cantidad", 0);
+                        resultado = false;
+                        break;
+                    }
+                    else
+                        GridMain.SetCellValue(rowHandle, "CantidadPostMovimiento", (CantidadPrevia - Cantidad));
+                }
+            }
+            return resultado;
+        }
 
         private bool ValidaArticulosGrid(string ReaderValue = null/*, double Cantidad = 0*/)
         {
