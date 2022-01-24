@@ -37,10 +37,7 @@ namespace Sadora.Inventario
         int LastMovimientoID;
         string last;
 
-        private void UserControl_Initialized(object sender, EventArgs e)
-        {
-            Inicializador = true;
-        }
+        private void UserControl_Initialized(object sender, EventArgs e) => Inicializador = true;
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
