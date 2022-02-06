@@ -505,7 +505,7 @@ namespace Sadora.Ventas
 
         void setDatos(int Flag, string Factura) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
         {
-            Task.Run(() =>
+            Dispatcher.BeginInvoke(new ThreadStart(() =>
             {
                 if (Factura == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
                 {
@@ -530,7 +530,7 @@ namespace Sadora.Ventas
                     FacturaID = Convert.ToInt32(Factura);
                 }
 
-            }).Wait();
+            })).Wait();
 
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el NCF en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
@@ -636,7 +636,8 @@ namespace Sadora.Ventas
                             new SqlParameter("@flag", Flag),
                             new SqlParameter("@MetodoPagoID", MetodoID),
                             new SqlParameter("@TransaccionID", txtFacturaID.Text),
-                            new SqlParameter("@Monto", Forma.CantidadFormaPago)
+                            new SqlParameter("@Monto", Forma.CantidadFormaPago),
+                            new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
                         };
 
                         DataTable Setter = Clases.ClassData.runDataTable("sp_venDesglosePago", listSqlParamet, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.

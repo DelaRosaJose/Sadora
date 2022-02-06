@@ -367,7 +367,8 @@ namespace Sadora.Administracion
                 //new SqlParameter("@EmpleadoID",txtEmpleadoID.Text),
                 //new SqlParameter("@GrupoID",txtGrupoID.Text),
                 //new SqlParameter("@Contraseña",txtPassword.Password),
-                new SqlParameter("@Activo",cActivar.IsChecked)
+                new SqlParameter("@Activo",cActivar.IsChecked),
+                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
             };
 
             tabla = Clases.ClassData.runDataTable("sp_sysGruposUsuarios", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.

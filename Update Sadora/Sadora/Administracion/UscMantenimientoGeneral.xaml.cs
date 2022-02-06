@@ -369,7 +369,8 @@ namespace Sadora.Administracion
                 new SqlParameter("Flag",Flag),
                 new SqlParameter("@ClaseID",TransaccionID),
                 new SqlParameter("@Nombre",txtNombre.Text),
-                new SqlParameter("@Tabla",Table)
+                new SqlParameter("@Tabla",Table),
+                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
             };
 
             tabla = Clases.ClassData.runDataTable("sp_sysClases", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.

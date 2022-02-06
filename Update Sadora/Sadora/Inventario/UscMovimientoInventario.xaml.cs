@@ -367,7 +367,8 @@ namespace Sadora.Inventario
                 new SqlParameter("@TarjetaID", Tarjeta),//string.IsNullOrEmpty(Tarjeta) || Tarjeta == "" ? "1" : Tarjeta),
                 new SqlParameter("@Cantidad", Cantidad),
                 new SqlParameter("@CantidadPrevia", CantidadPrevia),
-                new SqlParameter("@CantidadPostMovimiento", CantidadPostMovimiento)
+                new SqlParameter("@CantidadPostMovimiento", CantidadPostMovimiento),
+                new SqlParameter("@UsuarioID", ClassVariables.UsuarioID)
             };
 
             TableGrid = Clases.ClassData.runDataTable("sp_invMovimientoInventarioDetalle", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.

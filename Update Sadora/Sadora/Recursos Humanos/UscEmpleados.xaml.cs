@@ -419,7 +419,8 @@ namespace Sadora.Recursos_Humanos
                 new SqlParameter("@CorreoElectronico",txtCorreoElectronico.Text),
                 new SqlParameter("@Telefono",txtTelefono.Text),
                 new SqlParameter("@Celular",txtCelular.Text),
-                new SqlParameter("@Activo",cActivar.IsChecked)
+                new SqlParameter("@Activo",cActivar.IsChecked),
+                new SqlParameter("@UsuarioID",ClassVariables.UsuarioID)
             };
 
             tabla = Clases.ClassData.runDataTable("sp_rhnEmpleados", listSqlParameter, "StoredProcedure"); //recibimos el resultado que nos retorne la transaccion digase, consulta, agregar,editar,eliminar en una tabla.
