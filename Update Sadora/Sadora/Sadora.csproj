@@ -111,6 +111,9 @@
     <Compile Include="Administracion\FrmControlAccesos.xaml.cs">
       <DependentUpon>FrmControlAccesos.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Administracion\UscConsultorLogs.xaml.cs">
+      <DependentUpon>UscConsultorLogs.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Administracion\UscMantenimientoGeneral.xaml.cs">
       <DependentUpon>UscMantenimientoGeneral.xaml</DependentUpon>
     </Compile>
@@ -205,6 +208,10 @@
     <Page Include="Administracion\FrmSplash.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Administracion\UscConsultorLogs.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Administracion\UscMantenimientoGeneral.xaml">
       <Generator>MSBuild:Compile</Generator>

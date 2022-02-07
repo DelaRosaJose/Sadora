@@ -46,9 +46,7 @@ namespace Sadora.Administracion
                 TblModulo.FontSize = 19.5;
             }
             else
-            {
                 TblModulo.Text = Modulo;
-            }
         }
 
         void OpenUsercontrol(UserControl Usc, MaterialDesignThemes.Wpf.PackIconKind icon = MaterialDesignThemes.Wpf.PackIconKind.FileOutline)
@@ -105,9 +103,6 @@ namespace Sadora.Administracion
                 }
                 else
                 {
-
-                    //else
-                    //{
                     List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
                         {
                             new SqlParameter("Flag",-1),
@@ -170,7 +165,6 @@ namespace Sadora.Administracion
                         new Administracion.FrmCompletarCamposHost("Dicha ventana no existe o se encontro mas de una vez, por favor comuniquese con su proveedor de sistemas").ShowDialog();
                     }
                     listSqlParameter.Clear();
-                    //}
                 }
             }
         }
@@ -225,30 +219,17 @@ namespace Sadora.Administracion
             this.Hide();
         }
 
-        private void ButtonMinimizar_Click(object sender, RoutedEventArgs e)
-        {
-            this.WindowState = WindowState.Minimized;
-        }
+        private void ButtonMinimizar_Click(object sender, RoutedEventArgs e) => this.WindowState = WindowState.Minimized;
 
-        private void btnMenuRegistroCajas_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            OpenUsercontrol(null);
-        }
+        private void btnMenuRegistroCajas_MouseUp(object sender, MouseButtonEventArgs e) => OpenUsercontrol(null);
 
-        private void btnMenuRegistroUsuarios_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            OpenUsercontrol(new UscUsuarios(), iconMenuRegistroUsuarios.Kind);
-        }
+        private void btnMenuRegistroUsuarios_MouseUp(object sender, MouseButtonEventArgs e) => OpenUsercontrol(new UscUsuarios(), iconMenuRegistroUsuarios.Kind);
 
-        private void btnMenuRegistroGruposUsuarios_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            OpenUsercontrol(new UscGruposUsuarios(), iconMenuRegistroUsuarios.Kind);
-            //OpenUsercontrol(new UscGruposUsuarios(), new UscGruposUsuarios().Name, "Administracion", "Configuracion de grupos de usuarios", iconMenuRegistroUsuarios.Kind);
-        }
+        private void btnMenuRegistroGruposUsuarios_MouseUp(object sender, MouseButtonEventArgs e) => OpenUsercontrol(new UscGruposUsuarios(), iconMenuRegistroUsuarios.Kind);
+      
+        private void btnMenuRegistroEmpresa_MouseUp(object sender, MouseButtonEventArgs e) => OpenUsercontrol(new UscEmpresa(), iconMenuRegistroEmpresa.Kind);
 
-        private void btnMenuRegistroEmpresa_MouseUp(object sender, MouseButtonEventArgs e)
-        {
-            OpenUsercontrol(new UscEmpresa(), iconMenuRegistroEmpresa.Kind);
-        }
+        private void btnMenuConsultaLogs_MouseUp(object sender, MouseButtonEventArgs e) => OpenUsercontrol(new UscConsultorLogs(), iconMenuConsultaLogs.Kind);
+
     }
 }

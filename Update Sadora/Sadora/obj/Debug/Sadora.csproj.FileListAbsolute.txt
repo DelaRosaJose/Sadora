@@ -430,3 +430,5 @@ E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscEmpresa
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscMovimientoInventario.baml
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Inventario\UscMovimientoInventario.g.cs
 E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.csprojAssemblyReference.cache
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscConsultorLogs.g.cs
+E:\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Administracion\UscConsultorLogs.baml
