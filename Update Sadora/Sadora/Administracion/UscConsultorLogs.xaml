@@ -154,13 +154,20 @@
 
                         <StackPanel Orientation="Vertical" Width="auto">
 
-                            <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
+                            <!--<Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lGrupoID" Margin="10 5 0 0" Text="Grupo ID" FontWeight="Bold"></TextBlock>
                                     <TextBox x:Name="txtGrupoID" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="1" KeyUp="txtGrupoID_KeyUp"/>
                                 </StackPanel>
-                            </Border>
+                            </Border>-->
 
+                            <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="lFechaDesde" Margin="10 5 0 0" Text="Fecha Desde" FontWeight="Bold" />
+                                    <DatePicker  x:Name="dtpFechaDesde" Background="#4CEDEDED" KeyUp="dtpFechaDesde_KeyUp" TabIndex="3" />
+                                </StackPanel>
+                            </Border>
+                            
                             <!--<Grid Margin="15 15 15 15">
                                     <Grid.ColumnDefinitions>
                                         <ColumnDefinition Width="auto"/>
@@ -224,13 +231,20 @@
 
                         <StackPanel Orientation="Vertical" Width="auto">
 
-                            <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
+                            <!--<Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lNombre" Margin="10 5 0 0" Text="Nombre" FontWeight="Bold"></TextBlock>
                                     <TextBox x:Name="txtNombre" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="4" KeyUp="txtNombre_KeyUp"/>
                                 </StackPanel>
-                            </Border>
+                            </Border>-->
 
+                            <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="lFechaHasta" Margin="10 5 0 0" Text="Fecha Hasta" FontWeight="Bold" />
+                                    <DatePicker  x:Name="dtpFechaHasta" Background="#4CEDEDED" KeyUp="dtpFechaHasta_KeyUp" TabIndex="3" />
+                                </StackPanel>
+                            </Border>
+                            
                             <!--<Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                     <StackPanel Orientation="Vertical">
                                         <TextBlock x:Name="lPassword" Margin="10 5 0 0" Text="Contraseña" FontWeight="Bold"></TextBlock>
