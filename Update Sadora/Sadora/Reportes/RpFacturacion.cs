@@ -30,9 +30,10 @@ namespace Sadora.Reportes
                 Task.Run(() =>
                 {
                     #region Variables Empresa
-                    LbNombreEmpresa.Text = HeadTable.Columns.Contains("NombreEmpresa") ? HeadTable.Rows[0]["NombreEmpresa"].ToString() : "CAVERNA DESIGN SRL";
-                    LbRncEmpresa.Text = HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "132255186";
-                    LbSucursal.Text = HeadTable.Columns.Contains("Sucursal") ? HeadTable.Rows[0]["Sucursal"].ToString() : "Sucursal Villa Mella";
+                    LbNombreEmpresa.Text = Clases.ClassVariables.ClasesVariables.NombreEmpresa;//HeadTable.Columns.Contains("NombreEmpresa") ? HeadTable.Rows[0]["NombreEmpresa"].ToString() : "CAVERNA DESIGN SRL";
+                    LbRncEmpresa.Text = Clases.ClassVariables.ClasesVariables.RNCDinamic;//HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "132255186";
+                    //LbSucursal.Text = Clases.ClassVariables.ClasesVariables.sucu;//able.Columns.Contains("Sucursal") ? HeadTable.Rows[0]["Sucursal"].ToString() : "Sucursal Villa Mella";
+                    LbSucursal.Visible = false;
                     #endregion
                 });
                 Task.Run(() =>
