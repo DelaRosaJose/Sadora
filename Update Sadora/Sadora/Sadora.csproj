@@ -123,6 +123,9 @@
     <Compile Include="Administracion\UscEmpresa.xaml.cs">
       <DependentUpon>UscEmpresa.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Clientes\UscTransacciones.xaml.cs">
+      <DependentUpon>UscTransacciones.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Contabilidad\FrmMenu.xaml.cs">
       <DependentUpon>FrmMenu.xaml</DependentUpon>
     </Compile>
@@ -274,6 +277,10 @@
     <Compile Include="Clientes\UscClientes.xaml.cs">
       <DependentUpon>UscClientes.xaml</DependentUpon>
     </Compile>
+    <Page Include="Clientes\UscTransacciones.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Contabilidad\FrmMenu.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

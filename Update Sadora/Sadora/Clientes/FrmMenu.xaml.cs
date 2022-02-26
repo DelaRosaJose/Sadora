@@ -238,7 +238,7 @@ namespace Sadora.Clientes
 
         private void btnMenuCuentasXCobrar_MouseUp(object sender, MouseButtonEventArgs e)
         {
-            OpenUsercontrol(null);
+            OpenUsercontrol(new UscTransacciones(), iconMenuCuentasXCobrar.Kind);
         }
 
         private void btnMenuClaseClientes_MouseUp(object sender, MouseButtonEventArgs e)
