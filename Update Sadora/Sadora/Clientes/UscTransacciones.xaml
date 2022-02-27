@@ -258,7 +258,8 @@
                             <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lMontoExcento" Margin="10 5 0 0" Text="Monto Exento" FontWeight="Bold"></TextBlock>
-                                    <TextBox x:Name="txtMontoExcento" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="7" KeyUp="txtMontoExcento_KeyUp" KeyDown="txtMontoExcento_KeyDown" GotFocus="txtMontoExcento_GotFocus"/>
+                                    <TextBox x:Name="txtMontoExcento" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" 
+                                             Background="#4CEDEDED" TabIndex="7" KeyDown="txtMontoExcento_KeyDown" MaxLength="12" TextChanged="txtMontoExcento_TextChanged"/>
                                 </StackPanel>
                             </Border>
 
@@ -285,9 +286,24 @@
                             <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
                                 <StackPanel Orientation="Vertical">
                                     <TextBlock x:Name="lMontoGravado" Margin="10 5 0 0" Text="Monto Gravado" FontWeight="Bold"></TextBlock>
-                                    <TextBox x:Name="txtMontoGravado" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="8" KeyUp="txtMontoGravado_KeyUp"/>
+                                    <TextBox x:Name="txtMontoGravado" Height="30" Padding="0" MaxLength="12" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" 
+                                             Background="#4CEDEDED" TabIndex="8" TextChanged="txtMontoGravado_TextChanged"/>
                                 </StackPanel>
                             </Border>
+
+                            <!--<Border DockPanel.Dock="Bottom"  Margin="0 4" HorizontalAlignment="Right" TextElement.FontSize="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}"  CornerRadius="5">
+                                <StackPanel Orientation="Vertical">
+
+                                    <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" Margin="5 0 0 0" HorizontalAlignment="Left" Width="94" Background="{DynamicResource {x:Static SystemColors.ScrollBarBrushKey}}"  CornerRadius="5 5 0 0">
+                                        <TextBlock x:Name="lTotal" Margin="10 0 0 0" Text="Total" FontWeight="Bold"></TextBlock>
+                                    </Border>
+                                    <Border BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2" CornerRadius="5">
+                                        <TextBox x:Name="txtTotal" IsReadOnly="True" FontSize="45" FontWeight="Bold" Text="{Binding }"  Width="225" Background="#4FC8C8C8" Padding="0" Foreground="#FF75AC57"/>
+                                    </Border>
+
+                                </StackPanel>
+                            </Border>-->
+
 
                         </StackPanel>
 

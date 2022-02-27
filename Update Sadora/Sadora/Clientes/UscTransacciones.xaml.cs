@@ -34,7 +34,7 @@ namespace Sadora.Clientes
         SqlDataReader reader;
         string Estado, Lista, last;
         int TransaccionID, LastTransaccionID;
-        
+
         //bool Agrega;
         //bool Modifica;
 
@@ -92,7 +92,6 @@ namespace Sadora.Clientes
             {
                 ClassVariables.GetSetError = "Ha ocurrido un error: " + exception.ToString();
             }
-
 
             if (TransaccionID <= 1)
             {
@@ -202,6 +201,8 @@ namespace Sadora.Clientes
         {
             this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             SetEnabledButton("Modo Agregar");
+            cbxTipoTransaccion.SelectedIndex = 0;
+            dtpFechaTransaccion.Text = DateTime.Now.ToShortDateString();
         }
 
         private void BtnEditar_Click(object sender, RoutedEventArgs e) => SetEnabledButton("Modo Editar");
@@ -214,7 +215,11 @@ namespace Sadora.Clientes
 
         private void BtnGuardar_Click(object sender, RoutedEventArgs e)
         {
+            if (txtMontoGravado.Text == "0" && txtMontoExcento.Text == "0")
+                txtMontoGravado.Text = txtMontoExcento.Text = null;
+
             SetControls(false, "Validador", false);
+
             if (Lista != "Debe Completar los Campos: ")
                 new Administracion.FrmCompletarCamposHost(Lista).ShowDialog();
             else
@@ -230,22 +235,22 @@ namespace Sadora.Clientes
 
         }
 
-        private void btnProveedorID_Click(object sender, RoutedEventArgs e)
-        {
-            if (Estado != "Modo Consulta")
-            {
-                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select ProveedorID,RNC,Nombre,Representante,Activo from TcliClientes", null);
-                frm.ShowDialog();
+        //private void btnProveedorID_Click(object sender, RoutedEventArgs e)
+        //{
+        //    if (Estado != "Modo Consulta")
+        //    {
+        //        Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select ProveedorID,RNC,Nombre,Representante,Activo from TcliClientes", null);
+        //        frm.ShowDialog();
 
-                if (frm.GridMuestra.SelectedItem != null)
-                {
-                    DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
-                    txtClienteID.Text = item.Row.ItemArray[0].ToString();
+        //        if (frm.GridMuestra.SelectedItem != null)
+        //        {
+        //            DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
+        //            txtClienteID.Text = item.Row.ItemArray[0].ToString();
 
-                    ClassControl.setValidador("select * from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
-                }
-            }
-        }
+        //            ClassControl.setValidador("select * from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
+        //        }
+        //    }
+        //}
 
         private void txtTransaccionID_KeyUp(object sender, KeyEventArgs e)
         {
@@ -300,47 +305,6 @@ namespace Sadora.Clientes
 
         private void txtClienteID_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
 
-        private void txtMontoExcento_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
-                if (txtMontoExcento.Text != "")
-                {
-                    txtITBIS.IsReadOnly = txtMontoGravado.IsReadOnly = true;
-                    BtnGuardar.Focus();
-                }
-                else
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-        }
-
-        private void txtMontoExcento_GotFocus(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                if (Estado != "Modo Consulta" && Convert.ToDouble(txtMontoGravado.Text) > 0 && Convert.ToDouble(txtITBIS.Text) > 0)
-                {
-                    txtMontoExcento.Text = "0";
-                    txtMontoExcento.IsReadOnly = true;
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-                else
-                {
-                    txtMontoExcento.IsReadOnly = false;
-                    txtMontoGravado.IsReadOnly = true;
-                }
-            }
-            catch //(Exception)
-            {
-                if (Estado != "Modo Consulta" && txtMontoGravado.Text != "" && txtITBIS.Text != "")
-                {
-                    txtMontoExcento.Text = "0";
-                    txtMontoExcento.IsReadOnly = true;
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-                else
-                    txtMontoExcento.IsReadOnly = false;
-            }
-        }
-
         private void btnClienteID_Click(object sender, RoutedEventArgs e)
         {
             if (Estado != "Modo Consulta")
@@ -360,42 +324,81 @@ namespace Sadora.Clientes
             }
         }
 
-        //private void txtClienteID_KeyUp(object sender, KeyEventArgs e)
-        //{
+        private void txtMontoExcento_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Estado != "Modo Consulta" && txtMontoGravado.Text != "0" && txtMontoExcento.Text != "0")
+            {
+                var Result = Convert.ToDouble(((TextBox)sender).Text == "" ? "0" : ((TextBox)sender).Text);
 
-        //}
+                if (Result > 0)
+                {
+                    txtMontoGravado.IsEnabled = txtITBIS.IsEnabled = false;
+                    txtMontoGravado.Text = txtITBIS.Text = "0";
+                }
+                else
+                {
+                    txtMontoGravado.IsEnabled = txtITBIS.IsEnabled = true;
+                    txtMontoExcento.Text = "0";
+                }
+            }
+            else if (Estado != "Modo Consulta" && txtMontoExcento.Text != "0")
+            {
+                var Result = Convert.ToDouble(((TextBox)sender).Text == "" ? "0" : ((TextBox)sender).Text);
 
-        //private void txtClienteID_KeyDown(object sender, KeyEventArgs e)
-        //{
+                if (Result > 0)
+                {
+                    txtMontoGravado.IsEnabled = txtITBIS.IsEnabled = false;
+                    txtMontoGravado.Text = txtITBIS.Text = "0";
+                }
+                else
+                {
+                    txtMontoGravado.IsEnabled = txtITBIS.IsEnabled = true;
+                    txtMontoExcento.Text = "0";
+                }
+            }
+        }
 
-        //}
+        private void txtMontoGravado_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            if (Estado != "Modo Consulta")
+            {
+                var Result = Convert.ToDouble(((TextBox)sender).Text == "" ? "0" : ((TextBox)sender).Text);
+
+                if (Result > 0)
+                {
+                    txtMontoExcento.IsEnabled = false;
+                    txtMontoExcento.Text = "0";
+                    txtITBIS.Text = (Result * 0.18).ToString();
+                }
+                else
+                {
+                    txtMontoExcento.IsEnabled = true;
+                    txtMontoGravado.Text = txtITBIS.Text = "0";
+                }
+            }
+        }
 
         private void txtMontoExcento_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
 
-        private void txtMontoGravado_KeyUp(object sender, KeyEventArgs e)
-        {
-            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
-            {
-                txtMontoExcento.IsReadOnly = false;
-                try
-                {
-                    if (Convert.ToDouble(txtMontoGravado.Text) >= 0)
-                    {
-                        txtITBIS.Text = (Convert.ToInt32(txtMontoGravado.Text) * 0.18).ToString();
-                        txtMontoExcento.IsReadOnly = true;
-                    }
-                    else
-                        txtITBIS.Text = null;
-                }
-                catch
-                {
-                    txtITBIS.Text = null;
-                    txtMontoExcento.Focus();
-                    txtMontoGravado.IsReadOnly = false;
-                }
-                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-            }
-        }
+        //private void txtMontoGravado_KeyUp(object sender, KeyEventArgs e)
+        //{
+        //    if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+        //    {
+        //        txtMontoExcento.IsReadOnly = false;
+        //        try
+        //        {
+        //            if (Convert.ToDouble(txtMontoGravado.Text) >= 0)
+        //                txtITBIS.Text = (Convert.ToInt64(txtMontoGravado.Text) * 0.18).ToString();
+        //            else
+        //                txtITBIS.Text = null;
+        //        }
+        //        catch
+        //        {
+        //            txtITBIS.Text = null;
+        //        }
+        //        ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+        //    }
+        //}
 
         private void txtMontoGravado_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
 
@@ -458,6 +461,8 @@ namespace Sadora.Clientes
                 txtFactura.Text = tabla.Rows[0]["FacturaID"].ToString();
                 txtObservacion.Text = tabla.Rows[0]["Observacion"].ToString();
 
+                BtnEditar.IsEnabled = cbxEstado.Text == "Abierta";
+
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
                     try
@@ -479,7 +484,7 @@ namespace Sadora.Clientes
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtTransaccionID,txtMontoGravado,txtMontoExcento,txtClienteID,cbxTipoTransaccion,dtpFechaTransaccion,cbxEstado, txtFactura, txtObservacion
+                txtTransaccionID,txtMontoGravado,txtMontoExcento,txtClienteID,cbxTipoTransaccion,dtpFechaTransaccion,cbxEstado, txtFactura, txtObservacion,tbxClienteID
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
@@ -489,7 +494,7 @@ namespace Sadora.Clientes
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
             {
-                txtTransaccionID,txtMontoGravado,txtClienteID,tbxClienteID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
+                txtTransaccionID,txtMontoGravado,txtClienteID,tbxClienteID,txtMontoExcento,txtMontoGravado,txtITBIS//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador
@@ -511,23 +516,16 @@ namespace Sadora.Clientes
 
         void SetEnabledButton(String status) //Este metodo se encarga de crear la interacion de los botones de la ventana segun el estado en el que se encuentra
         {
-
             Estado = status;
             lIconEstado.ToolTip = Estado;
 
             if (Estado != "Modo Agregar" && Estado != "Modo Editar") //Si el sistema se encuentra en modo consulta o busqueda entra el validador
             {
-                BtnPrimerRegistro.IsEnabled = true;
-                BtnAnteriorRegistro.IsEnabled = true;
-                BtnProximoRegistro.IsEnabled = true;
-                BtnUltimoRegistro.IsEnabled = true;
-                BtnBuscar.IsEnabled = true;
-                BtnImprimir.IsEnabled = true;
-                BtnAgregar.IsEnabled = true;
-                BtnEditar.IsEnabled = true;
+                BtnPrimerRegistro.IsEnabled = BtnAnteriorRegistro.IsEnabled = BtnProximoRegistro.IsEnabled = BtnUltimoRegistro.IsEnabled = BtnBuscar.IsEnabled =
+                BtnImprimir.IsEnabled = BtnAgregar.IsEnabled = BtnEditar.IsEnabled = true;
 
-                BtnCancelar.IsEnabled = false;
-                BtnGuardar.IsEnabled = false;
+                BtnCancelar.IsEnabled = BtnGuardar.IsEnabled = false;
+
                 if (Estado == "Modo Consulta") //Si el estado es modo consulta enviamos a ejecutar otro metodo parametizado de forma especial
                 {
                     SetControls(true, null, false);
@@ -545,25 +543,16 @@ namespace Sadora.Clientes
             }
             else  //Si el sistema se encuentra en modo Agregar o Editar entra el validador
             {
-                BtnPrimerRegistro.IsEnabled = false;
-                BtnAnteriorRegistro.IsEnabled = false;
-                BtnProximoRegistro.IsEnabled = false;
-                BtnUltimoRegistro.IsEnabled = false;
+                BtnPrimerRegistro.IsEnabled = BtnAnteriorRegistro.IsEnabled = BtnProximoRegistro.IsEnabled = BtnUltimoRegistro.IsEnabled = BtnBuscar.IsEnabled =
+                BtnImprimir.IsEnabled = BtnAgregar.IsEnabled = BtnEditar.IsEnabled = false;
 
-                BtnBuscar.IsEnabled = false;
-                BtnImprimir.IsEnabled = false;
+                BtnCancelar.IsEnabled = BtnGuardar.IsEnabled = true;
 
-                BtnAgregar.IsEnabled = false;
-                BtnEditar.IsEnabled = false;
-
-                BtnCancelar.IsEnabled = true;
-                BtnGuardar.IsEnabled = true;
                 if (Estado == "Modo Agregar") //Si el estado es modo Agregar enviamos a ejecutar otro metodo parametizado de forma especial
                 {
                     SetControls(false, null, false);
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.AddThick;
                     txtTransaccionID.Text = (LastTransaccionID + 1).ToString();
-                    //txtMontoGravado.Focus();
                 }
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
                 {
@@ -572,10 +561,12 @@ namespace Sadora.Clientes
                 }
                 txtTransaccionID.IsReadOnly = true;
             }
-
-            BtnImprimir.IsEnabled = Imprime;
-            BtnAgregar.IsEnabled = Agrega;
-            BtnEditar.IsEnabled = Modifica;
+            if (Imprime == false)
+                BtnImprimir.IsEnabled = Imprime;
+            if (Agrega == false)
+                BtnAgregar.IsEnabled = Agrega;
+            if (Modifica == false)
+                BtnEditar.IsEnabled = Modifica;
         }
 
     }
