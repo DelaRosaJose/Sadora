@@ -646,3 +646,5 @@ E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.csproj.Core
 E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\es-DO\Sadora.resources.dll
 E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.csproj.CopyComplete
 E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.csproj.AssemblyReference.cache
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.Clientes.Reportes.RpCuentasXCobrar.resources
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.Clientes.Reportes.RpCuentasXCobrar.es-DO.resources

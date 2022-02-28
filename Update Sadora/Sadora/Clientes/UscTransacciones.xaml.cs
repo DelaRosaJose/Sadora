@@ -194,7 +194,9 @@ namespace Sadora.Clientes
 
         private void BtnImprimir_Click(object sender, RoutedEventArgs e)
         {
-
+            this.Cursor = Cursors.Wait;
+            DevExpress.Xpf.Printing.PrintHelper.ShowPrintPreview(this, new Reportes.RpCuentasXCobrar(tabla)).WindowState = WindowState.Maximized;
+            Cursor = Cursors.Arrow;
         }
 
         private void BtnAgregar_Click(object sender, RoutedEventArgs e)

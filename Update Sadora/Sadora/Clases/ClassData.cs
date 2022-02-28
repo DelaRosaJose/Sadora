@@ -12,7 +12,8 @@ namespace Sadora.Clases
     {
         // NEXT********************************************
         #region creando la cadena de conexion
-        public static SqlConnection sqlConnection = new SqlConnection("Server=10.0.0.250;DataBase=Sadora;User ID =Admin; Password=llGranmaestro");
+        public static SqlConnection sqlConnection = new SqlConnection("Server=localhost;DataBase=Sadora;integrated Security=true");
+        //"Server=10.0.0.250;DataBase=Sadora;User ID =Admin; Password=llGranmaestro"
         //public static string connectionString(string stringParameterConnection = "connection-string", string stringParameterDB = "SQLServer")
         //{
         //    return ClassAplication.findNodoXMLFile("AppConfig.XML", stringParameterDB, stringParameterConnection);

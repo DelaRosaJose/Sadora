@@ -123,6 +123,12 @@
     <Compile Include="Administracion\UscEmpresa.xaml.cs">
       <DependentUpon>UscEmpresa.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Clientes\Reportes\RpCuentasXCobrar.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Clientes\Reportes\RpCuentasXCobrar.Designer.cs">
+      <DependentUpon>RpCuentasXCobrar.cs</DependentUpon>
+    </Compile>
     <Compile Include="Clientes\UscTransacciones.xaml.cs">
       <DependentUpon>UscTransacciones.xaml</DependentUpon>
     </Compile>
@@ -360,6 +366,13 @@
       <DependentUpon>Settings.settings</DependentUpon>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
     </Compile>
+    <EmbeddedResource Include="Clientes\Reportes\RpCuentasXCobrar.es-DO.resx">
+      <DependentUpon>RpCuentasXCobrar.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Clientes\Reportes\RpCuentasXCobrar.resx">
+      <DependentUpon>RpCuentasXCobrar.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Licenses.licx" />
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
