@@ -88,12 +88,15 @@ namespace Sadora.Administracion
                 {
                     Clases.ClassVariables.UsuarioID = Convert.ToInt32(txtUsuarioID.Text);
 
-                    DataTable reader = Clases.ClassData.runDataTable("select top 1 Nombre, Logo from TsysEmpresa", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
+                    DataTable reader = Clases.ClassData.runDataTable("select top 1 Nombre, RNC, Razon_Social, Direccion, Logo, Telefono from TsysEmpresa", null, "CommandText"); //En esta linea de codigo estamos ejecutando un metodo que recibe una consulta, la busca en sql y te retorna el resultado en un datareader.
 
                     if (reader.Rows.Count == 1 && reader.Columns.Contains("Nombre") && reader.Columns.Contains("Logo"))
                     {
                         ClassVariables.ClasesVariables.NombreEmpresa = reader.Rows[0]["Nombre"].ToString();
                         ClassVariables.LogoEmpresa = (byte[])reader.Rows[0]["Logo"]; //(byte[])reader.Rows[0]["Nombre"];
+                        ClassVariables.ClasesVariables.RNCEmpresa = reader.Rows[0]["RNC"].ToString();
+                        ClassVariables.ClasesVariables.TelefonoEmpresa = reader.Rows[0]["Telefono"].ToString();
+                        ClassVariables.ClasesVariables.DireccionEmpresa = reader.Rows[0]["Direccion"].ToString();
                     }
 
                     new FrmMain().Show();

@@ -249,6 +249,9 @@ namespace Sadora.Administracion
                 SetEnabledButton("Modo Consulta");
                 setDatos(0, txtEmpresaID.Text);
                 ClassVariables.ClasesVariables.NombreEmpresa = txtNombre.Text;
+                ClassVariables.ClasesVariables.RNCEmpresa = txtRNC.Text;
+                ClassVariables.ClasesVariables.TelefonoEmpresa = txtTelefono.Text;
+                ClassVariables.ClasesVariables.DireccionEmpresa = txtDireccion.Text;
                 ClassVariables.LogoEmpresa = pic;
             }
         }

@@ -222,19 +222,19 @@
   <data name="xrLabel5.Text" xml:space="preserve">
     <value>Direccion:</value>
   </data>
-  <data name="xrLabel6.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbDireccionEmpresa.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel6.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbDireccionEmpresa.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel6.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbDireccionEmpresa.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>60.1852341, 245.5001</value>
   </data>
-  <data name="xrLabel6.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbDireccionEmpresa.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>195.648071, 17.4444733</value>
   </data>
-  <data name="xrLabel6.Text" xml:space="preserve">
+  <data name="LbDireccionEmpresa.Text" xml:space="preserve">
     <value>C:/ Venus, esq.Luna, #18, Sol de luz</value>
   </data>
   <data name="xrLabel1.Font" type="System.Drawing.Font, System.Drawing">
@@ -252,19 +252,19 @@
   <data name="xrLabel1.Text" xml:space="preserve">
     <value>Telefono:</value>
   </data>
-  <data name="xrLabel2.Font" type="System.Drawing.Font, System.Drawing">
+  <data name="LbTelefonoEmpresa.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
   </data>
-  <data name="xrLabel2.ForeColor" type="System.Drawing.Color, System.Drawing">
+  <data name="LbTelefonoEmpresa.ForeColor" type="System.Drawing.Color, System.Drawing">
     <value>19, 41, 61</value>
   </data>
-  <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+  <data name="LbTelefonoEmpresa.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>54.32266, 228.055649</value>
   </data>
-  <data name="xrLabel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+  <data name="LbTelefonoEmpresa.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>141.481476, 17.4444733</value>
   </data>
-  <data name="xrLabel2.Text" xml:space="preserve">
+  <data name="LbTelefonoEmpresa.Text" xml:space="preserve">
     <value>(809)-239-8255</value>
   </data>
   <data name="xrTable1.BackColor" type="System.Drawing.Color, System.Drawing">
@@ -403,7 +403,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="xrLabel9.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>0, 262.94458</value>
+    <value>468.75, 225.666718</value>
   </data>
   <data name="xrLabel9.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>43.93524, 17.444458</value>
@@ -418,7 +418,7 @@
     <value>19, 41, 61</value>
   </data>
   <data name="LbFechaCreacion.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>43.93525, 262.94458</value>
+    <value>512.685242, 225.666718</value>
   </data>
   <data name="LbFechaCreacion.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>133.009247, 17.4444885</value>
@@ -427,7 +427,7 @@
     <value>22/10/2021</value>
   </data>
   <data name="LbFechaCreacion.TextFormatString" xml:space="preserve">
-    <value>{0:dd/MM/yyyy}</value>
+    <value>{0:MM/dd/yyyy}</value>
   </data>
   <data name="LbSucursal.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Narrow, 9.5pt, style=Bold</value>
@@ -483,66 +483,6 @@
   <data name="xrLine3.SizeF" type="System.Drawing.SizeF, System.Drawing">
     <value>779.999939, 11.6667938</value>
   </data>
-  <data name="LbFechaVencimiento.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial Narrow, 9.5pt, style=Bold</value>
-  </data>
-  <data name="LbFechaVencimiento.ForeColor" type="System.Drawing.Color, System.Drawing">
-    <value>19, 41, 61</value>
-  </data>
-  <data name="LbFechaVencimiento.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>571.6668, 243.111191</value>
-  </data>
-  <data name="LbFechaVencimiento.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>141.481476, 17.4444733</value>
-  </data>
-  <data name="LbFechaVencimiento.Text" xml:space="preserve">
-    <value>31/12/2021</value>
-  </data>
-  <data name="LbNCF.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial Narrow, 9.5pt, style=Bold</value>
-  </data>
-  <data name="LbNCF.ForeColor" type="System.Drawing.Color, System.Drawing">
-    <value>19, 41, 61</value>
-  </data>
-  <data name="LbNCF.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>496.203766, 225.666718</value>
-  </data>
-  <data name="LbNCF.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>144.72226, 17.4444733</value>
-  </data>
-  <data name="LbNCF.Text" xml:space="preserve">
-    <value>B0200000001</value>
-  </data>
-  <data name="xrLabel4.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial Narrow, 9.5pt, style=Bold</value>
-  </data>
-  <data name="xrLabel4.ForeColor" type="System.Drawing.Color, System.Drawing">
-    <value>19, 41, 61</value>
-  </data>
-  <data name="xrLabel4.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>465.833344, 243.111191</value>
-  </data>
-  <data name="xrLabel4.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>105.833466, 17.4444733</value>
-  </data>
-  <data name="xrLabel4.Text" xml:space="preserve">
-    <value>Fecha Vencimiento:</value>
-  </data>
-  <data name="xrLabel3.Font" type="System.Drawing.Font, System.Drawing">
-    <value>Arial Narrow, 9.5pt, style=Bold</value>
-  </data>
-  <data name="xrLabel3.ForeColor" type="System.Drawing.Color, System.Drawing">
-    <value>19, 41, 61</value>
-  </data>
-  <data name="xrLabel3.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
-    <value>465.833344, 225.666718</value>
-  </data>
-  <data name="xrLabel3.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>30.3704224, 17.4444733</value>
-  </data>
-  <data name="xrLabel3.Text" xml:space="preserve">
-    <value>NCF:</value>
-  </data>
   <data name="LbTipoFactura.Font" type="System.Drawing.Font, System.Drawing">
     <value>Arial Black, 22pt</value>
   </data>
@@ -554,6 +494,9 @@
   </data>
   <data name="LbTipoFactura.Text" xml:space="preserve">
     <value>Factura de Credito Fiscal</value>
+  </data>
+  <data name="LbTipoFactura.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>BottomLeft</value>
   </data>
   <data name="xrLine2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>340.6112, 125.500053</value>

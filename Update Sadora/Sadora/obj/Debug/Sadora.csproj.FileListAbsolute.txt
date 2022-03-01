@@ -648,3 +648,15 @@ E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.csproj.Copy
 E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.csproj.AssemblyReference.cache
 E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.Clientes.Reportes.RpCuentasXCobrar.resources
 E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\obj\Debug\Sadora.Clientes.Reportes.RpCuentasXCobrar.es-DO.resources
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\DevExpress.Utils.v19.1.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\DevExpress.XtraEditors.v19.1.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\DevExpress.Utils.v19.1.xml
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\DevExpress.XtraEditors.v19.1.xml
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\de\DevExpress.Utils.v19.1.resources.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\es\DevExpress.Utils.v19.1.resources.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\ja\DevExpress.Utils.v19.1.resources.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\ru\DevExpress.Utils.v19.1.resources.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\de\DevExpress.XtraEditors.v19.1.resources.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\es\DevExpress.XtraEditors.v19.1.resources.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\ja\DevExpress.XtraEditors.v19.1.resources.dll
+E:\Sadora\Sadora\Sadora\Sadora\Update Sadora\Sadora\bin\Debug\ru\DevExpress.XtraEditors.v19.1.resources.dll

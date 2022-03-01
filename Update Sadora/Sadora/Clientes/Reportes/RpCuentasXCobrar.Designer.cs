@@ -41,9 +41,9 @@
             this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
             this.PicLogo = new DevExpress.XtraReports.UI.XRPictureBox();
             this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel6 = new DevExpress.XtraReports.UI.XRLabel();
+            this.LbDireccionEmpresa = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLabel1 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
+            this.LbTelefonoEmpresa = new DevExpress.XtraReports.UI.XRLabel();
             this.xrTable1 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow1 = new DevExpress.XtraReports.UI.XRTableRow();
             this.xrTableCell4 = new DevExpress.XtraReports.UI.XRTableCell();
@@ -61,10 +61,6 @@
             this.xrLabel8 = new DevExpress.XtraReports.UI.XRLabel();
             this.LbRncEmpresa = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLine3 = new DevExpress.XtraReports.UI.XRLine();
-            this.LbFechaVencimiento = new DevExpress.XtraReports.UI.XRLabel();
-            this.LbNCF = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel4 = new DevExpress.XtraReports.UI.XRLabel();
-            this.xrLabel3 = new DevExpress.XtraReports.UI.XRLabel();
             this.LbTipoFactura = new DevExpress.XtraReports.UI.XRLabel();
             this.xrLine2 = new DevExpress.XtraReports.UI.XRLine();
             this.LbNombreEmpresa = new DevExpress.XtraReports.UI.XRLabel();
@@ -170,9 +166,9 @@
             this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
             this.PicLogo,
             this.xrLabel5,
-            this.xrLabel6,
+            this.LbDireccionEmpresa,
             this.xrLabel1,
-            this.xrLabel2,
+            this.LbTelefonoEmpresa,
             this.xrTable1,
             this.xrLine4,
             this.LbRazonSocial,
@@ -185,10 +181,6 @@
             this.xrLabel8,
             this.LbRncEmpresa,
             this.xrLine3,
-            this.LbFechaVencimiento,
-            this.LbNCF,
-            this.xrLabel4,
-            this.xrLabel3,
             this.LbTipoFactura,
             this.xrLine2,
             this.LbNombreEmpresa,
@@ -213,14 +205,14 @@
             this.xrLabel5.StylePriority.UseForeColor = false;
             this.xrLabel5.StylePriority.UsePadding = false;
             // 
-            // xrLabel6
+            // LbDireccionEmpresa
             // 
-            resources.ApplyResources(this.xrLabel6, "xrLabel6");
-            this.xrLabel6.Multiline = true;
-            this.xrLabel6.Name = "xrLabel6";
-            this.xrLabel6.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel6.StylePriority.UseFont = false;
-            this.xrLabel6.StylePriority.UseForeColor = false;
+            resources.ApplyResources(this.LbDireccionEmpresa, "LbDireccionEmpresa");
+            this.LbDireccionEmpresa.Multiline = true;
+            this.LbDireccionEmpresa.Name = "LbDireccionEmpresa";
+            this.LbDireccionEmpresa.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.LbDireccionEmpresa.StylePriority.UseFont = false;
+            this.LbDireccionEmpresa.StylePriority.UseForeColor = false;
             // 
             // xrLabel1
             // 
@@ -232,14 +224,14 @@
             this.xrLabel1.StylePriority.UseForeColor = false;
             this.xrLabel1.StylePriority.UsePadding = false;
             // 
-            // xrLabel2
+            // LbTelefonoEmpresa
             // 
-            resources.ApplyResources(this.xrLabel2, "xrLabel2");
-            this.xrLabel2.Multiline = true;
-            this.xrLabel2.Name = "xrLabel2";
-            this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.xrLabel2.StylePriority.UseFont = false;
-            this.xrLabel2.StylePriority.UseForeColor = false;
+            resources.ApplyResources(this.LbTelefonoEmpresa, "LbTelefonoEmpresa");
+            this.LbTelefonoEmpresa.Multiline = true;
+            this.LbTelefonoEmpresa.Name = "LbTelefonoEmpresa";
+            this.LbTelefonoEmpresa.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.LbTelefonoEmpresa.StylePriority.UseFont = false;
+            this.LbTelefonoEmpresa.StylePriority.UseForeColor = false;
             // 
             // xrTable1
             // 
@@ -403,44 +395,6 @@
             this.xrLine3.Name = "xrLine3";
             this.xrLine3.StylePriority.UseForeColor = false;
             // 
-            // LbFechaVencimiento
-            // 
-            resources.ApplyResources(this.LbFechaVencimiento, "LbFechaVencimiento");
-            this.LbFechaVencimiento.Multiline = true;
-            this.LbFechaVencimiento.Name = "LbFechaVencimiento";
-            this.LbFechaVencimiento.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.LbFechaVencimiento.StylePriority.UseFont = false;
-            this.LbFechaVencimiento.StylePriority.UseForeColor = false;
-            // 
-            // LbNCF
-            // 
-            resources.ApplyResources(this.LbNCF, "LbNCF");
-            this.LbNCF.Multiline = true;
-            this.LbNCF.Name = "LbNCF";
-            this.LbNCF.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
-            this.LbNCF.StylePriority.UseFont = false;
-            this.LbNCF.StylePriority.UseForeColor = false;
-            // 
-            // xrLabel4
-            // 
-            resources.ApplyResources(this.xrLabel4, "xrLabel4");
-            this.xrLabel4.Multiline = true;
-            this.xrLabel4.Name = "xrLabel4";
-            this.xrLabel4.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 0, 0, 0, 100F);
-            this.xrLabel4.StylePriority.UseFont = false;
-            this.xrLabel4.StylePriority.UseForeColor = false;
-            this.xrLabel4.StylePriority.UsePadding = false;
-            // 
-            // xrLabel3
-            // 
-            resources.ApplyResources(this.xrLabel3, "xrLabel3");
-            this.xrLabel3.Multiline = true;
-            this.xrLabel3.Name = "xrLabel3";
-            this.xrLabel3.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 0, 0, 0, 100F);
-            this.xrLabel3.StylePriority.UseFont = false;
-            this.xrLabel3.StylePriority.UseForeColor = false;
-            this.xrLabel3.StylePriority.UsePadding = false;
-            // 
             // LbTipoFactura
             // 
             this.LbTipoFactura.BorderWidth = 1F;
@@ -451,6 +405,7 @@
             this.LbTipoFactura.StylePriority.UseBorderWidth = false;
             this.LbTipoFactura.StylePriority.UseFont = false;
             this.LbTipoFactura.StylePriority.UsePadding = false;
+            this.LbTipoFactura.StylePriority.UseTextAlignment = false;
             // 
             // xrLine2
             // 
@@ -598,7 +553,7 @@
             this.xrLine5.Name = "xrLine5";
             this.xrLine5.StylePriority.UseForeColor = false;
             // 
-            // RpFacturacion
+            // RpCuentasXCobrar
             // 
             this.Bands.AddRange(new DevExpress.XtraReports.UI.Band[] {
             this.Detail,
@@ -623,7 +578,6 @@
         private DevExpress.XtraReports.UI.ReportHeaderBand ReportHeader;
         private DevExpress.XtraReports.UI.XRLine xrLine1;
         private DevExpress.XtraReports.UI.XRLabel LbNombreEmpresa;
-        private DevExpress.XtraReports.UI.XRLabel LbTipoFactura;
         private DevExpress.XtraReports.UI.XRLine xrLine2;
         private DevExpress.XtraReports.UI.XRTable xrTable1;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow1;
@@ -642,10 +596,6 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel8;
         private DevExpress.XtraReports.UI.XRLabel LbRncEmpresa;
         private DevExpress.XtraReports.UI.XRLine xrLine3;
-        private DevExpress.XtraReports.UI.XRLabel LbFechaVencimiento;
-        private DevExpress.XtraReports.UI.XRLabel LbNCF;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel4;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel3;
         private DevExpress.XtraReports.UI.XRTable xrTable2;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow2;
         private DevExpress.XtraReports.UI.XRTableCell LCellDescripcion;
@@ -664,10 +614,11 @@
         private DevExpress.XtraReports.UI.XRLabel LbSubTotal;
         private DevExpress.XtraReports.UI.XRLabel xrLabel17;
         private DevExpress.XtraReports.UI.XRLabel xrLabel5;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel6;
+        private DevExpress.XtraReports.UI.XRLabel LbDireccionEmpresa;
         private DevExpress.XtraReports.UI.XRLabel xrLabel1;
-        private DevExpress.XtraReports.UI.XRLabel xrLabel2;
+        private DevExpress.XtraReports.UI.XRLabel LbTelefonoEmpresa;
         private DevExpress.XtraReports.UI.XRLabel xrLabel7;
         private DevExpress.XtraReports.UI.XRPictureBox PicLogo;
+        private DevExpress.XtraReports.UI.XRLabel LbTipoFactura;
     }
 }

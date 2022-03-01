@@ -6,6 +6,7 @@ using DevExpress.XtraReports.UI;
 using System.Data;
 using Sadora.Administracion;
 using System.Threading.Tasks;
+using System.Globalization;
 
 namespace Sadora.Clientes.Reportes
 {
@@ -33,18 +34,20 @@ namespace Sadora.Clientes.Reportes
                 {
                     #region Variables Empresa
                     LbNombreEmpresa.Text = Clases.ClassVariables.ClasesVariables.NombreEmpresa;//HeadTable.Columns.Contains("NombreEmpresa") ? HeadTable.Rows[0]["NombreEmpresa"].ToString() : "CAVERNA DESIGN SRL";
-                    LbRncEmpresa.Text = Clases.ClassVariables.ClasesVariables.RNCDinamic;//HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "132255186";
-                    //LbSucursal.Text = Clases.ClassVariables.ClasesVariables.sucu;//able.Columns.Contains("Sucursal") ? HeadTable.Rows[0]["Sucursal"].ToString() : "Sucursal Villa Mella";
-                    LbSucursal.Visible = false;
+                    LbRncEmpresa.Text = Clases.ClassVariables.ClasesVariables.RNCEmpresa;//HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "132255186";
+                    LbTelefonoEmpresa.Text = Clases.ClassVariables.ClasesVariables.TelefonoEmpresa;//HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "132255186";
+                    LbDireccionEmpresa.Text = Clases.ClassVariables.ClasesVariables.DireccionEmpresa;//HeadTable.Columns.Contains("RNCEmpresa") ? HeadTable.Rows[0]["RNCEmpresa"].ToString() : "132255186";
+                    LbSucursal.Text = "Sucursal: Villa Mella";//Clases.ClassVariables.ClasesVariables.sucu;//able.Columns.Contains("Sucursal") ? HeadTable.Rows[0]["Sucursal"].ToString() : "Sucursal Villa Mella";
+                    
                     #endregion
                 });
                 Task.Run(() =>
                 {
                     #region Variables Factura
-                    LbFechaCreacion.Text = HeadTable.Columns.Contains("FechaCreacion") ? HeadTable.Rows[0]["FechaCreacion"].ToString() : "10/23/2021";
-                    LbNCF.Text = HeadTable.Columns.Contains("NCF") ? HeadTable.Rows[0]["NCF"].ToString() : "B0200000006";
-                    LbTipoFactura.Text = LbNCF.Text.Contains("B01") ? "Factura de Credito Fiscal" : "Factura de Consumo";
-                    LbFechaVencimiento.Text = HeadTable.Columns.Contains("VenceComprobante") ? HeadTable.Rows[0]["VenceComprobante"].ToString() : "12/31/2021";
+                    LbFechaCreacion.Text = HeadTable.Columns.Contains("Fecha") ? HeadTable.Rows[0]["Fecha"].ToString() : "10/23/2021";
+                    //LbNCF.Text = HeadTable.Columns.Contains("NCF") ? HeadTable.Rows[0]["NCF"].ToString() : "B0200000006";
+                    LbTipoFactura.Text = HeadTable.Columns.Contains("TipoTransaccion") ? HeadTable.Rows[0]["TipoTransaccion"].ToString() : "Cuentas por Cobrar";
+                    //LbFechaVencimiento.Text = HeadTable.Columns.Contains("VenceComprobante") ? HeadTable.Rows[0]["VenceComprobante"].ToString() : "12/31/2021";
                 });
                 Task.Run(() =>
                 {
@@ -54,13 +57,13 @@ namespace Sadora.Clientes.Reportes
                     LbTotal.Text = HeadTable.Columns.Contains("Total") ? HeadTable.Rows[0]["Total"].ToString() : "0";
                     #endregion
                 });
-                Task.Run(() =>
-                {
-                    #region VisibleControl
-                    if (!HeadTable.Rows[0]["NCF"].ToString().Contains("B0"))
-                        xrLabel3.Visible = xrLabel4.Visible = LbRncCliente.Visible = LbFechaVencimiento.Visible = xrLabel13.Visible = LbNCF.Visible = false;
-                    #endregion
-                });
+                //Task.Run(() =>
+                //{
+                //    #region VisibleControl
+                //    if (!HeadTable.Rows[0]["NCF"].ToString().Contains("B0"))
+                //        xrLabel4.Visible = LbRncCliente.Visible = LbFechaVencimiento.Visible = xrLabel13.Visible = false;
+                //    #endregion
+                //});
 
                 Task.Run(() =>
                 {
