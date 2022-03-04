@@ -35,17 +35,6 @@ namespace Sadora.Clientes
         string Estado, Lista, last;
         int TransaccionID, LastTransaccionID;
 
-        //bool Agrega;
-        //bool Modifica;
-
-        ////bool Inicializador = false;
-        //DataTable tabla;
-        //SqlDataReader reader;
-        //string Estado, Lista, last;
-        ////string Lista;
-        //int TransaccionID, LastTransaccionID;
-        ////int LastTransaccionID;
-        ////string last;
 
         private void UserControl_Initialized(object sender, EventArgs e) => Inicializador = true;
 
@@ -237,23 +226,6 @@ namespace Sadora.Clientes
 
         }
 
-        //private void btnProveedorID_Click(object sender, RoutedEventArgs e)
-        //{
-        //    if (Estado != "Modo Consulta")
-        //    {
-        //        Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select ProveedorID,RNC,Nombre,Representante,Activo from TcliClientes", null);
-        //        frm.ShowDialog();
-
-        //        if (frm.GridMuestra.SelectedItem != null)
-        //        {
-        //            DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
-        //            txtClienteID.Text = item.Row.ItemArray[0].ToString();
-
-        //            ClassControl.setValidador("select * from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
-        //        }
-        //    }
-        //}
-
         private void txtTransaccionID_KeyUp(object sender, KeyEventArgs e)
         {
             if (Estado != "Modo Consulta" && e.Key == Key.Enter)
@@ -294,13 +266,11 @@ namespace Sadora.Clientes
         {
             if (Estado != "Modo Consulta" && e.Key == Key.Enter)
             {
-                if (txtClienteID.Text != "")
-                    ClassControl.setValidador("select Nombre from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
-                else
-                {
+                if (String.IsNullOrWhiteSpace(txtClienteID.Text))
                     txtClienteID.Text = 0.ToString();
-                    ClassControl.setValidador("select Nombre from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
-                }
+
+                ClassControl.setValidador("select Nombre from TcliClientes where ClienteID =", txtClienteID, tbxClienteID);
+                ClassControl.setValidador("select DiasCredito Nombre from TcliClientes where ClienteID =", txtClienteID, txtDiasCredito);
                 ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
             }
         }
@@ -311,7 +281,7 @@ namespace Sadora.Clientes
         {
             if (Estado != "Modo Consulta")
             {
-                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select ClienteID, RNC, Nombre, Representante, Direccion,Activo from TcliClientes where Activo = 1", null);
+                Administracion.FrmMostrarDatosHost frm = new Administracion.FrmMostrarDatosHost("Select ClienteID, RNC, Nombre, Representante, DiasCredito, Direccion,Activo from TcliClientes where Activo = 1", null);
                 frm.ShowDialog();
 
                 if (frm.GridMuestra.SelectedItem != null)
@@ -319,8 +289,7 @@ namespace Sadora.Clientes
                     DataRowView item = (frm.GridMuestra as DevExpress.Xpf.Grid.GridControl).SelectedItem as DataRowView;
                     txtClienteID.Text = item.Row.ItemArray[0].ToString();
                     tbxClienteID.Text = item.Row.ItemArray[2].ToString();
-
-                    //ClassControl.setPropBinding("select * from TcliClientes where ClienteID =", txtClienteID);
+                    txtDiasCredito.Text = item.Row.ItemArray[4].ToString();
                 }
 
             }
@@ -360,6 +329,14 @@ namespace Sadora.Clientes
             }
         }
 
+        private void txtDiasCredito_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+        }
+
+        private void txtDiasCredito_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
+
         private void txtMontoGravado_TextChanged(object sender, TextChangedEventArgs e)
         {
             if (Estado != "Modo Consulta")
@@ -381,26 +358,6 @@ namespace Sadora.Clientes
         }
 
         private void txtMontoExcento_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
-
-        //private void txtMontoGravado_KeyUp(object sender, KeyEventArgs e)
-        //{
-        //    if (Estado != "Modo Consulta" && e.Key == Key.Enter)
-        //    {
-        //        txtMontoExcento.IsReadOnly = false;
-        //        try
-        //        {
-        //            if (Convert.ToDouble(txtMontoGravado.Text) >= 0)
-        //                txtITBIS.Text = (Convert.ToInt64(txtMontoGravado.Text) * 0.18).ToString();
-        //            else
-        //                txtITBIS.Text = null;
-        //        }
-        //        catch
-        //        {
-        //            txtITBIS.Text = null;
-        //        }
-        //        ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-        //    }
-        //}
 
         private void txtMontoGravado_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
 
@@ -431,6 +388,7 @@ namespace Sadora.Clientes
                 new SqlParameter("@TransaccionID",TransaccionID),
                 new SqlParameter("@TipoTransaccion",cbxTipoTransaccion.Text),
                 new SqlParameter("@ClienteID",txtClienteID.Text),
+                new SqlParameter("@DiasCredito",txtDiasCredito.Text),
                 new SqlParameter("@Fecha",dtpFechaTransaccion.Text),
                 new SqlParameter("@MontoExcento",txtMontoExcento.Text),
                 new SqlParameter("@MontoGravado",txtMontoGravado.Text),
@@ -455,6 +413,7 @@ namespace Sadora.Clientes
                 txtTransaccionID.Text = tabla.Rows[0]["TransaccionID"].ToString();
                 cbxTipoTransaccion.Text = tabla.Rows[0]["TipoTransaccion"].ToString();
                 txtClienteID.Text = tabla.Rows[0]["ClienteID"].ToString();
+                txtDiasCredito.Text = tabla.Rows[0]["DiasCredito"].ToString();
                 dtpFechaTransaccion.Text = tabla.Rows[0]["Fecha"].ToString();
                 txtMontoExcento.Text = tabla.Rows[0]["MontoExcento"].ToString();
                 txtMontoGravado.Text = tabla.Rows[0]["MontoGravado"].ToString();
@@ -486,17 +445,17 @@ namespace Sadora.Clientes
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtTransaccionID,txtMontoGravado,txtMontoExcento,txtClienteID,cbxTipoTransaccion,dtpFechaTransaccion,cbxEstado, txtFactura, txtObservacion,tbxClienteID
+                txtTransaccionID,txtMontoGravado,txtMontoExcento,txtClienteID,cbxTipoTransaccion,dtpFechaTransaccion,cbxEstado, txtFactura, txtObservacion,tbxClienteID,txtDiasCredito
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                txtClienteID,tbxClienteID//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
+                txtClienteID,tbxClienteID,txtDiasCredito//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular//,cActivar
             };
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
             {
-                txtTransaccionID,txtMontoGravado,txtClienteID,tbxClienteID,txtMontoExcento,txtMontoGravado,txtITBIS//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
+                txtTransaccionID,txtMontoGravado,txtClienteID,tbxClienteID,txtMontoExcento,txtMontoGravado,txtITBIS,txtDiasCredito//,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular
             };
 
             if (Modo == null) //si no trae ningun modo entra el validador

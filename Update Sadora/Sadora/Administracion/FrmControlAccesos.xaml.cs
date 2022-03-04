@@ -29,10 +29,7 @@ namespace Sadora.Administracion
             this.MaxHeight = SystemParameters.MaximizedPrimaryScreenHeight;
         }
 
-        private void btnCancelar_Click(object sender, RoutedEventArgs e)
-        {
-            this.Hide();
-        }
+        private void btnCancelar_Click(object sender, RoutedEventArgs e) => this.Hide();
 
         private void btnAceptar_Click(object sender, RoutedEventArgs e)
         {
@@ -44,7 +41,6 @@ namespace Sadora.Administracion
         }
         private void txtUsuarioID_KeyUp(object sender, KeyEventArgs e)
         {
-
             if (e.Key == Key.Enter)
             {
                 ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));

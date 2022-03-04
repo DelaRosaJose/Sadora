@@ -291,6 +291,13 @@
                                 </Border>
                             </Grid>
 
+                            <Border TextElement.FontSize="15" Margin="15" BorderBrush="{DynamicResource PrimaryHueDarkBrush}" BorderThickness="2 0 0 2" CornerRadius="5">
+                                <StackPanel Orientation="Vertical">
+                                    <TextBlock x:Name="lDiasCredito" Margin="10 5 0 0" Text="Dias de Credito" FontWeight="Bold"/>
+                                    <TextBox x:Name="txtDiasCredito" Height="30" Padding="0" BorderThickness="1" BorderBrush="{x:Null}" Style="{DynamicResource MaterialDesignTextBoxBase}" Background="#4CEDEDED" TabIndex="11" KeyDown="txtDiasCredito_KeyDown" KeyUp="txtDiasCredito_KeyUp"/>
+                                </StackPanel>
+                            </Border>
+                            
                         </StackPanel>
 
                     </Grid>

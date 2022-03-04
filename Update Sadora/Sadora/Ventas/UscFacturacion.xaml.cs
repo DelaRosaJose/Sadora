@@ -816,10 +816,13 @@ namespace Sadora.Ventas
                 }
                 txtFacturaID.IsReadOnly = true;
             }
-
+            if (Imprime == false)
                 BtnImprimir.IsEnabled = Imprime;
+            if (Agrega == false)
                 BtnAgregar.IsEnabled = Agrega;
+            if (Modifica == false)
                 BtnEditar.IsEnabled = Modifica;
+            if (Anula == false)
                 BtnAnular.IsEnabled = Anula;
         }
 
@@ -1297,6 +1300,8 @@ namespace Sadora.Ventas
 
         void OpenControlComprobantes()
         {
+            EvaluaGrid();
+
             PanelOpcionesPagos.Visibility = Visibility.Hidden;
             int client;
 
@@ -1309,7 +1314,7 @@ namespace Sadora.Ventas
                 client = 0;
             }
 
-            if (txtClienteID.Text != "")
+            if (!String.IsNullOrWhiteSpace(txtClienteID.Text))
             {
                 SetControls(false, "Validador", false);
                 if (Lista != "Debe Completar los Campos: ")
@@ -1334,8 +1339,13 @@ namespace Sadora.Ventas
 
                 }
             }
+            else if (txtTotal.Text == "0" || string.IsNullOrWhiteSpace(txtTotal.Text) || txtTotal.Text == "$0.00") 
+            {
+                if (SnackbarThree.MessageQueue is { } messageQueue)
+                    Task.Factory.StartNew(() => messageQueue.Enqueue("Alerta, La factura no puede ser igual a 0."));
+            }
             else if (SnackbarThree.MessageQueue is { } messageQueue)
-                    Task.Factory.StartNew(() => messageQueue.Enqueue("Alerta, Debe seleccionar un cliente."));
+                Task.Factory.StartNew(() => messageQueue.Enqueue("Alerta, Debe seleccionar un cliente."));
         }
     }
 }

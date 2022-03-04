@@ -45,10 +45,7 @@ namespace Sadora.Inventario
 
         List<ClassVariables> ListVariables = new List<ClassVariables>();
 
-        private void UserControl_Initialized(object sender, EventArgs e)
-        {
-            Inicializador = true;
-        }
+        private void UserControl_Initialized(object sender, EventArgs e) => Inicializador = true;
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -216,10 +213,7 @@ namespace Sadora.Inventario
             SetEnabledButton("Modo Agregar");
         }
 
-        private void BtnEditar_Click(object sender, RoutedEventArgs e)
-        {
-            SetEnabledButton("Modo Editar");
-        }
+        private void BtnEditar_Click(object sender, RoutedEventArgs e) => SetEnabledButton("Modo Editar");
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
@@ -794,6 +788,7 @@ namespace Sadora.Inventario
 
             Estado = status;
             lIconEstado.ToolTip = Estado;
+            BorderCantidad.IsEnabled = true;
 
             if (Estado != "Modo Agregar" && Estado != "Modo Editar") //Si el sistema se encuentra en modo consulta o busqueda entra el validador
             {
@@ -847,39 +842,27 @@ namespace Sadora.Inventario
                 else //Si el estado es modo Editar enviamos a ejecutar el mismo metodo parametizado de forma especial
                 {
                     SetControls(true, null, true);
+                    BorderCantidad.IsEnabled = false;
                     IconEstado.Kind = MaterialDesignThemes.Wpf.PackIconKind.Edit;
                 }
-                    txtArticuloID.IsReadOnly = true;
+                txtArticuloID.IsReadOnly = true;
             }
             if (Imprime == false)
-            {
                 BtnImprimir.IsEnabled = Imprime;
-            }
             if (Agrega == false)
-            {
                 BtnAgregar.IsEnabled = Agrega;
-            }
             if (Modifica == false)
-            {
                 BtnEditar.IsEnabled = Modifica;
-            }
         }
 
         private void txtCantidad_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                {
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
         }
 
-        private void txtCantidad_KeyDown(object sender, KeyEventArgs e)
-        {
-            ClassControl.ValidadorNumeros(e);
-        }
+        private void txtCantidad_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
+
 
         private void BtnConfiguracionServicios_Click(object sender, RoutedEventArgs e)
         {
@@ -913,8 +896,6 @@ namespace Sadora.Inventario
                 else
                     reader = Clases.ClassData.runDataTable("declare @Alta bit = 0; select ArticuloID, Tarjeta, Nombre, Descripcion, precio, @Alta as Alta from TinvArticulos where ArticuloID <> " + txtArticuloID.Text /*+ " and HaveServices <> 1"*/, null, "CommandText");
 
-
-
                 Grid.ItemsSource = reader;
                 tableView.AutoWidth = true;
                 if (!IsServiciosMasivos)
@@ -937,10 +918,7 @@ namespace Sadora.Inventario
                             break;
                     }
                 }
-            else
-            {
-
-            }
+            
         }
 
         private void TablaGrid_KeyUp(object sender, KeyEventArgs e)
@@ -1016,10 +994,7 @@ namespace Sadora.Inventario
             TablaGridMasivo.AllowEditing = true;
         }
 
-        private void btnAceptarMasivo_Click(object sender, RoutedEventArgs e)
-        {
-            ServiciosMasivosDialogo.IsOpen = false;
-        }
+        private void btnAceptarMasivo_Click(object sender, RoutedEventArgs e) => ServiciosMasivosDialogo.IsOpen = false;
 
     }
 }

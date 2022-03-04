@@ -382,10 +382,7 @@ namespace Sadora.Clientes
             }
         }
 
-        private void txtClaseID_KeyDown(object sender, KeyEventArgs e)
-        {
-            ClassControl.ValidadorNumeros(e);
-        }
+        private void txtClaseID_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
 
         private void btnComprobanteID_Click(object sender, RoutedEventArgs e)
         {
@@ -526,6 +523,7 @@ namespace Sadora.Clientes
                 new SqlParameter("@Representante",txtRepresentante.Text),
                 new SqlParameter("@ClaseID",txtClaseID.Text),
                 new SqlParameter("@ClaseComprobanteID",txtComprobanteID.Text),
+                new SqlParameter("@DiasCredito",txtDiasCredito.Text),
                 new SqlParameter("@Direccion",txtDireccion.Text),
                 new SqlParameter("@CorreoElectronico",txtCorreoElectronico.Text),
                 new SqlParameter("@Telefono",txtTelefono.Text),
@@ -556,6 +554,7 @@ namespace Sadora.Clientes
                 txtTelefono.Text = tabla.Rows[0]["Telefono"].ToString();
                 txtCelular.Text = tabla.Rows[0]["Celular"].ToString();
                 cActivar.IsChecked = Convert.ToBoolean(tabla.Rows[0]["Activo"].ToString());
+                txtDiasCredito.Text = tabla.Rows[0]["DiasCredito"].ToString();
 
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
@@ -578,12 +577,12 @@ namespace Sadora.Clientes
         {
             List<Control> listaControl = new List<Control>() //Estos son los controles que seran controlados, readonly, enable.
             {
-                txtClienteID,txtRNC,txtNombre,txtRepresentante,txtClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar
+                txtClienteID,txtRNC,txtNombre,txtRepresentante,txtClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar,txtDiasCredito
             };
 
             List<Control> listaControles = new List<Control>() //Estos son los controles que desahilitaremos al dar click en el boton buscar, los controles que no esten en esta lista se quedaran habilitados para poder buscar un registro por ellos.
             {
-                txtRepresentante,txtClaseID,tbxClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar
+                txtRepresentante,txtClaseID,tbxClaseID,txtDireccion,txtCorreoElectronico,txtTelefono,txtCelular,cActivar,txtDiasCredito
             };
 
             List<Control> listaControlesValidar = new List<Control>() //Estos son los controles que validaremos al dar click en el boton guardar.
@@ -678,18 +677,20 @@ namespace Sadora.Clientes
                 txtClienteID.IsReadOnly = true;
             }
             if (Imprime == false)
-            {
                 BtnImprimir.IsEnabled = Imprime;
-            }
             if (Agrega == false)
-            {
                 BtnAgregar.IsEnabled = Agrega;
-            }
             if (Modifica == false)
-            {
                 BtnEditar.IsEnabled = Modifica;
-            }
         }
+
+        private void txtDiasCredito_KeyUp(object sender, KeyEventArgs e)
+        {
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+        }
+
+        private void txtDiasCredito_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
 
     }
 }

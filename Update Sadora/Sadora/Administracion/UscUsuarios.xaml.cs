@@ -34,6 +34,8 @@ namespace Sadora.Administracion
         int UsuarioID;
         int LastUsuarioID;
         string last = "";
+        string LastPastword = "";
+        string PastWordRandom;
 
         public UscUsuarios()
         {
@@ -41,10 +43,7 @@ namespace Sadora.Administracion
             Name = "UscUsuarios";
         }
 
-        private void UserControl_Initialized(object sender, EventArgs e)
-        {
-            Inicializador = true;
-        }
+        private void UserControl_Initialized(object sender, EventArgs e) => Inicializador = true;
 
         private void UserControl_Loaded(object sender, RoutedEventArgs e)
         {
@@ -211,10 +210,7 @@ namespace Sadora.Administracion
             SetEnabledButton("Modo Agregar");
         }
 
-        private void BtnEditar_Click(object sender, RoutedEventArgs e)
-        {
-            SetEnabledButton("Modo Editar");
-        }
+        private void BtnEditar_Click(object sender, RoutedEventArgs e) => SetEnabledButton("Modo Editar");
 
         private void BtnCancelar_Click(object sender, RoutedEventArgs e)
         {
@@ -232,11 +228,8 @@ namespace Sadora.Administracion
             }
             else
             {
-                //GridMain.ClearColumnFilter("Visualiza");
                 if (Estado == "Modo Editar")
-                {
                     setDatos(2, null);
-                }
                 else
                 {
                     Estado = "Modo Agregar";
@@ -245,56 +238,37 @@ namespace Sadora.Administracion
                 SetEnabledButton("Modo Consulta");
                 setDatos(0, txtUsuarioID.Text);
                 ClassControl.UpdateNameUser();
-                //this.BtnUltimoRegistro.RaiseEvent(new RoutedEventArgs(Button.ClickEvent));
             }
         }
 
         private void txtUsuarioID_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                {
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
         }
 
         private void txtNombre_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                {
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
         }
 
         private void txtEmpleadoID_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
             {
-                if (e.Key == Key.Enter)
+                if (txtEmpleadoID.Text != "")
+                    ClassControl.setValidador("select Nombre from TrhnEmpleados where  Activo = 1 and EmpleadoID =", txtEmpleadoID, tbxEmpleadoID);
+                else
                 {
-                    if (txtEmpleadoID.Text != "")
-                    {
-                        ClassControl.setValidador("select Nombre from TrhnEmpleados where  Activo = 1 and EmpleadoID =", txtEmpleadoID, tbxEmpleadoID);
-                    }
-                    else
-                    {
-                        txtEmpleadoID.Text = 0.ToString();
-                        ClassControl.setValidador("select Nombre from TrhnEmpleados where EmpleadoID =", txtEmpleadoID, tbxEmpleadoID);
-                    }
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    txtEmpleadoID.Text = 0.ToString();
+                    ClassControl.setValidador("select Nombre from TrhnEmpleados where EmpleadoID =", txtEmpleadoID, tbxEmpleadoID);
                 }
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
             }
         }
 
-        private void txtEmpleadoID_KeyDown(object sender, KeyEventArgs e)
-        {
-            ClassControl.ValidadorNumeros(e);
-        }
+        private void txtEmpleadoID_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
 
         private void btnEmpleadoID_Click(object sender, RoutedEventArgs e)
         {
@@ -316,28 +290,20 @@ namespace Sadora.Administracion
 
         private void txtGrupoID_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
             {
-                if (e.Key == Key.Enter)
+                if (txtGrupoID.Text != "")
+                    ClassControl.setValidador("select Nombre from TsysGruposUsuarios where  Activo = 1 and GrupoID =", txtGrupoID, tbxGrupoID);
+                else
                 {
-                    if (txtGrupoID.Text != "")
-                    {
-                        ClassControl.setValidador("select Nombre from TsysGruposUsuarios where  Activo = 1 and GrupoID =", txtGrupoID, tbxGrupoID);
-                    }
-                    else
-                    {
-                        txtGrupoID.Text = 0.ToString();
-                        ClassControl.setValidador("select Nombre from TsysGruposUsuarios where GrupoID =", txtGrupoID, tbxGrupoID);
-                    }
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+                    txtGrupoID.Text = 0.ToString();
+                    ClassControl.setValidador("select Nombre from TsysGruposUsuarios where GrupoID =", txtGrupoID, tbxGrupoID);
                 }
+                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
             }
         }
 
-        private void txtGrupoID_KeyDown(object sender, KeyEventArgs e)
-        {
-            ClassControl.ValidadorNumeros(e);
-        }
+        private void txtGrupoID_KeyDown(object sender, KeyEventArgs e) => ClassControl.ValidadorNumeros(e);
 
         private void btnGrupoID_Click(object sender, RoutedEventArgs e)
         {
@@ -379,24 +345,15 @@ namespace Sadora.Administracion
 
         private void txtPassword_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                {
-                    ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((Control)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
         }
 
         private void cActivar_KeyUp(object sender, KeyEventArgs e)
         {
-            if (Estado != "Modo Consulta")
-            {
-                if (e.Key == Key.Enter)
-                {
-                    ((CheckBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
-                }
-            }
+            if (Estado != "Modo Consulta" && e.Key == Key.Enter)
+                ((CheckBox)sender).MoveFocus(new TraversalRequest(new FocusNavigationDirection()));
+
         }
 
         void setDatos(int Flag, string Usuario) //Este es el metodo principal del sistema encargado de conectar, enviar y recibir la informacion de sql
@@ -404,9 +361,7 @@ namespace Sadora.Administracion
             if (Usuario == null) //si el parametro llega nulo intentamos llenarlo para que no presente ningun error el sistema
             {
                 if (txtUsuarioID.Text == "")
-                {
                     UsuarioID = 0;
-                }
                 else
                 {
                     try
@@ -420,9 +375,7 @@ namespace Sadora.Administracion
                 }
             }
             else //Si pasamos un Usuario, lo convertimos actualizamos la variable Usuario principal
-            {
                 UsuarioID = Convert.ToInt32(Usuario);
-            }
 
             List<SqlParameter> listSqlParameter = new List<SqlParameter>() //Creamos una lista de parametros con cada parametro de sql, donde indicamos el nombre en sql y le indicamos el valor o el campo de donde sacara el valor que enviaremos.
             {
@@ -431,7 +384,7 @@ namespace Sadora.Administracion
                 new SqlParameter("@Nombre",txtNombre.Text),
                 new SqlParameter("@EmpleadoID",txtEmpleadoID.Text),
                 new SqlParameter("@GrupoID",txtGrupoID.Text),
-                new SqlParameter("@Contraseña",Clases.ClassControl.GetSHA256(txtPassword.Password)),
+                new SqlParameter("@Contraseña", PastWordRandom == txtPassword.Password ?  LastPastword : Clases.ClassControl.GetSHA256(txtPassword.Password)),
                 new SqlParameter("@Activo",cActivar.IsChecked)
             };
 
@@ -446,12 +399,14 @@ namespace Sadora.Administracion
 
             if (tabla.Rows.Count == 1) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
             {
+                PastWordRandom = tabla.Rows[0]["Contraseña"].ToString().Substring(0, new Random().Next(6, 15));
                 txtUsuarioID.Text = tabla.Rows[0]["UsuarioID"].ToString();
                 txtNombre.Text = tabla.Rows[0]["Nombre"].ToString();
                 txtEmpleadoID.Text = tabla.Rows[0]["EmpleadoID"].ToString();
                 txtGrupoID.Text = tabla.Rows[0]["GrupoID"].ToString();
-                txtPassword.Password = tabla.Rows[0]["Contraseña"].ToString().Substring(0, new Random().Next(6, 15));
+                txtPassword.Password = PastWordRandom;
                 cActivar.IsChecked = Convert.ToBoolean(tabla.Rows[0]["Activo"].ToString());
+                LastPastword = tabla.Rows[0]["Contraseña"].ToString();
 
                 if (Flag == -1) //si pulsamos el boton del ultimo registro se ejecuta el flag -1 es decir que tenemos una busqueda especial
                 {
@@ -470,9 +425,7 @@ namespace Sadora.Administracion
             listSqlParameter.Clear(); //Limpiamos la lista de parametros.
 
             if (Estado == "Modo Consulta")
-            {
                 setDatosGrid(0);
-            }
             else if (Estado == "Modo Agregar" || Estado == "Modo Editar")
             {
                 GridMain.View.MoveFirstRow();
@@ -532,11 +485,7 @@ namespace Sadora.Administracion
             }
 
             if (TablaGrid.Rows.Count > 0) //evaluamos si la tabla actualizada previamente tiene datos, de ser asi actualizamos los controles en los que mostramos esa info.
-            {
-
                 GridMain.ItemsSource = TablaGrid;
-                //GridMain.Columns["FormularioID"].Visible = false;
-            }
 
             List<String> listaColumnas = new List<String>() //Estos son los controles que seran controlados, readonly, enable.
             {
@@ -544,13 +493,10 @@ namespace Sadora.Administracion
             };
 
             if (Estado == "Modo Agregar" && Estado == "Modo Editar")
-            {
                 Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
-            }
             else
-            {
                 ClassControl.SetGridReadOnly(GridMain);
-            }
+
 
             listSqlParameter.Clear(); listaColumnas.Clear(); //Limpiamos la lista de parametros.
         }
@@ -575,22 +521,15 @@ namespace Sadora.Administracion
             if (Modo == null) //si no trae ningun modo entra el validador
             {
                 if (Estado == "Modo Busqueda")
-                {
                     Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, listaControles);
-                }
                 else if (Estado == "Modo Agregar")
-                {
                     Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, true, null);
-                }
                 else
-                {
                     Clases.ClassControl.ActivadorControlesReadonly(listaControl, Habilitador, Editando, false, null);
-                }
             }
             else if (Modo == "Validador") //si el parametro modo es igual a validador ingresa.
-            {
                 Lista = Clases.ClassControl.ValidadorControles(listaControlesValidar); //Este metodo se encarga de validar que cada unos de los controles que se les indica en la lista no se dejen vacios.
-            }
+
             listaControl.Clear(); //limpiamos ambas listas
             listaControles.Clear();
             listaControlesValidar.Clear();
@@ -679,17 +618,11 @@ namespace Sadora.Administracion
                 Clases.ClassControl.SetGridReadOnly(GridMain, listaColumnas, false);
             }
             if (Imprime == false)
-            {
                 BtnImprimir.IsEnabled = Imprime;
-            }
             if (Agrega == false)
-            {
                 BtnAgregar.IsEnabled = Agrega;
-            }
             if (Modifica == false)
-            {
                 BtnEditar.IsEnabled = Modifica;
-            }
         }
 
     }
