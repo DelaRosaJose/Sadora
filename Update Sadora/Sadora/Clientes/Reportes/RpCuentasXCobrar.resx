@@ -134,23 +134,35 @@
   <data name="xrTable2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>0, 0</value>
   </data>
-  <data name="LCellCant.Text" xml:space="preserve">
+  <data name="LCellFactura.Text" xml:space="preserve">
     <value>CANT.</value>
   </data>
-  <data name="LCellCant.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+  <data name="LCellFactura.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
   </data>
   <assembly alias="mscorlib" name="mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="LCellCant.Weight" type="System.Double, mscorlib">
+  <data name="LCellFactura.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
-  <data name="LCellDescripcion.Text" xml:space="preserve">
-    <value>DESCRIPCION</value>
+  <data name="LCellMontoExcento.Text" xml:space="preserve">
+    <value>LCellMontoExcento</value>
   </data>
-  <data name="LCellDescripcion.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+  <data name="LCellMontoExcento.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
   </data>
-  <data name="LCellDescripcion.Weight" type="System.Double, mscorlib">
+  <data name="LCellMontoExcento.Weight" type="System.Double, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="LCellMontoGravado.Text" xml:space="preserve">
+    <value>545454545</value>
+  </data>
+  <data name="LCellMontoGravado.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="LCellMontoGravado.TextFormatString" xml:space="preserve">
+    <value>{0:n2}</value>
+  </data>
+  <data name="LCellMontoGravado.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
   <data name="LCellITBIS.Text" xml:space="preserve">
@@ -162,23 +174,29 @@
   <data name="LCellITBIS.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
-  <data name="LCellValor.Text" xml:space="preserve">
-    <value>VALOR</value>
+  <data name="LCellDiasCredito.Text" xml:space="preserve">
+    <value>Dias Credito</value>
   </data>
-  <data name="LCellValor.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+  <data name="LCellDiasCredito.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
   </data>
-  <data name="LCellValor.Weight" type="System.Double, mscorlib">
+  <data name="LCellDiasCredito.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
-  <data name="xrTableRow2.Visible" type="System.Boolean, mscorlib">
-    <value>False</value>
+  <data name="LCellObservacion.Text" xml:space="preserve">
+    <value>Observacion</value>
+  </data>
+  <data name="LCellObservacion.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="LCellObservacion.Weight" type="System.Double, mscorlib">
+    <value>1</value>
   </data>
   <data name="xrTableRow2.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
   <data name="xrTable2.SizeF" type="System.Drawing.SizeF, System.Drawing">
-    <value>779.999939, 37.166687</value>
+    <value>780, 37.166687</value>
   </data>
   <data name="xrTable2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
@@ -200,6 +218,39 @@
   </data>
   <data name="BottomMargin.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>TopLeft</value>
+  </data>
+  <data name="LbTransaccionID.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 9.5pt, style=Bold</value>
+  </data>
+  <data name="LbTransaccionID.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="LbTransaccionID.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>553.8617, 243.1112</value>
+  </data>
+  <data name="LbTransaccionID.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>91.83276, 17.4444885</value>
+  </data>
+  <data name="LbTransaccionID.Text" xml:space="preserve">
+    <value>10115554</value>
+  </data>
+  <data name="LbTransaccionID.TextFormatString" xml:space="preserve">
+    <value>{0:MM/dd/yyyy}</value>
+  </data>
+  <data name="xrLabel2.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Arial Narrow, 9.5pt, style=Bold</value>
+  </data>
+  <data name="xrLabel2.ForeColor" type="System.Drawing.Color, System.Drawing">
+    <value>19, 41, 61</value>
+  </data>
+  <data name="xrLabel2.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
+    <value>468.749969, 243.111237</value>
+  </data>
+  <data name="xrLabel2.SizeF" type="System.Drawing.SizeF, System.Drawing">
+    <value>85.1117249, 17.444458</value>
+  </data>
+  <data name="xrLabel2.Text" xml:space="preserve">
+    <value>TransaccionID: </value>
   </data>
   <data name="PicLogo.LocationFloat" type="DevExpress.Utils.PointFloat, DevExpress.Data.v19.1">
     <value>307.333557, 40.0000038</value>
@@ -283,7 +334,7 @@
     <value>0.000228881836, 391.808258</value>
   </data>
   <data name="xrTableCell4.Text" xml:space="preserve">
-    <value>CANT.</value>
+    <value>Factura</value>
   </data>
   <data name="xrTableCell4.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
@@ -292,7 +343,7 @@
     <value>0.99999992609099764</value>
   </data>
   <data name="xrTableCell1.Text" xml:space="preserve">
-    <value>DESCRIPCION</value>
+    <value>Monto Excento</value>
   </data>
   <data name="xrTableCell1.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
@@ -301,7 +352,7 @@
     <value>1</value>
   </data>
   <data name="xrTableCell2.Text" xml:space="preserve">
-    <value>ITBIS</value>
+    <value>Monto Gravado</value>
   </data>
   <data name="xrTableCell2.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
@@ -310,12 +361,30 @@
     <value>1</value>
   </data>
   <data name="xrTableCell3.Text" xml:space="preserve">
-    <value>VALOR</value>
+    <value>ITBIS</value>
   </data>
   <data name="xrTableCell3.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
     <value>MiddleCenter</value>
   </data>
   <data name="xrTableCell3.Weight" type="System.Double, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="xrTableCell6.Text" xml:space="preserve">
+    <value>Dias de credito</value>
+  </data>
+  <data name="xrTableCell6.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="xrTableCell6.Weight" type="System.Double, mscorlib">
+    <value>1</value>
+  </data>
+  <data name="xrTableCell5.Text" xml:space="preserve">
+    <value>Observacion</value>
+  </data>
+  <data name="xrTableCell5.TextAlignment" type="DevExpress.XtraPrinting.TextAlignment, DevExpress.Data.v19.1">
+    <value>MiddleCenter</value>
+  </data>
+  <data name="xrTableCell5.Weight" type="System.Double, mscorlib">
     <value>1</value>
   </data>
   <data name="xrTableRow1.Weight" type="System.Double, mscorlib">
@@ -722,6 +791,9 @@
   </data>
   <data name="PageFooter.HeightF" type="System.Single, mscorlib">
     <value>107.608414</value>
+  </data>
+  <data name="PageFooter.Visible" type="System.Boolean, mscorlib">
+    <value>False</value>
   </data>
   <metadata name="$this.Localizable" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>

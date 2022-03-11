@@ -32,13 +32,17 @@
             this.Detail = new DevExpress.XtraReports.UI.DetailBand();
             this.xrTable2 = new DevExpress.XtraReports.UI.XRTable();
             this.xrTableRow2 = new DevExpress.XtraReports.UI.XRTableRow();
-            this.LCellCant = new DevExpress.XtraReports.UI.XRTableCell();
-            this.LCellDescripcion = new DevExpress.XtraReports.UI.XRTableCell();
+            this.LCellFactura = new DevExpress.XtraReports.UI.XRTableCell();
+            this.LCellMontoExcento = new DevExpress.XtraReports.UI.XRTableCell();
+            this.LCellMontoGravado = new DevExpress.XtraReports.UI.XRTableCell();
             this.LCellITBIS = new DevExpress.XtraReports.UI.XRTableCell();
-            this.LCellValor = new DevExpress.XtraReports.UI.XRTableCell();
+            this.LCellDiasCredito = new DevExpress.XtraReports.UI.XRTableCell();
+            this.LCellObservacion = new DevExpress.XtraReports.UI.XRTableCell();
             this.TopMargin = new DevExpress.XtraReports.UI.TopMarginBand();
             this.BottomMargin = new DevExpress.XtraReports.UI.BottomMarginBand();
             this.ReportHeader = new DevExpress.XtraReports.UI.ReportHeaderBand();
+            this.LbTransaccionID = new DevExpress.XtraReports.UI.XRLabel();
+            this.xrLabel2 = new DevExpress.XtraReports.UI.XRLabel();
             this.PicLogo = new DevExpress.XtraReports.UI.XRPictureBox();
             this.xrLabel5 = new DevExpress.XtraReports.UI.XRLabel();
             this.LbDireccionEmpresa = new DevExpress.XtraReports.UI.XRLabel();
@@ -50,6 +54,8 @@
             this.xrTableCell1 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell2 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrTableCell3 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell6 = new DevExpress.XtraReports.UI.XRTableCell();
+            this.xrTableCell5 = new DevExpress.XtraReports.UI.XRTableCell();
             this.xrLine4 = new DevExpress.XtraReports.UI.XRLine();
             this.LbRazonSocial = new DevExpress.XtraReports.UI.XRLabel();
             this.LbRncCliente = new DevExpress.XtraReports.UI.XRLabel();
@@ -106,30 +112,41 @@
             // xrTableRow2
             // 
             this.xrTableRow2.Cells.AddRange(new DevExpress.XtraReports.UI.XRTableCell[] {
-            this.LCellCant,
-            this.LCellDescripcion,
+            this.LCellFactura,
+            this.LCellMontoExcento,
+            this.LCellMontoGravado,
             this.LCellITBIS,
-            this.LCellValor});
+            this.LCellDiasCredito,
+            this.LCellObservacion});
             this.xrTableRow2.Name = "xrTableRow2";
             resources.ApplyResources(this.xrTableRow2, "xrTableRow2");
             // 
-            // LCellCant
+            // LCellFactura
             // 
-            this.LCellCant.BorderWidth = 0F;
-            this.LCellCant.Multiline = true;
-            this.LCellCant.Name = "LCellCant";
-            this.LCellCant.StylePriority.UseBorderWidth = false;
-            this.LCellCant.StylePriority.UseTextAlignment = false;
-            resources.ApplyResources(this.LCellCant, "LCellCant");
+            this.LCellFactura.BorderWidth = 0F;
+            this.LCellFactura.Multiline = true;
+            this.LCellFactura.Name = "LCellFactura";
+            this.LCellFactura.StylePriority.UseBorderWidth = false;
+            this.LCellFactura.StylePriority.UseTextAlignment = false;
+            resources.ApplyResources(this.LCellFactura, "LCellFactura");
             // 
-            // LCellDescripcion
+            // LCellMontoExcento
             // 
-            this.LCellDescripcion.BorderWidth = 0F;
-            this.LCellDescripcion.Multiline = true;
-            this.LCellDescripcion.Name = "LCellDescripcion";
-            this.LCellDescripcion.StylePriority.UseBorderWidth = false;
-            this.LCellDescripcion.StylePriority.UseTextAlignment = false;
-            resources.ApplyResources(this.LCellDescripcion, "LCellDescripcion");
+            this.LCellMontoExcento.BorderWidth = 0F;
+            this.LCellMontoExcento.Multiline = true;
+            this.LCellMontoExcento.Name = "LCellMontoExcento";
+            this.LCellMontoExcento.StylePriority.UseBorderWidth = false;
+            this.LCellMontoExcento.StylePriority.UseTextAlignment = false;
+            resources.ApplyResources(this.LCellMontoExcento, "LCellMontoExcento");
+            // 
+            // LCellMontoGravado
+            // 
+            this.LCellMontoGravado.BorderWidth = 0F;
+            this.LCellMontoGravado.Multiline = true;
+            this.LCellMontoGravado.Name = "LCellMontoGravado";
+            this.LCellMontoGravado.StylePriority.UseBorderWidth = false;
+            this.LCellMontoGravado.StylePriority.UseTextAlignment = false;
+            resources.ApplyResources(this.LCellMontoGravado, "LCellMontoGravado");
             // 
             // LCellITBIS
             // 
@@ -140,14 +157,23 @@
             this.LCellITBIS.StylePriority.UseTextAlignment = false;
             resources.ApplyResources(this.LCellITBIS, "LCellITBIS");
             // 
-            // LCellValor
+            // LCellDiasCredito
             // 
-            this.LCellValor.BorderWidth = 0F;
-            this.LCellValor.Multiline = true;
-            this.LCellValor.Name = "LCellValor";
-            this.LCellValor.StylePriority.UseBorderWidth = false;
-            this.LCellValor.StylePriority.UseTextAlignment = false;
-            resources.ApplyResources(this.LCellValor, "LCellValor");
+            this.LCellDiasCredito.BorderWidth = 0F;
+            this.LCellDiasCredito.Multiline = true;
+            this.LCellDiasCredito.Name = "LCellDiasCredito";
+            this.LCellDiasCredito.StylePriority.UseBorderWidth = false;
+            this.LCellDiasCredito.StylePriority.UseTextAlignment = false;
+            resources.ApplyResources(this.LCellDiasCredito, "LCellDiasCredito");
+            // 
+            // LCellObservacion
+            // 
+            this.LCellObservacion.BorderWidth = 0F;
+            this.LCellObservacion.Multiline = true;
+            this.LCellObservacion.Name = "LCellObservacion";
+            this.LCellObservacion.StylePriority.UseBorderWidth = false;
+            this.LCellObservacion.StylePriority.UseTextAlignment = false;
+            resources.ApplyResources(this.LCellObservacion, "LCellObservacion");
             // 
             // TopMargin
             // 
@@ -164,6 +190,8 @@
             // ReportHeader
             // 
             this.ReportHeader.Controls.AddRange(new DevExpress.XtraReports.UI.XRControl[] {
+            this.LbTransaccionID,
+            this.xrLabel2,
             this.PicLogo,
             this.xrLabel5,
             this.LbDireccionEmpresa,
@@ -187,6 +215,25 @@
             this.xrLine1});
             resources.ApplyResources(this.ReportHeader, "ReportHeader");
             this.ReportHeader.Name = "ReportHeader";
+            // 
+            // LbTransaccionID
+            // 
+            resources.ApplyResources(this.LbTransaccionID, "LbTransaccionID");
+            this.LbTransaccionID.Multiline = true;
+            this.LbTransaccionID.Name = "LbTransaccionID";
+            this.LbTransaccionID.Padding = new DevExpress.XtraPrinting.PaddingInfo(2, 2, 0, 0, 100F);
+            this.LbTransaccionID.StylePriority.UseFont = false;
+            this.LbTransaccionID.StylePriority.UseForeColor = false;
+            // 
+            // xrLabel2
+            // 
+            resources.ApplyResources(this.xrLabel2, "xrLabel2");
+            this.xrLabel2.Multiline = true;
+            this.xrLabel2.Name = "xrLabel2";
+            this.xrLabel2.Padding = new DevExpress.XtraPrinting.PaddingInfo(4, 0, 0, 0, 100F);
+            this.xrLabel2.StylePriority.UseFont = false;
+            this.xrLabel2.StylePriority.UseForeColor = false;
+            this.xrLabel2.StylePriority.UsePadding = false;
             // 
             // PicLogo
             // 
@@ -254,7 +301,9 @@
             this.xrTableCell4,
             this.xrTableCell1,
             this.xrTableCell2,
-            this.xrTableCell3});
+            this.xrTableCell3,
+            this.xrTableCell6,
+            this.xrTableCell5});
             this.xrTableRow1.Name = "xrTableRow1";
             resources.ApplyResources(this.xrTableRow1, "xrTableRow1");
             // 
@@ -293,6 +342,24 @@
             this.xrTableCell3.StylePriority.UseBorderWidth = false;
             this.xrTableCell3.StylePriority.UseTextAlignment = false;
             resources.ApplyResources(this.xrTableCell3, "xrTableCell3");
+            // 
+            // xrTableCell6
+            // 
+            this.xrTableCell6.BorderWidth = 0F;
+            this.xrTableCell6.Multiline = true;
+            this.xrTableCell6.Name = "xrTableCell6";
+            this.xrTableCell6.StylePriority.UseBorderWidth = false;
+            this.xrTableCell6.StylePriority.UseTextAlignment = false;
+            resources.ApplyResources(this.xrTableCell6, "xrTableCell6");
+            // 
+            // xrTableCell5
+            // 
+            this.xrTableCell5.BorderWidth = 0F;
+            this.xrTableCell5.Multiline = true;
+            this.xrTableCell5.Name = "xrTableCell5";
+            this.xrTableCell5.StylePriority.UseBorderWidth = false;
+            this.xrTableCell5.StylePriority.UseTextAlignment = false;
+            resources.ApplyResources(this.xrTableCell5, "xrTableCell5");
             // 
             // xrLine4
             // 
@@ -598,11 +665,11 @@
         private DevExpress.XtraReports.UI.XRLine xrLine3;
         private DevExpress.XtraReports.UI.XRTable xrTable2;
         private DevExpress.XtraReports.UI.XRTableRow xrTableRow2;
-        private DevExpress.XtraReports.UI.XRTableCell LCellDescripcion;
         private DevExpress.XtraReports.UI.XRTableCell LCellITBIS;
-        private DevExpress.XtraReports.UI.XRTableCell LCellValor;
+        private DevExpress.XtraReports.UI.XRTableCell LCellDiasCredito;
+        private DevExpress.XtraReports.UI.XRTableCell LCellObservacion;
         //private DevExpress.DataAccess.Sql.SqlDataSource sqlDataSource1;
-        private DevExpress.XtraReports.UI.XRTableCell LCellCant;
+        private DevExpress.XtraReports.UI.XRTableCell LCellFactura;
         private DevExpress.XtraReports.UI.PageFooterBand PageFooter;
         private DevExpress.XtraReports.UI.XRLine xrLine5;
         private DevExpress.XtraReports.UI.XRLabel LbTotal;
@@ -620,5 +687,11 @@
         private DevExpress.XtraReports.UI.XRLabel xrLabel7;
         private DevExpress.XtraReports.UI.XRPictureBox PicLogo;
         private DevExpress.XtraReports.UI.XRLabel LbTipoFactura;
+        private DevExpress.XtraReports.UI.XRLabel LbTransaccionID;
+        private DevExpress.XtraReports.UI.XRLabel xrLabel2;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell6;
+        private DevExpress.XtraReports.UI.XRTableCell xrTableCell5;
+        private DevExpress.XtraReports.UI.XRTableCell LCellMontoExcento;
+        private DevExpress.XtraReports.UI.XRTableCell LCellMontoGravado;
     }
 }

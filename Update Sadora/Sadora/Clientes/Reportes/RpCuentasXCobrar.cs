@@ -44,10 +44,16 @@ namespace Sadora.Clientes.Reportes
                 Task.Run(() =>
                 {
                     #region Variables Factura
+                    LbTransaccionID.Text = HeadTable.Columns.Contains("TransaccionID") ? HeadTable.Rows[0]["TransaccionID"].ToString() : "";
                     LbFechaCreacion.Text = HeadTable.Columns.Contains("Fecha") ? HeadTable.Rows[0]["Fecha"].ToString() : "10/23/2021";
                     //LbNCF.Text = HeadTable.Columns.Contains("NCF") ? HeadTable.Rows[0]["NCF"].ToString() : "B0200000006";
                     LbTipoFactura.Text = HeadTable.Columns.Contains("TipoTransaccion") ? HeadTable.Rows[0]["TipoTransaccion"].ToString() : "Cuentas por Cobrar";
-                    //LbFechaVencimiento.Text = HeadTable.Columns.Contains("VenceComprobante") ? HeadTable.Rows[0]["VenceComprobante"].ToString() : "12/31/2021";
+                    LCellFactura.Text = HeadTable.Columns.Contains("FacturaID") ? HeadTable.Rows[0]["FacturaID"].ToString() : "";
+                    LCellMontoExcento.Text = HeadTable.Columns.Contains("MontoExcento") ? HeadTable.Rows[0]["MontoExcento"].ToString() : "";
+                    LCellMontoGravado.Text = HeadTable.Columns.Contains("MontoGravado") ? HeadTable.Rows[0]["MontoGravado"].ToString() : "";
+                    LCellITBIS.Text = HeadTable.Columns.Contains("ITBIS") ? HeadTable.Rows[0]["ITBIS"].ToString() : "";
+                    LCellDiasCredito.Text = HeadTable.Columns.Contains("DiasCredito") ? HeadTable.Rows[0]["DiasCredito"].ToString() : "";
+                    LCellObservacion.Text = HeadTable.Columns.Contains("Observacion") ? HeadTable.Rows[0]["Observacion"].ToString() : "";
                 });
                 Task.Run(() =>
                 {
